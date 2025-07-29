@@ -1,0 +1,29 @@
+{
+  "name": "cater-mobile-app",
+  "version": "1.0.0",
+  "description": "Mobile banking interface with offers and payment functionality",
+  "main": "src/index.tsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.8",
+    "lucide-react": "^0.344.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@types/styled-components": "^5.1.34",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4"
+  },
+  "keywords": ["react", "typescript", "mobile", "banking", "ui"],
+  "author": "Assistant",
+  "license": "MIT"
+}
