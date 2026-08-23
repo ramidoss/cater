@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="680" viewBox="0 0 1160 680" fill="none">
+  <g id="C3 · Chat + Work Canvas (dark)">
+    <rect id="Panel background" x="0.5" y="0.5" width="1159" height="679" rx="16" fill="#111918" stroke="#232E2C" stroke-width="1"/>
+    <g id="Header">
+  <text x="24" y="35" font-family="Instrument Sans" font-size="15" font-weight="600" fill="#E3ECE9">Broadcast Performance Analysis</text>
+  <rect id="Button / New chat" x="1028" y="12" width="108" height="32" rx="8" fill="#43C1AC"/>
+  <text x="1082" y="33" font-family="Instrument Sans" font-size="12.5" font-weight="600" fill="#06201C" text-anchor="middle">+  New chat</text>
+  <g id="Icon / Collapse" transform="translate(990 20)" stroke="#7A8B87" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M6 0.5V6H0.5"/><path d="M0.5 0.5L6 6"/><path d="M8 13.5V8h5.5"/><path d="M13.5 13.5L8 8"/></g>
+  <line x1="0" y1="56" x2="1160" y2="56" stroke="#232E2C" stroke-width="1"/>
+</g>
+    <g id="Chat rail">
+  <path id="Rail background" d="M0 56H320V680H16A16 16 0 0 1 0 664Z" fill="#18211F"/>
+  <g id="Turn 1 · You">
+  <text x="16" y="85" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">YOU</text>
+  <rect x="16" y="92" width="288" height="58" rx="10" fill="#111918" stroke="#232E2C" stroke-width="1"/>
+  <text x="30" y="116" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#E3ECE9">Summarize my last 5 broadcasts and</text>
+  <text x="30" y="134" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#E3ECE9">flag what to change.</text>
+</g>
+  <g id="Turn 2 · Agent">
+  <text x="16" y="177" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">AGENT</text>
+  <text x="16" y="197" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#A6B6B2">Built a comparison on the right.</text>
+  <text x="16" y="215" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#A6B6B2">Revenue is concentrated in two</text>
+  <text x="16" y="233" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#A6B6B2">re-engagement sends.</text>
+</g>
+  <g id="Turn 3 · You">
+  <text x="16" y="265" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">YOU</text>
+  <rect x="16" y="272" width="288" height="40" rx="10" fill="#111918" stroke="#232E2C" stroke-width="1"/>
+  <text x="30" y="296" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#E3ECE9">Add unsubscribe rate.</text>
+</g>
+  <g id="Turn 4 · Agent">
+  <text x="16" y="339" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">AGENT</text>
+  <text x="16" y="359" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#A6B6B2">Added — column 4. The 4:40pm</text>
+  <text x="16" y="377" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#A6B6B2">send is the outlier.</text>
+</g>
+  <g id="Reasoning badge">
+  <rect x="16" y="402" width="172" height="26" rx="13" fill="#12302C" stroke="#1D5B53" stroke-width="1"/>
+  <text x="29" y="419" font-family="IBM Plex Mono" font-size="10.5" font-weight="400" fill="#43C1AC">Agent's work · 6 steps</text>
+</g>
+  <g id="Suggestion chips">
+  <rect x="16.5" y="578.5" width="145" height="29" rx="14.5" fill="#111918" stroke="#35433F" stroke-width="1"/>
+  <text x="89" y="597" font-family="Instrument Sans" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="middle">Group by send time</text>
+  <rect x="169.5" y="578.5" width="122" height="29" rx="14.5" fill="#111918" stroke="#35433F" stroke-width="1"/>
+  <text x="231" y="597" font-family="Instrument Sans" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="middle">Save as routine</text>
+</g>
+  <g id="Composer">
+  <rect x="16.5" y="620.5" width="287" height="43" rx="10" fill="#111918" stroke="#35433F" stroke-width="1"/>
+  <text x="30" y="647" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#7A8B87">Ask a follow-up…</text>
+  <circle id="Send" cx="283" cy="642" r="13" fill="#43C1AC"/>
+  <path d="M283 636.5V647.5M278.5 641L283 636.5L287.5 641" stroke="#06201C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</g>
+  <line x1="320" y1="56" x2="320" y2="680" stroke="#232E2C" stroke-width="1"/>
+</g>
+    <g id="Work canvas">
+  <g id="Tabs">
+  <text x="348" y="94" font-family="Instrument Sans" font-size="13.5" font-weight="600" fill="#E3ECE9">Comparison</text>
+  <text x="452" y="94" font-family="Instrument Sans" font-size="13.5" font-weight="400" fill="#7A8B87">Takeaways</text>
+  <line x1="348" y1="109" x2="1132" y2="109" stroke="#232E2C" stroke-width="1"/>
+  <rect id="Tab indicator" x="348" y="107" width="76" height="2" fill="#43C1AC"/>
+</g>
+  <g id="Stat row">
+  <text x="348" y="146" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">AVG OPEN</text>
+  <text x="348" y="174" font-family="Instrument Sans" font-size="24" font-weight="600" fill="#E3ECE9">39.3%</text>
+  <polygon points="428,171 435,171 431.5,164.5" fill="#57B681"/>
+  <text x="439" y="174" font-family="IBM Plex Mono" font-size="11.5" font-weight="400" fill="#57B681">1.4</text>
+  <text x="572" y="146" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">AVG CLICK</text>
+  <text x="572" y="174" font-family="Instrument Sans" font-size="24" font-weight="600" fill="#E3ECE9">4.7%</text>
+  <polygon points="639,164.5 646,164.5 642.5,171" fill="#E0776F"/>
+  <text x="650" y="174" font-family="IBM Plex Mono" font-size="11.5" font-weight="400" fill="#E0776F">0.9</text>
+  <text x="796" y="146" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">REVENUE</text>
+  <text x="796" y="174" font-family="Instrument Sans" font-size="24" font-weight="600" fill="#E3ECE9">$13,075</text>
+</g>
+  <g id="Table · Broadcast comparison">
+  <text x="348" y="211" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">BROADCAST</text>
+  <text x="880" y="211" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" text-anchor="end" letter-spacing="1.3">OPEN</text>
+  <text x="962" y="211" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" text-anchor="end" letter-spacing="1.3">CLICK</text>
+  <text x="1050" y="211" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" text-anchor="end" letter-spacing="1.3">UNSUB</text>
+  <text x="1132" y="211" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" text-anchor="end" letter-spacing="1.3">REVENUE</text>
+  <line x1="348" y1="222" x2="1132" y2="222" stroke="#232E2C" stroke-width="1"/>
+  <g id="Row 1 · Rooms you saved are back">
+  <rect id="Top performer tint" x="340" y="224" width="800" height="34" rx="6" fill="#12302C"/>
+  <rect id="Top performer marker" x="340" y="224" width="3" height="34" fill="#43C1AC"/>
+  <text x="348" y="246" font-family="Instrument Sans" font-size="13" font-weight="500" fill="#E3ECE9">Rooms you saved are back</text>
+  <rect x="516" y="233" width="36" height="16" rx="8" fill="#43C1AC"/>
+  <text x="534" y="244" font-family="IBM Plex Mono" font-size="8.5" font-weight="500" fill="#06201C" text-anchor="middle" letter-spacing="0.6">TOP</text>
+  <text x="880" y="246" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">42.9%</text>
+  <text x="962" y="246" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">7.1%</text>
+  <text x="1050" y="246" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">0.08%</text>
+  <text x="1132" y="246" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">$5,015</text>
+  <line x1="348" y1="260" x2="1132" y2="260" stroke="#232E2C" stroke-width="1"/>
+</g>
+  <g id="Row 2 · Your August rooms are live">
+  <text x="348" y="284" font-family="Instrument Sans" font-size="13" font-weight="500" fill="#E3ECE9">Your August rooms are live</text>
+  <text x="880" y="284" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">44.1%</text>
+  <text x="962" y="284" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">6.8%</text>
+  <text x="1050" y="284" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">0.11%</text>
+  <text x="1132" y="284" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">$4,120</text>
+  <line x1="348" y1="298" x2="1132" y2="298" stroke="#232E2C" stroke-width="1"/>
+</g>
+  <g id="Row 3 · 3 spots left this weekend">
+  <text x="348" y="322" font-family="Instrument Sans" font-size="13" font-weight="500" fill="#E3ECE9">3 spots left this weekend</text>
+  <text x="880" y="322" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">40.7%</text>
+  <text x="962" y="322" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">5.2%</text>
+  <text x="1050" y="322" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">0.14%</text>
+  <text x="1132" y="322" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">$2,890</text>
+  <line x1="348" y1="336" x2="1132" y2="336" stroke="#232E2C" stroke-width="1"/>
+</g>
+  <g id="Row 4 · Weekly digest #34">
+  <text x="348" y="360" font-family="Instrument Sans" font-size="13" font-weight="500" fill="#E3ECE9">Weekly digest #34</text>
+  <text x="880" y="360" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">37.8%</text>
+  <text x="962" y="360" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">2.4%</text>
+  <text x="1050" y="360" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">0.09%</text>
+  <text x="1132" y="360" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">$740</text>
+  <line x1="348" y1="374" x2="1132" y2="374" stroke="#232E2C" stroke-width="1"/>
+</g>
+  <g id="Row 5 · A quick update from us">
+  <text x="348" y="398" font-family="Instrument Sans" font-size="13" font-weight="500" fill="#E3ECE9">A quick update from us</text>
+  <text x="880" y="398" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">31.2%</text>
+  <text x="962" y="398" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">1.9%</text>
+  <text x="1050" y="398" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">0.31%</text>
+  <text x="1132" y="398" font-family="IBM Plex Mono" font-size="12.5" font-weight="400" fill="#A6B6B2" text-anchor="end">$310</text>
+</g>
+</g>
+  <g id="Takeaway callout">
+  <rect id="Callout background" x="348" y="440" width="784" height="84" rx="10" fill="#18211F"/>
+  <rect id="Callout marker" x="348" y="440" width="3" height="84" fill="#43C1AC"/>
+  <text x="368" y="468" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#43C1AC" letter-spacing="1.3">TAKEAWAY · SEND TIME</text>
+  <text x="368" y="492" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#E3ECE9">Every send before 10am beat every afternoon send on click rate. The 4:40pm digest carries</text>
+  <text x="368" y="510" font-family="Instrument Sans" font-size="13" font-weight="400" fill="#E3ECE9">3× the unsubscribe rate of the morning sends for a fifth of the revenue.</text>
+</g>
+  <g id="Confidence">
+  <text x="348" y="556" font-family="IBM Plex Mono" font-size="9.5" font-weight="400" fill="#7A8B87" letter-spacing="1.3">CONFIDENCE · 5 SENDS, 7-DAY WINDOW</text>
+  <rect id="Track" x="348" y="565" width="280" height="6" rx="3" fill="#1F2A28"/>
+  <rect id="Fill" x="348" y="565" width="174" height="6" rx="3" fill="#43C1AC"/>
+</g>
+  <g id="Action bar">
+  <line x1="348" y1="598" x2="1132" y2="598" stroke="#232E2C" stroke-width="1"/>
+  <rect id="Button / Save as routine" x="884" y="622" width="132" height="34" rx="8" fill="#43C1AC"/>
+  <text x="950" y="643" font-family="Instrument Sans" font-size="12.5" font-weight="600" fill="#06201C" text-anchor="middle">Save as routine</text>
+  <rect id="Button / Export CSV" x="1028.5" y="622.5" width="103" height="33" rx="8" fill="none" stroke="#35433F" stroke-width="1"/>
+  <text x="1080" y="643" font-family="Instrument Sans" font-size="12.5" font-weight="500" fill="#A6B6B2" text-anchor="middle">Export CSV</text>
+</g>
+</g>
+  </g>
+</svg>
