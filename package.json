@@ -1,0 +1,13 @@
+{
+  "name": "north-metrics",
+  "private": true,
+  "type": "module",
+  "description": "NORTH — metric and data-visualisation system prototype",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs && node check.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.49.1"
+  }
+}

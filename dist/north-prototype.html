@@ -1,0 +1,3706 @@
+<title>NORTH</title>
+<style>/* ---------------------------------------------------------------------------
+   NORTH — tokens.
+   Colour roles first, everything else written against the roles. Light is the
+   base palette on bare :root; dark is a selected set of steps for the dark
+   surface, declared under both the OS media query and the theme stamp so a
+   viewer's explicit choice wins in either direction.
+   The categorical, ordinal and status values below were validated with the
+   dataviz palette validator against these exact surfaces.
+--------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces & ink */
+  --plane:            #f6f6f4;
+  --surface:          #ffffff;
+  --surface-sunken:   #f2f2ef;
+  --surface-hover:    #f7f7f5;
+  --ink:              #0b0b0b;
+  --ink-secondary:    #52514e;
+  --ink-muted:        #898781;
+  --hairline:         rgba(11, 11, 11, 0.09);
+  --hairline-strong:  rgba(11, 11, 11, 0.16);
+  --grid:             #e8e7e2;
+  --axis:             #d3d2cc;
+
+  /* categorical — fixed slot order, never cycled */
+  --series-1:         #2a78d6;
+  --series-2:         #eb6834;
+  --series-3:         #1baf7a;
+
+  /* the de-emphasis channel: previous period, context, "everything else" */
+  --de-emphasis:      #b9b8b1;
+  --de-emphasis-soft: #e4e3dd;
+
+  /* ordinal ramp (funnel steps, cohort heat) — one hue, light to dark */
+  --ramp-1:           #86b6ef;
+  --ramp-2:           #5598e7;
+  --ramp-3:           #2a78d6;
+  --ramp-4:           #1c5cab;
+  --ramp-0:           #cde2fb;
+
+  /* status — reserved, never reused as a series colour */
+  --good:             #0ca30c;
+  --warning:          #fab219;
+  --serious:          #ec835a;
+  --critical:         #d03b3b;
+  --good-text:        #006300;
+  --critical-text:    #b02c2c;
+  --good-wash:        rgba(12, 163, 12, 0.10);
+  --warning-wash:     rgba(250, 178, 25, 0.16);
+  --critical-wash:    rgba(208, 59, 59, 0.10);
+
+  /* NORTH's own accent — the signal mark, distinct from every series slot */
+  --north:            #4a3aa7;
+  --north-wash:       rgba(74, 58, 167, 0.07);
+  --north-hairline:   rgba(74, 58, 167, 0.22);
+
+  --radius:           10px;
+  --radius-sm:        6px;
+  --shadow-card:      0 1px 2px rgba(11, 11, 11, 0.04);
+  --shadow-pop:       0 6px 24px rgba(11, 11, 11, 0.12), 0 1px 3px rgba(11, 11, 11, 0.08);
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --plane:            #0e0e0e;
+    --surface:          #191919;
+    --surface-sunken:   #131313;
+    --surface-hover:    #212120;
+    --ink:              #ffffff;
+    --ink-secondary:    #c3c2b7;
+    --ink-muted:        #8e8c86;
+    --hairline:         rgba(255, 255, 255, 0.10);
+    --hairline-strong:  rgba(255, 255, 255, 0.18);
+    --grid:             #2a2a28;
+    --axis:             #3a3a37;
+
+    --series-1:         #3987e5;
+    --series-2:         #d95926;
+    --series-3:         #199e70;
+
+    --de-emphasis:      #6a6963;
+    --de-emphasis-soft: #33322f;
+
+    --ramp-1:           #1c5cab;
+    --ramp-2:           #2a78d6;
+    --ramp-3:           #5598e7;
+    --ramp-4:           #86b6ef;
+    --ramp-0:           #143f74;
+
+    --good-text:        #0ca30c;
+    --critical-text:    #e26b6b;
+    --good-wash:        rgba(12, 163, 12, 0.16);
+    --warning-wash:     rgba(250, 178, 25, 0.18);
+    --critical-wash:    rgba(208, 59, 59, 0.18);
+
+    --north:            #9085e9;
+    --north-wash:       rgba(144, 133, 233, 0.10);
+    --north-hairline:   rgba(144, 133, 233, 0.28);
+
+    --shadow-card:      0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-pop:       0 8px 28px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --plane:            #0e0e0e;
+  --surface:          #191919;
+  --surface-sunken:   #131313;
+  --surface-hover:    #212120;
+  --ink:              #ffffff;
+  --ink-secondary:    #c3c2b7;
+  --ink-muted:        #8e8c86;
+  --hairline:         rgba(255, 255, 255, 0.10);
+  --hairline-strong:  rgba(255, 255, 255, 0.18);
+  --grid:             #2a2a28;
+  --axis:             #3a3a37;
+
+  --series-1:         #3987e5;
+  --series-2:         #d95926;
+  --series-3:         #199e70;
+
+  --de-emphasis:      #6a6963;
+  --de-emphasis-soft: #33322f;
+
+  --ramp-1:           #1c5cab;
+  --ramp-2:           #2a78d6;
+  --ramp-3:           #5598e7;
+  --ramp-4:           #86b6ef;
+  --ramp-0:           #143f74;
+
+  --good-text:        #0ca30c;
+  --critical-text:    #e26b6b;
+  --good-wash:        rgba(12, 163, 12, 0.16);
+  --warning-wash:     rgba(250, 178, 25, 0.18);
+  --critical-wash:    rgba(208, 59, 59, 0.18);
+
+  --north:            #9085e9;
+  --north-wash:       rgba(144, 133, 233, 0.10);
+  --north-hairline:   rgba(144, 133, 233, 0.28);
+
+  --shadow-card:      0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-pop:       0 8px 28px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.011em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--north-wash); }
+
+:focus-visible {
+  outline: 2px solid var(--north);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   NORTH — interface.
+   Whitespace is part of the visualisation system: the shell is quiet so the
+   data is the only loud thing on the page.
+--------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------ shell */
+
+.app {
+  display: grid;
+  grid-template-columns: 216px minmax(0, 1fr) 380px;
+  min-height: 100vh;
+}
+.app.is-panel-collapsed { grid-template-columns: 216px minmax(0, 1fr) 0; }
+
+/* ---------------------------------------------------------------- sidebar */
+
+.side {
+  border-right: 1px solid var(--hairline);
+  padding: 22px 14px;
+  position: sticky; top: 0; align-self: start; height: 100vh;
+  display: flex; flex-direction: column; gap: 26px;
+  background: var(--plane);
+}
+.brand { display: flex; align-items: center; gap: 9px; padding: 0 8px; }
+.brand-mark {
+  width: 20px; height: 20px; border-radius: 5px; flex: none;
+  background: var(--ink); position: relative;
+}
+.brand-mark::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--surface);
+  clip-path: polygon(50% 22%, 68% 74%, 50% 61%, 32% 74%);
+}
+.brand-name { font-weight: 600; letter-spacing: 0.04em; font-size: 13px; }
+.nav { display: flex; flex-direction: column; gap: 1px; }
+.nav-label {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--ink-muted); padding: 0 8px 8px; font-weight: 600;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 9px; border-radius: var(--radius-sm);
+  background: none; border: 0; cursor: pointer; text-align: left;
+  color: var(--ink-secondary); font-size: 13.5px; width: 100%;
+}
+.nav-item:hover { background: var(--surface-hover); color: var(--ink); }
+.nav-item.is-active { background: var(--surface); color: var(--ink); font-weight: 550; box-shadow: var(--shadow-card); }
+.nav-flag { margin-left: auto; width: 6px; height: 6px; border-radius: 50%; background: var(--north); }
+.side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding: 0 8px; }
+.side-note { font-size: 11.5px; color: var(--ink-muted); line-height: 1.45; }
+
+/* ------------------------------------------------------------------- main */
+
+.main { min-width: 0; padding: 22px 30px 72px; }
+.topbar {
+  display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap;
+  padding-bottom: 18px; margin-bottom: 22px;
+  border-bottom: 1px solid var(--hairline);
+}
+.topbar-text { min-width: 0; }
+.crumb { font-size: 11.5px; color: var(--ink-muted); letter-spacing: 0.02em; }
+.topbar h1 { font-size: 21px; margin-top: 2px; max-width: 42ch; }
+.topbar-q { font-size: 13px; color: var(--ink-secondary); margin-top: 4px; }
+.topbar-tools { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.ctl {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 30px; padding: 0 10px;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--ink-secondary);
+  font-size: 12.5px; cursor: pointer; white-space: nowrap;
+}
+.ctl:hover { background: var(--surface-hover); color: var(--ink); }
+.ctl.is-on { color: var(--ink); border-color: var(--ink-muted); }
+.ctl-hint { color: var(--ink-muted); }
+
+.back {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 0; cursor: pointer; padding: 0;
+  color: var(--ink-muted); font-size: 12px; margin-bottom: 10px;
+}
+.back:hover { color: var(--ink); }
+
+/* ------------------------------------------------------------- structure */
+
+.section { margin-bottom: 34px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.section-head h2 { font-size: 13px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-muted); font-weight: 600; }
+.section-head .q { font-size: 12.5px; color: var(--ink-muted); }
+.section-head .go {
+  margin-left: auto; background: none; border: 0; cursor: pointer;
+  color: var(--ink-secondary); font-size: 12.5px; padding: 0;
+}
+.section-head .go:hover { color: var(--ink); }
+
+.grid { display: grid; gap: 12px; }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-2-wide { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.span-2 { grid-column: span 2; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-card);
+  min-width: 0;
+}
+.card.is-flush { padding-bottom: 12px; }
+
+/* -------------------------------------------------------------- the card */
+
+.mcard {
+  background: var(--surface); border: 1px solid var(--hairline);
+  border-radius: var(--radius); padding: 14px 15px 15px;
+  box-shadow: var(--shadow-card);
+  display: flex; flex-direction: column; gap: 0;
+  text-align: left; font: inherit; color: inherit; min-width: 0;
+  position: relative;
+}
+.mcard.is-clickable { cursor: pointer; }
+.mcard.is-clickable:hover { background: var(--surface-hover); border-color: var(--hairline-strong); }
+.mcard.has-signal { border-color: var(--north-hairline); }
+.mcard.is-plain { align-self: start; }
+
+.mcard-head { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.mcard-label {
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.045em;
+  text-transform: uppercase; color: var(--ink-muted);
+}
+.mcard-flag { width: 6px; height: 6px; border-radius: 50%; background: var(--north); flex: none; }
+
+.mcard-value {
+  font-size: 30px; font-weight: 600; letter-spacing: -0.022em; line-height: 1.08;
+  /* proportional figures: tabular-nums makes a big number look loose */
+}
+.mcard-value.is-hero { font-size: 48px; letter-spacing: -0.028em; }
+
+.chg { display: flex; align-items: baseline; gap: 6px; margin-top: 6px; font-size: 13px; }
+.chg-arrow { font-size: 11px; }
+.chg-primary { font-weight: 600; font-variant-numeric: tabular-nums; }
+.chg-secondary { color: var(--ink-muted); font-size: 12px; font-weight: 400; }
+.chg.is-good { color: var(--good-text); }
+.chg.is-bad { color: var(--critical-text); }
+.chg.is-flat { color: var(--ink-muted); }
+
+.mcard-vs { font-size: 11.5px; color: var(--ink-muted); margin-top: 3px; }
+/* Whatever a pattern adds below the change sits on the card's floor, so a
+   row of cards lines its sparklines, meters and context up with each other. */
+.mcard-vs:not(:last-child) { margin-bottom: 13px; }
+.mcard-vs + * { margin-top: auto; }
+
+.mcard-spark { display: flex; align-items: center; gap: 9px; margin-top: 12px; }
+.mcard-spark-lab { font-size: 11px; color: var(--ink-muted); }
+
+.mcard-context {
+  margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--hairline);
+  display: flex; flex-direction: column; gap: 1px;
+}
+.mcard-context-lead { font-size: 11px; color: var(--ink-muted); }
+.mcard-context-body { font-size: 12.5px; color: var(--ink-secondary); line-height: 1.42; }
+
+.mcard-signal {
+  margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--hairline);
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+}
+.north-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--north); flex: none; }
+.mcard-signal-text { font-size: 12px; color: var(--north); font-weight: 550; }
+.mcard-signal-go { font-size: 12px; color: var(--ink-muted); margin-left: auto; }
+.mcard.is-clickable:hover .mcard-signal-go { color: var(--ink-secondary); }
+
+/* the meter */
+.meter { margin-top: 13px; }
+.meter-track { height: 7px; border-radius: 4px; background: var(--ramp-0); overflow: hidden; }
+.meter-fill { height: 100%; background: var(--series-1); border-radius: 4px; }
+.meter-fill.is-met { background: var(--good); }
+.meter-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; font-size: 11.5px; }
+.meter-goal { color: var(--ink-muted); }
+.meter-gap { color: var(--ink-secondary); }
+.meter-gap.is-met { color: var(--good-text); }
+
+/* ------------------------------------------------------------------ figures */
+
+.viz { margin: 0; min-width: 0; }
+.viz-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.viz-head-text { min-width: 0; }
+.viz-title { font-size: 13.5px; }
+.viz-question { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.viz-toggle {
+  margin-left: auto; flex: none; background: none; border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm); padding: 3px 9px; font-size: 11.5px;
+  color: var(--ink-muted); cursor: pointer;
+}
+.viz-toggle:hover { color: var(--ink); background: var(--surface-hover); }
+.viz-body { min-width: 0; }
+.viz-caption { font-size: 12px; color: var(--ink-secondary); margin-top: 12px; line-height: 1.5; }
+
+.viz-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-bottom: 12px; }
+.viz-legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-secondary); }
+.viz-legend-key { flex: none; background: currentColor; }
+.viz-legend-key.line { width: 14px; height: 2px; border-radius: 1px; }
+.viz-legend-key.line.is-dashed {
+  height: 0; width: 14px; background: none;
+  border-top: 2px dashed currentColor; border-radius: 0;
+}
+.viz-legend-key.rect { width: 10px; height: 10px; border-radius: 2px; }
+.viz-legend-key.tick { width: 2px; height: 12px; border-radius: 1px; }
+
+.viz-table { overflow-x: auto; }
+.viz-table table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+.viz-table th, .viz-table td { padding: 6px 10px; text-align: left; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
+.viz-table thead th { color: var(--ink-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.viz-table tbody th { font-weight: 500; }
+.viz-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* svg text roles — text always wears text tokens, never the series colour */
+.chart { display: block; overflow: visible; }
+.chart text { font-family: var(--font); }
+.ax { font-size: 11px; fill: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.ax-goal { font-size: 10.5px; }
+.ax-note { font-size: 10.5px; fill: var(--ink-muted); }
+.ax-end { font-size: 12px; fill: var(--ink); font-weight: 600; }
+.ax-north { font-size: 11px; fill: var(--north); font-weight: 600; }
+.anomaly.is-clickable { cursor: pointer; }
+.anomaly.is-clickable:hover circle:last-of-type { r: 4; }
+.hit { cursor: default; }
+.hit:hover path, .hit:focus path { filter: brightness(1.06); }
+
+.fn-name { font-size: 13px; fill: var(--ink); font-weight: 550; }
+.fn-count { font-size: 11.5px; fill: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.fn-pct { font-size: 13px; fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.fn-step { font-size: 11.5px; fill: var(--ink-secondary); font-variant-numeric: tabular-nums; }
+.fn-step.is-worst { fill: var(--critical-text); font-weight: 600; }
+.fn-delta { font-size: 11.5px; fill: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.fn-delta.is-worst { fill: var(--critical-text); }
+
+.sg-name { font-size: 13px; fill: var(--ink); }
+.sg-name.is-lead { font-weight: 600; }
+.sg-sub { font-size: 11px; fill: var(--ink-muted); }
+.sg-val { font-size: 13px; fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.sg-val.is-sm { font-size: 12px; }
+.sg-delta { font-size: 12px; font-variant-numeric: tabular-nums; fill: var(--ink-muted); }
+.sg-delta.is-good { fill: var(--good-text); }
+.sg-delta.is-bad { fill: var(--critical-text); }
+.sg-delta.is-flat { fill: var(--ink-muted); }
+.sg-contrib { font-size: 11.5px; fill: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.sg-contrib.is-lead { fill: var(--critical-text); font-weight: 600; }
+.sg-axis { font-size: 10.5px; fill: var(--ink-muted); }
+.tp-count { font-size: 12px; fill: var(--ink-secondary); font-variant-numeric: tabular-nums; }
+
+.dist-in { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.dist-key { font-size: 11.5px; fill: var(--ink-secondary); }
+.dist-num { font-size: 15px; fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.dist-delta { font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.dist-delta.is-good { fill: var(--good-text); }
+.dist-delta.is-bad { fill: var(--critical-text); }
+.dist-delta.is-flat { fill: var(--ink-muted); }
+
+.ch-head { font-size: 11px; fill: var(--ink-muted); font-weight: 600; }
+.ch-row { font-size: 12px; fill: var(--ink-secondary); }
+.ch-cell { font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- tooltip */
+
+.viz-tip {
+  position: fixed; top: 0; left: 0; z-index: 90;
+  background: var(--surface); border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-pop);
+  padding: 8px 10px; min-width: 130px; pointer-events: none;
+  opacity: 0; transition: opacity .1s;
+}
+.viz-tip.is-on { opacity: 1; }
+.viz-tip-title { font-size: 11px; color: var(--ink-muted); margin-bottom: 5px; }
+.viz-tip-row { display: flex; align-items: baseline; gap: 7px; padding: 1.5px 0; }
+.viz-tip-key { width: 10px; height: 2px; border-radius: 1px; flex: none; transform: translateY(-3px); }
+.viz-tip-key-none { background: none; }
+.viz-tip-val { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.viz-tip-lab { font-size: 11.5px; color: var(--ink-secondary); margin-left: auto; }
+
+/* ------------------------------------------------------------ NORTH panel */
+
+.panel { border-left: 1px solid var(--hairline); background: var(--surface); min-width: 0; }
+.panel-scroll {
+  position: sticky; top: 0; max-height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+.app.is-panel-collapsed .panel { display: none; }
+.panel-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 18px 18px 14px; border-bottom: 1px solid var(--hairline);
+  position: sticky; top: 0; background: var(--surface); z-index: 2;
+}
+.panel-title { font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+.panel-close { margin-left: auto; background: none; border: 0; cursor: pointer; color: var(--ink-muted); font-size: 15px; line-height: 1; padding: 2px 4px; }
+.panel-close:hover { color: var(--ink); }
+.panel-body { padding: 16px 18px 40px; display: flex; flex-direction: column; gap: 18px; }
+
+.sig {
+  border: 1px solid var(--north-hairline); background: var(--north-wash);
+  border-radius: var(--radius); padding: 13px 14px; text-align: left;
+  cursor: pointer; font: inherit; color: inherit; width: 100%;
+}
+.sig:hover { border-color: var(--north); }
+.sig-top { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+.sig-sev { font-size: 10.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.sig-sev.sev-critical { color: var(--critical-text); }
+.sig-sev.sev-serious { color: var(--serious); }
+.sig-sev.sev-warning { color: var(--ink-secondary); }
+.sig-when { margin-left: auto; font-size: 11px; color: var(--ink-muted); }
+.sig-head { font-size: 13.5px; line-height: 1.45; font-weight: 500; }
+.sig-foot { margin-top: 9px; font-size: 12px; color: var(--north); font-weight: 550; }
+
+.panel-block { display: flex; flex-direction: column; gap: 9px; }
+.panel-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+.panel-text { font-size: 13px; line-height: 1.55; color: var(--ink-secondary); }
+.panel-text strong { color: var(--ink); font-weight: 600; }
+
+.caution {
+  border-left: 2px solid var(--warning); padding: 2px 0 2px 11px;
+  font-size: 12.5px; line-height: 1.5; color: var(--ink-secondary);
+}
+.caution b { color: var(--ink); font-weight: 600; }
+
+.qlist { display: flex; flex-direction: column; gap: 6px; }
+.qbtn {
+  text-align: left; background: var(--surface); border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm); padding: 8px 11px; font-size: 12.5px;
+  cursor: pointer; color: var(--ink-secondary); line-height: 1.4;
+}
+.qbtn:hover { background: var(--surface-hover); color: var(--ink); border-color: var(--ink-muted); }
+.qbtn.is-active { background: var(--north-wash); border-color: var(--north-hairline); color: var(--ink); font-weight: 550; }
+
+.ev { display: flex; flex-direction: column; gap: 7px; }
+.ev-item { display: flex; align-items: baseline; gap: 8px; font-size: 12.5px; }
+.ev-src { font-weight: 600; min-width: 66px; }
+.ev-detail { color: var(--ink-secondary); flex: 1; }
+.ev-when { color: var(--ink-muted); font-size: 11px; white-space: nowrap; }
+
+.rec {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-sm);
+  background: var(--surface); padding: 10px 12px; font: inherit; color: inherit;
+}
+.rec:hover { border-color: var(--north); background: var(--north-wash); }
+.rec-label { font-size: 12.5px; font-weight: 550; }
+.rec-detail { font-size: 11.5px; color: var(--ink-muted); margin-top: 2px; line-height: 1.4; }
+
+/* ------------------------------------------------------------ misc pieces */
+
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: flex; gap: 12px; padding: 9px 0; }
+.tl-rail { position: relative; width: 10px; flex: none; }
+.tl-rail::before { content: ''; position: absolute; left: 4px; top: -9px; bottom: -9px; width: 1px; background: var(--hairline-strong); }
+.tl-dot { position: absolute; left: 0; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--de-emphasis); border: 2px solid var(--surface); }
+.tl-item.is-event .tl-dot { background: var(--ink); }
+.tl-item.is-metric .tl-dot { background: var(--critical); }
+.tl-body { min-width: 0; }
+.tl-label { font-size: 13px; font-weight: 550; }
+.tl-detail { font-size: 12px; color: var(--ink-secondary); }
+.tl-when { font-size: 11.5px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th, .tbl td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--hairline); }
+.tbl thead th { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 600; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl tbody tr:last-child td, .tbl tbody tr:last-child th { border-bottom: 0; }
+.pill {
+  display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px;
+  border-radius: 999px; font-size: 11.5px; font-weight: 550;
+}
+.pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.pill.tone-good { background: var(--good-wash); color: var(--good-text); }
+.pill.tone-warning { background: var(--warning-wash); color: var(--ink-secondary); }
+.pill.tone-critical { background: var(--critical-wash); color: var(--critical-text); }
+
+.finding {
+  border: 1px solid var(--north-hairline); background: var(--north-wash);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.finding-top { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+.finding-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--north); }
+.finding-text { font-size: 14px; line-height: 1.5; }
+.finding-foot { margin-top: 10px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--hairline-strong); background: var(--surface);
+  border-radius: 999px; padding: 4px 11px; font-size: 12px; cursor: pointer;
+  color: var(--ink-secondary);
+}
+.chip:hover { color: var(--ink); border-color: var(--ink-muted); }
+.chip.is-on { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+
+.note { font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
+.stat-row { display: flex; flex-wrap: wrap; gap: 26px; }
+.stat { min-width: 0; }
+.stat-lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 600; }
+.stat-val { font-size: 19px; font-weight: 600; margin-top: 3px; }
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 1240px) {
+  .app { grid-template-columns: 196px minmax(0, 1fr); }
+  .app.is-panel-open { grid-template-columns: 196px minmax(0, 1fr) 340px; }
+  .panel { display: none; }
+  .app.is-panel-open .panel { display: block; }
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 940px) {
+  .app, .app.is-panel-open { grid-template-columns: minmax(0, 1fr); }
+  .side {
+    position: static; height: auto; flex-direction: row; align-items: center; gap: 14px;
+    border-right: 0; border-bottom: 1px solid var(--hairline); padding: 12px 16px; overflow-x: auto;
+  }
+  .nav { flex-direction: row; }
+  .nav-item { width: auto; white-space: nowrap; }
+  .side > div { flex: none; }
+  .nav-label, .side-foot { display: none; }
+  .main { padding: 18px 16px 60px; }
+  .grid-3, .grid-2, .grid-2-wide { grid-template-columns: minmax(0, 1fr); }
+  .app.is-panel-open .panel { border-left: 0; border-top: 1px solid var(--hairline); }
+  .panel-scroll { position: static; max-height: none; }
+}
+@media (max-width: 620px) {
+  /* Below this, a span-2 card in a one-column grid would conjure an implicit
+     second track, so spans are cleared along with the columns. */
+  .grid-4 { grid-template-columns: minmax(0, 1fr); }
+  .span-2 { grid-column: auto; }
+}
+</style>
+<div class="app" id="app"></div>
+<script>/* NORTH — sample dataset.
+ *
+ * One source of truth. Every number rendered anywhere in the prototype is
+ * derived from this file; no copy hardcodes a value that the data does not
+ * produce. Series are generated from a seeded PRNG so the prototype is
+ * deterministic, then calibrated so the headline windows land on round,
+ * memorable numbers without distorting the shape of the curve.
+ */
+(function (global) {
+  'use strict';
+
+  // ---------------------------------------------------------------- helpers
+
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  var DAYS = 180;
+  var END = Date.UTC(2026, 7, 29);           // 2026-08-29, "today"
+  var DAY = 86400000;
+
+  var dates = [];
+  for (var i = 0; i < DAYS; i++) dates.push(new Date(END - (DAYS - 1 - i) * DAY));
+
+  function iso(d) { return d.toISOString().slice(0, 10); }
+  var isoDates = dates.map(iso);
+
+  function idxOf(dateStr) { return isoDates.indexOf(dateStr); }
+
+  /* Mean of the trailing `n` values ending at index `end` (inclusive). */
+  function windowMean(v, end, n) {
+    var s = 0;
+    for (var i = end - n + 1; i <= end; i++) s += v[i];
+    return s / n;
+  }
+
+  /* Affine-calibrate a series so that the mean of the last 30 days equals
+   * `curTarget` and the mean of the 30 days before that equals `prevTarget`.
+   * Solving for a and b preserves the curve's shape exactly — it only rescales
+   * it — so the generated noise and inflection points survive untouched. */
+  function calibrateWindows(v, curTarget, prevTarget) {
+    var last = v.length - 1;
+    var cur = windowMean(v, last, 30);
+    var prev = windowMean(v, last - 30, 30);
+    var a = (curTarget - prevTarget) / (cur - prev);
+    var b = curTarget - a * cur;
+    return v.map(function (x) { return a * x + b; });
+  }
+
+  /* Same idea for level series read at points rather than as window means:
+   * calibrate so the final value and the value 30 days ago hit their targets. */
+  function calibratePoints(v, curTarget, prevTarget) {
+    var last = v.length - 1;
+    var cur = v[last], prev = v[last - 30];
+    var a = (curTarget - prevTarget) / (cur - prev);
+    var b = curTarget - a * cur;
+    return v.map(function (x) { return a * x + b; });
+  }
+
+  function series(id, fn, seed) {
+    var rnd = mulberry32(seed);
+    var out = [];
+    for (var i = 0; i < DAYS; i++) out.push(fn(i, rnd, out));
+    return out;
+  }
+
+  function smoothstep(t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
+
+  // ------------------------------------------------------------ the story
+  // Activation is stable through mid-July, then declines. The decline begins
+  // on day 138 (2026-07-19) and settles over roughly three weeks. Customer
+  // churn, setup support volume and integrations adoption move in the same
+  // window — the prototype presents that as correlated evidence, never cause.
+
+  var DECLINE_START = 138;                    // 2026-07-19
+  var DECLINE_SPAN = 22;
+
+  function declineShape(i) {
+    return smoothstep((i - DECLINE_START) / DECLINE_SPAN);
+  }
+
+  // ------------------------------------------------------------------ MRR
+
+  var mrr = series('mrr', function (i, rnd) {
+    var base = 316000 * Math.pow(1.0070, i);           // ~5%/mo compounding
+    var pricingLift = i >= 96 ? 6200 * smoothstep((i - 96) / 18) : 0;
+    var wobble = Math.sin(i / 11) * 1400 + (rnd() - 0.5) * 1700;
+    return base + pricingLift + wobble;
+  }, 1101);
+  mrr = calibratePoints(mrr, 428200, 399300);
+
+  // -------------------------------------------------------- activation (%)
+
+  var activation = series('activation', function (i, rnd) {
+    var level = 70.4 + Math.sin(i / 23) * 0.9;
+    var drop = -6.4 * declineShape(i);
+    return level + drop + (rnd() - 0.5) * 3.4;
+  }, 2202);
+  activation = calibrateWindows(activation, 64.0, 69.6);
+
+  // ---------------------------------------------------- customer churn (%)
+
+  var customerChurn = series('customerChurn', function (i, rnd) {
+    var level = 2.35 + Math.sin(i / 19) * 0.12;
+    var rise = 0.78 * smoothstep((i - (DECLINE_START + 6)) / 20);
+    return level + rise + (rnd() - 0.5) * 0.34;
+  }, 3303);
+  customerChurn = calibrateWindows(customerChurn, 3.1, 2.4);
+
+  // --------------------------------------------------- revenue churn (%)
+
+  var revenueChurn = series('revenueChurn', function (i, rnd) {
+    var level = 1.42 + Math.sin(i / 17) * 0.08;
+    var rise = 0.42 * smoothstep((i - (DECLINE_START + 8)) / 24);
+    return level + rise + (rnd() - 0.5) * 0.22;
+  }, 4404);
+  revenueChurn = calibrateWindows(revenueChurn, 1.85, 1.44);
+
+  // ------------------------------------------------------ 30-day retention
+
+  var retention30 = series('retention30', function (i, rnd) {
+    var level = 78.2 + Math.sin(i / 29) * 0.7;
+    var drop = -4.4 * smoothstep((i - (DECLINE_START + 4)) / 26);
+    return level + drop + (rnd() - 0.5) * 2.2;
+  }, 5505);
+  retention30 = calibrateWindows(retention30, 74.1, 78.2);
+
+  // ------------------------------------------------------- active customers
+
+  var activeCustomers = series('activeCustomers', function (i, rnd) {
+    var base = 1908 + i * 1.86;
+    return base + Math.sin(i / 13) * 9 + (rnd() - 0.5) * 12;
+  }, 6606);
+  activeCustomers = calibratePoints(activeCustomers, 2240, 2180).map(Math.round);
+
+  // ------------------------------------------------------------ NRR (T12M)
+
+  var nrr = series('nrr', function (i, rnd) {
+    var level = 112.4 - 0.016 * i;
+    var slip = -1.6 * smoothstep((i - (DECLINE_START + 10)) / 26);
+    return level + slip + (rnd() - 0.5) * 0.7;
+  }, 7707);
+  nrr = calibratePoints(nrr, 108.2, 110.1);
+
+  // ----------------------------------------------------------------- CSAT
+
+  var csat = series('csat', function (i, rnd) {
+    var level = 4.62 + Math.sin(i / 31) * 0.03;
+    var drop = -0.2 * smoothstep((i - (DECLINE_START + 2)) / 24);
+    return level + drop + (rnd() - 0.5) * 0.14;
+  }, 8808);
+  csat = calibrateWindows(csat, 4.41, 4.62);
+
+  // ------------------------------------------------- support: setup tickets
+
+  var setupTickets = series('setupTickets', function (i, rnd) {
+    var level = 3.0 + Math.sin(i / 15) * 0.35;
+    var rise = 0.85 * smoothstep((i - (DECLINE_START + 1)) / 20);
+    return Math.max(0, level + rise + (rnd() - 0.5) * 1.5);
+  }, 9909);
+  // Calibrated so the trailing-30 and prior-30 totals match the support-topic
+  // table exactly (112 setup conversations this period, 93 in the previous one).
+  setupTickets = calibrateWindows(setupTickets, 112 / 30, 93 / 30)
+    .map(function (x) { return Math.max(0, x); });
+
+  global.NORTH_SERIES = {
+    dates: isoDates,
+    mrr: mrr,
+    activation: activation,
+    customerChurn: customerChurn,
+    revenueChurn: revenueChurn,
+    retention30: retention30,
+    activeCustomers: activeCustomers,
+    nrr: nrr,
+    csat: csat,
+    setupTickets: setupTickets,
+    declineStartIndex: DECLINE_START,
+    idxOf: idxOf,
+    windowMean: windowMean
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — the model.
+ *
+ * Metric definitions, breakdowns and the signals NORTH has detected. Anything
+ * a card, chart or sentence needs is computed here so the interface never
+ * carries a number of its own.
+ */
+(function (global) {
+  'use strict';
+
+  var S = global.NORTH_SERIES;
+  var LAST = S.dates.length - 1;
+  var PERIOD = 30;
+
+  // ------------------------------------------------------------- formatting
+
+  var fmt = {
+    currency: function (v) {
+      var a = Math.abs(v);
+      if (a >= 1e6) return '$' + (v / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M';
+      if (a >= 1e3) return '$' + Math.round(v / 1e3) + 'K';
+      return '$' + Math.round(v);
+    },
+    currencyPrecise: function (v) {
+      var sign = v < 0 ? '-' : '';
+      var a = Math.abs(v);
+      if (a >= 1e3) return sign + '$' + (a / 1e3).toFixed(1) + 'K';
+      return sign + '$' + Math.round(a);
+    },
+    percent: function (v, d) { return v.toFixed(d === undefined ? 1 : d) + '%'; },
+    percent0: function (v) { return Math.round(v) + '%'; },
+    count: function (v) { return Math.round(v).toLocaleString('en-US'); },
+    score: function (v) { return v.toFixed(2); },
+    pp: function (v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + 'pp'; },
+    rel: function (v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + '%'; },
+    date: function (isoStr) {
+      var d = new Date(isoStr + 'T00:00:00Z');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+    },
+    dateLong: function (isoStr) {
+      var d = new Date(isoStr + 'T00:00:00Z');
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    }
+  };
+
+  /* Change is two different quantities and NORTH never lets them blur.
+   *   - For a rate (a metric already denominated in %), the honest primary
+   *     figure is the percentage-POINT move; the relative move is secondary.
+   *   - For a level (dollars, counts, scores), only the relative move exists. */
+  function change(cur, prev, isRate) {
+    var abs = cur - prev;
+    var rel = prev === 0 ? 0 : (abs / Math.abs(prev)) * 100;
+    return {
+      abs: abs,
+      rel: rel,
+      isRate: !!isRate,
+      dir: abs > 0 ? 1 : abs < 0 ? -1 : 0
+    };
+  }
+
+  // --------------------------------------------------------------- windows
+
+  var window30 = { from: S.dates[LAST - PERIOD + 1], to: S.dates[LAST] };
+  var windowPrev30 = { from: S.dates[LAST - 2 * PERIOD + 1], to: S.dates[LAST - PERIOD] };
+
+  /* Trailing mean. Rate metrics are reported as a 30-day average, so their
+   * charts plot the same 30-day average: the line's last point is then the
+   * number on the card, and the two can never disagree. Daily rates are far
+   * too noisy to read a change out of anyway. */
+  function rolling(v, n) {
+    var out = [], sum = 0;
+    for (var i = 0; i < v.length; i++) {
+      sum += v[i];
+      if (i >= n) sum -= v[i - n];
+      out.push(sum / Math.min(i + 1, n));
+    }
+    return out;
+  }
+
+  function meanCur(v) { return S.windowMean(v, LAST, PERIOD); }
+  function meanPrev(v) { return S.windowMean(v, LAST - PERIOD, PERIOD); }
+
+  // ------------------------------------------------------- events on charts
+
+  var events = [
+    { date: '2026-04-14', kind: 'release', label: 'Onboarding revamp', detail: 'Self-serve onboarding rebuilt around a guided checklist.' },
+    { date: '2026-06-07', kind: 'pricing', label: 'Pricing change', detail: 'Growth tier introduced; seat price up 8% on new business.' },
+    { date: '2026-07-16', kind: 'release', label: 'v4.2 integrations', detail: 'Integrations framework replaced; connector auth flow changed.' },
+    { date: '2026-08-05', kind: 'campaign', label: 'Enterprise campaign', detail: 'Paid campaign targeting 200+ seat accounts.' }
+  ];
+
+  // ------------------------------------------------------------ breakdowns
+
+  /* Activation by company size. The weights are each segment's share of
+   * signups, held constant across both periods, so the comparison isolates
+   * the rate change rather than mixing in a shift in signup mix. */
+  var activationSegments = {
+    dimension: 'Company size',
+    weightLabel: 'share of signups',
+    segments: [
+      { id: 'ent', label: 'Enterprise', sub: '250+ employees', weight: 0.22, cur: 78.0, prev: 79.0 },
+      { id: 'mid', label: 'Mid-market', sub: '50–249 employees', weight: 0.38, cur: 71.0, prev: 72.0 },
+      { id: 'small', label: 'Small teams', sub: 'Under 50 employees', weight: 0.40, cur: 49.7, prev: 62.2 }
+    ]
+  };
+
+  /* Contribution to the blended change: weight x the segment's own pp move.
+   * This is the number that actually answers "where did the decline come
+   * from" — a segment can move a long way and still barely matter. */
+  function withContribution(bd) {
+    var total = bd.segments.reduce(function (s, x) { return s + x.weight * (x.cur - x.prev); }, 0);
+    return {
+      dimension: bd.dimension,
+      weightLabel: bd.weightLabel,
+      totalChange: total,
+      segments: bd.segments.map(function (x) {
+        var delta = x.cur - x.prev;
+        var contrib = x.weight * delta;
+        return Object.assign({}, x, {
+          delta: delta,
+          rel: (delta / x.prev) * 100,
+          contribution: contrib,
+          shareOfChange: total === 0 ? 0 : (contrib / total) * 100
+        });
+      })
+    };
+  }
+
+  var activationByCompanySize = withContribution(activationSegments);
+
+  var activationByPlan = withContribution({
+    dimension: 'Plan',
+    weightLabel: 'share of signups',
+    segments: [
+      { id: 'growth', label: 'Growth', sub: 'Paid self-serve', weight: 0.34, cur: 70.4, prev: 73.1 },
+      { id: 'free', label: 'Free trial', sub: '14-day trial', weight: 0.51, cur: 57.6, prev: 66.4 },
+      { id: 'ent', label: 'Enterprise', sub: 'Sales-assisted', weight: 0.15, cur: 78.9, prev: 79.6 }
+    ]
+  });
+
+  var activationByRegion = withContribution({
+    dimension: 'Region',
+    weightLabel: 'share of signups',
+    segments: [
+      { id: 'na', label: 'North America', sub: '', weight: 0.46, cur: 65.1, prev: 70.6 },
+      { id: 'emea', label: 'EMEA', sub: '', weight: 0.34, cur: 63.8, prev: 69.3 },
+      { id: 'apac', label: 'APAC', sub: '', weight: 0.20, cur: 61.9, prev: 67.5 }
+    ]
+  });
+
+  // ---------------------------------------------------------------- funnel
+
+  /* Signup -> activated, both periods. Identical until the final step, which
+   * is what makes the anomaly legible rather than merely present. */
+  var funnel = {
+    steps: [
+      { id: 'signup',    label: 'Signed up',            cur: 1284, prev: 1206 },
+      { id: 'workspace', label: 'Created workspace',    cur: 1101, prev: 1037 },
+      { id: 'connect',   label: 'Connected data',       cur: 953,  prev: 902 },
+      { id: 'core',      label: 'Completed core action', cur: 822, prev: 839 }
+    ]
+  };
+
+  funnel.rows = funnel.steps.map(function (s, i) {
+    var prevStep = i === 0 ? null : funnel.steps[i - 1];
+    var curStep = prevStep ? (s.cur / prevStep.cur) * 100 : 100;
+    var prevStepRate = prevStep ? (s.prev / prevStep.prev) * 100 : 100;
+    return Object.assign({}, s, {
+      curCumulative: (s.cur / funnel.steps[0].cur) * 100,
+      prevCumulative: (s.prev / funnel.steps[0].prev) * 100,
+      curStepRate: curStep,
+      prevStepRate: prevStepRate,
+      stepDelta: curStep - prevStepRate,
+      fromLabel: prevStep ? prevStep.label : null
+    });
+  });
+
+  funnel.worstStep = funnel.rows.reduce(function (worst, r) {
+    return (worst === null || r.stepDelta < worst.stepDelta) ? r : worst;
+  }, null);
+
+  // --------------------------------------------------------------- cohorts
+
+  var cohorts = {
+    label: 'Logo retention by signup month',
+    periods: ['M0', 'M1', 'M2', 'M3', 'M4', 'M5'],
+    rows: [
+      { cohort: 'Mar 2026', size: 214, values: [100, 91, 87, 84, 82, 81] },
+      { cohort: 'Apr 2026', size: 236, values: [100, 90, 86, 83, 81] },
+      { cohort: 'May 2026', size: 258, values: [100, 91, 87, 84] },
+      { cohort: 'Jun 2026', size: 271, values: [100, 89, 84] },
+      { cohort: 'Jul 2026', size: 289, values: [100, 86] },
+      { cohort: 'Aug 2026', size: 301, values: [100] }
+    ]
+  };
+
+  // ---------------------------------------------------------- MRR movement
+
+  var mrrMovement = {
+    startLabel: 'MRR on ' + fmt.date(windowPrev30.to),
+    endLabel: 'MRR on ' + fmt.date(window30.to),
+    start: S.mrr[LAST - PERIOD],
+    items: [
+      { id: 'new', label: 'New', value: 26400, detail: '84 new accounts', sign: 1 },
+      { id: 'expansion', label: 'Expansion', value: 15800, detail: 'Seat growth and upgrades', sign: 1 },
+      { id: 'contraction', label: 'Contraction', value: -5900, detail: 'Downgrades and seat reductions', sign: -1 },
+      { id: 'churn', label: 'Churn', value: -7400, detail: '61 accounts lost', sign: -1 }
+    ]
+  };
+  mrrMovement.end = mrrMovement.start + mrrMovement.items.reduce(function (s, i) { return s + i.value; }, 0);
+  mrrMovement.net = mrrMovement.end - mrrMovement.start;
+
+  // ------------------------------------------------------- feature adoption
+
+  var featureAdoption = {
+    unitLabel: '% of active customers using the feature at least once in the period',
+    items: [
+      { id: 'analytics', label: 'Analytics', cur: 72, prev: 70 },
+      { id: 'automation', label: 'Automation', cur: 61, prev: 57 },
+      { id: 'integrations', label: 'Integrations', cur: 48, prev: 54 },
+      { id: 'reports', label: 'Reports', cur: 42, prev: 41 },
+      { id: 'assistant', label: 'AI Assistant', cur: 31, prev: 22 }
+    ].map(function (x) { return Object.assign({}, x, { delta: x.cur - x.prev }); })
+  };
+
+  // ------------------------------------------------------- customer health
+
+  var customerHealth = {
+    total: 2240,
+    prevTotal: 2180,
+    bands: [
+      { id: 'healthy', label: 'Healthy', tone: 'good', cur: 1523, prev: 1570, definition: 'Weekly active, no open escalation' },
+      { id: 'watch', label: 'Watch', tone: 'warning', cur: 470, prev: 414, definition: 'Usage down 20%+ or support volume rising' },
+      { id: 'risk', label: 'At risk', tone: 'critical', cur: 247, prev: 196, definition: 'Usage down 50%+, or renewal flagged' }
+    ]
+  };
+  customerHealth.bands.forEach(function (b) {
+    b.curShare = (b.cur / customerHealth.total) * 100;
+    b.prevShare = (b.prev / customerHealth.prevTotal) * 100;
+    b.shareDelta = b.curShare - b.prevShare;
+  });
+
+  // -------------------------------------------------------- support topics
+
+  var supportTopics = {
+    note: 'Conversations opened in the period, grouped by primary topic.',
+    items: [
+      { id: 'setup', label: 'Setup & onboarding', cur: 112, prev: 93 },
+      { id: 'integrations', label: 'Integrations', cur: 76, prev: 64 },
+      { id: 'bugs', label: 'Bugs', cur: 66, prev: 71 },
+      { id: 'billing', label: 'Billing', cur: 52, prev: 50 },
+      { id: 'reporting', label: 'Reporting', cur: 44, prev: 39 },
+      { id: 'other', label: 'Other', cur: 34, prev: 24 }
+    ].map(function (x) {
+      return Object.assign({}, x, { delta: x.cur - x.prev, rel: ((x.cur - x.prev) / x.prev) * 100 });
+    })
+  };
+  supportTopics.total = supportTopics.items.reduce(function (s, x) { return s + x.cur; }, 0);
+  supportTopics.prevTotal = supportTopics.items.reduce(function (s, x) { return s + x.prev; }, 0);
+
+  // ------------------------------------------------------- accounts at risk
+
+  var accountsAtRisk = [
+    { name: 'Northwind Logistics', seats: 240, mrr: 4800, segment: 'Mid-market', signal: 'Core action never completed after v4.2', health: 'risk', since: '2026-07-24' },
+    { name: 'Bloomfield Studio', seats: 18, mrr: 540, segment: 'Small teams', signal: 'Stalled at data connection', health: 'risk', since: '2026-07-27' },
+    { name: 'Cedar & Co', seats: 32, mrr: 960, segment: 'Small teams', signal: 'Stalled at data connection', health: 'risk', since: '2026-08-02' },
+    { name: 'Halden Analytics', seats: 74, mrr: 2220, segment: 'Mid-market', signal: 'Support volume up 4x', health: 'watch', since: '2026-08-04' },
+    { name: 'Pike Street Group', seats: 21, mrr: 630, segment: 'Small teams', signal: 'Stalled at data connection', health: 'risk', since: '2026-08-09' },
+    { name: 'Vantage Retail', seats: 156, mrr: 3900, segment: 'Mid-market', signal: 'Usage down 38% since Jul 19', health: 'watch', since: '2026-08-11' }
+  ];
+
+  // ------------------------------------------------------------ the metrics
+
+  function rateMetric(cfg) {
+    var cur = meanCur(cfg.series), prev = meanPrev(cfg.series);
+    return Object.assign({}, cfg, {
+      value: cur, prev: prev, change: change(cur, prev, true), kind: 'rate',
+      displaySeries: rolling(cfg.series, PERIOD),
+      seriesNote: 'Trailing 30-day average — the same window the headline number uses.'
+    });
+  }
+
+  function levelMetric(cfg) {
+    var cur = cfg.series[LAST], prev = cfg.series[LAST - PERIOD];
+    return Object.assign({}, cfg, {
+      value: cur, prev: prev, change: change(cur, prev, false), kind: 'level',
+      displaySeries: cfg.series
+    });
+  }
+
+  var metrics = {};
+  function def(m) { metrics[m.id] = m; return m; }
+
+  def(levelMetric({
+    id: 'mrr', label: 'MRR', longLabel: 'Monthly recurring revenue', domain: 'revenue',
+    series: S.mrr, format: fmt.currency, formatPrecise: fmt.currencyPrecise,
+    higherIsBetter: true, unit: 'currency',
+    question: 'Are we growing?',
+    pattern: 'sparkline',
+    events: events,
+    note: 'Contracted recurring revenue, normalised to a monthly value.'
+  }));
+
+  def({
+    id: 'arr', label: 'ARR', longLabel: 'Annual recurring revenue', domain: 'revenue',
+    kind: 'derived', value: S.mrr[LAST] * 12, prev: S.mrr[LAST - PERIOD] * 12,
+    change: change(S.mrr[LAST] * 12, S.mrr[LAST - PERIOD] * 12, false),
+    series: S.mrr.map(function (v) { return v * 12; }),
+    displaySeries: S.mrr.map(function (v) { return v * 12; }),
+    format: fmt.currency, higherIsBetter: true, unit: 'currency',
+    pattern: 'goal',
+    goal: { value: 6000000, label: 'Board plan, end of FY26', format: fmt.currency },
+    question: 'Are we on plan?',
+    note: 'MRR × 12. Not a forecast — the run rate as of today.'
+  });
+
+  def(levelMetric({
+    id: 'nrr', label: 'Net revenue retention', longLabel: 'Net revenue retention', domain: 'revenue',
+    series: S.nrr, format: function (v) { return v.toFixed(0) + '%'; },
+    higherIsBetter: true, unit: 'percent-level',
+    pattern: 'goal',
+    goal: { value: 115, label: 'Company goal for FY26', format: function (v) { return v.toFixed(0) + '%'; } },
+    question: 'Is the base expanding?',
+    note: 'Trailing twelve months, expansion net of contraction and churn. A level, not a rate of the period — so its change is shown in points.'
+  }));
+
+  def(rateMetric({
+    id: 'revenueChurn', label: 'Revenue churn', longLabel: 'Gross revenue churn', domain: 'revenue',
+    series: S.revenueChurn, format: function (v) { return v.toFixed(2) + '%'; },
+    higherIsBetter: false, unit: 'percent',
+    pattern: 'context',
+    question: 'Are we losing revenue faster?',
+    note: 'Recurring revenue lost to churn and contraction, as a share of starting MRR.'
+  }));
+
+  def(rateMetric({
+    id: 'activation', label: 'Activation', longLabel: 'Activation rate', domain: 'product',
+    series: S.activation, format: fmt.percent, higherIsBetter: true, unit: 'percent',
+    pattern: 'context',
+    goal: { value: 70, label: 'Company goal for FY26', format: function (v) { return v.toFixed(0) + '%'; } },
+    events: events,
+    question: 'Is activation improving or deteriorating?',
+    note: 'Share of signups that complete the core action within 14 days.'
+  }));
+
+  def(rateMetric({
+    id: 'retention30', label: '30-day retention', longLabel: '30-day user retention', domain: 'product',
+    series: S.retention30, format: fmt.percent, higherIsBetter: true, unit: 'percent',
+    pattern: 'sparkline',
+    question: 'Are new users sticking?',
+    note: 'Share of new users still active 30 days after signup.'
+  }));
+
+  def(levelMetric({
+    id: 'activeCustomers', label: 'Active customers', longLabel: 'Active customers', domain: 'customers',
+    series: S.activeCustomers, format: fmt.count, higherIsBetter: true, unit: 'count',
+    pattern: 'simple',
+    question: 'How many customers do we have?',
+    note: 'Paying accounts with at least one active user in the last 30 days.'
+  }));
+
+  def(rateMetric({
+    id: 'customerChurn', label: 'Customer churn', longLabel: 'Monthly customer churn', domain: 'customers',
+    series: S.customerChurn, format: function (v) { return v.toFixed(1) + '%'; },
+    higherIsBetter: false, unit: 'percent',
+    pattern: 'context',
+    question: 'Are we losing more customers?',
+    note: 'Accounts lost in the period as a share of accounts at the start of it.'
+  }));
+
+  def(rateMetric({
+    id: 'csat', label: 'CSAT', longLabel: 'Customer satisfaction', domain: 'customers',
+    series: S.csat, format: fmt.score, higherIsBetter: true, unit: 'score',
+    pattern: 'simple',
+    question: 'Are customers happier or unhappier?',
+    note: 'Mean rating on resolved support conversations, out of 5.'
+  }));
+
+  def(rateMetric({
+    id: 'setupConversations', label: 'Setup conversations', longLabel: 'Setup & onboarding conversations', domain: 'customers',
+    series: S.setupTickets, format: function (v) { return Math.round(v * 30).toLocaleString('en-US'); },
+    higherIsBetter: false, unit: 'count-rate',
+    pattern: 'simple',
+    question: 'What are customers struggling with?',
+    note: 'Support conversations opened about setup and onboarding, per 30 days.'
+  }));
+
+  // ------------------------------------------------------------ the signals
+  // What NORTH has detected. A signal is attached to a metric, so the metric's
+  // card can carry the mark and open the investigation behind it.
+
+  var signals = [
+    {
+      id: 'sig-activation',
+      metricId: 'activation',
+      severity: 'critical',
+      detectedOn: '2026-07-22',
+      changedOn: S.dates[S.declineStartIndex],
+      headline: 'Activation is down 5.6pp and the decline is concentrated in one funnel step.',
+      short: 'NORTH detected a significant change',
+      investigationId: 'inv-activation'
+    },
+    {
+      id: 'sig-churn',
+      metricId: 'customerChurn',
+      severity: 'serious',
+      detectedOn: '2026-08-03',
+      changedOn: '2026-07-25',
+      headline: 'Customer churn rose to 3.1%, above its twelve-month range.',
+      short: 'Above its normal range',
+      investigationId: 'inv-activation'
+    },
+    {
+      id: 'sig-support',
+      metricId: 'setupConversations',
+      severity: 'warning',
+      detectedOn: '2026-07-28',
+      changedOn: '2026-07-20',
+      headline: 'Setup conversations up 20% — the sharpest topic move this period.',
+      short: 'Rising faster than any other topic',
+      investigationId: 'inv-activation'
+    }
+  ];
+
+  var signalByMetric = {};
+  signals.forEach(function (s) { signalByMetric[s.metricId] = s; });
+
+  // ------------------------------------------------------ the investigation
+  // Each step is a question, and the question chooses the visualisation. The
+  // chart type follows the business question, not the other way round.
+
+  var investigations = {
+    'inv-activation': {
+      id: 'inv-activation',
+      metricId: 'activation',
+      title: 'Activation fell 5.6pp over the last 30 days',
+      asked: 'Why did activation drop?',
+      summary: 'Activation averaged ' + fmt.percent(meanCur(S.activation)) + ' over the last 30 days against ' +
+        fmt.percent(meanPrev(S.activation)) + ' in the 30 days before — a fall of ' +
+        fmt.pp(meanCur(S.activation) - meanPrev(S.activation)) + ' (' +
+        fmt.rel(((meanCur(S.activation) - meanPrev(S.activation)) / meanPrev(S.activation)) * 100) + ' relative). ' +
+        'The decline is concentrated in small teams and in one funnel step.',
+      steps: [
+        {
+          id: 'when', question: 'When did it begin?', viz: 'timeseries',
+          answer: 'The series holds around 70–71% until ' + fmt.dateLong(S.dates[S.declineStartIndex]) +
+            ', then falls over about three weeks and flattens near 64%. It is a step, not a drift — ' +
+            'which points at something that changed on a date rather than a slow erosion.'
+        },
+        {
+          id: 'where', question: 'Which segment caused it?', viz: 'segments',
+          answer: 'Small teams fell ' + fmt.pp(activationByCompanySize.segments[2].delta) + '. Enterprise and mid-market each moved about a point. ' +
+            'Holding the signup mix constant, small teams account for ' +
+            Math.round(activationByCompanySize.segments[2].shareOfChange) + '% of the blended decline.'
+        },
+        {
+          id: 'step', question: 'At which step?', viz: 'funnel',
+          answer: 'Signup → workspace and workspace → connected data are within half a point of the previous period. ' +
+            funnel.worstStep.fromLabel + ' → ' + funnel.worstStep.label.toLowerCase() + ' fell from ' +
+            fmt.percent(funnel.worstStep.prevStepRate) + ' to ' + fmt.percent(funnel.worstStep.curStepRate) +
+            '. Users are connecting their data and then not finishing.'
+        },
+        {
+          id: 'retention', question: 'Is it affecting retention?', viz: 'cohorts',
+          answer: 'The July cohort retained 86% at month one against 89–91% for every cohort before it. ' +
+            'One month of data is thin — treat it as early, not established.'
+        },
+        {
+          id: 'who', question: 'Which customers?', viz: 'accounts',
+          answer: 'Six accounts worth ' + fmt.currencyPrecise(accountsAtRisk.reduce(function (s, a) { return s + a.mrr; }, 0)) +
+            ' of MRR moved to watch or at risk in this window, four of them stalled at the same step.'
+        },
+        {
+          id: 'together', question: 'What changed at the same time?', viz: 'correlates',
+          answer: 'Five things move together in this window — one release and four metrics. ' +
+            'NORTH can show that they coincide; it cannot show that one caused another.'
+        }
+      ],
+      correlates: [
+        { label: 'v4.2 integrations release', detail: 'Connector auth flow replaced', on: '2026-07-16', kind: 'event' },
+        { label: 'Activation begins falling', detail: 'Three days after the release', on: S.dates[S.declineStartIndex], kind: 'metric' },
+        { label: 'Setup conversations rise', detail: '+20% vs the previous 30 days', on: '2026-07-20', kind: 'metric' },
+        { label: 'Integrations adoption falls', detail: '54% → 48% of active customers', on: '2026-07-24', kind: 'metric' },
+        { label: 'Customer churn rises', detail: '2.4% → 3.1%', on: '2026-07-25', kind: 'metric' }
+      ],
+      caution: 'These five moves coincide within nine days. That is evidence of a shared cause, not proof of one — ' +
+        'the v4.2 release is the strongest candidate because it changed the exact step where users are now stalling, ' +
+        'but nothing here rules out a seasonal or mix effect. Confirming it means looking at the step itself.',
+      evidence: [
+        { source: 'Amplitude', detail: 'Funnel and segment rates, 1,284 signups', updated: '2 hours ago' },
+        { source: 'Intercom', detail: '384 conversations classified by topic', updated: '40 minutes ago' },
+        { source: 'Stripe', detail: 'MRR movement and churned accounts', updated: '6 hours ago' },
+        { source: 'Linear', detail: 'v4.2 release date and scope', updated: 'Yesterday' }
+      ],
+      recommended: [
+        { label: 'Investigate integration-step abandonment', detail: 'Session replays for the ' + (funnel.worstStep.prev !== undefined ? (funnel.steps[2].cur - funnel.steps[3].cur) : 0) + ' signups that connected data and stopped.' },
+        { label: 'Compare v4.2 and v4.1 connector flows', detail: 'Completion rate by connector type, before and after Jul 16.' },
+        { label: 'Check whether small teams hit a different flow', detail: 'Whether the new auth step differs by plan.' }
+      ],
+      relatedSignals: [
+        { metricId: 'setupConversations', note: 'Setup support conversations' },
+        { metricId: 'customerChurn', note: 'New-customer churn' },
+        { metricId: 'retention30', note: '30-day retention' }
+      ]
+    }
+  };
+
+  /* The context line on a pattern-3 card. Derived, never asserted: each one
+   * is a fact the data can produce on demand. */
+  function contextFor(id) {
+    var bd = activationByCompanySize;
+    var lead = bd.segments.reduce(function (a, b) { return Math.abs(b.contribution) > Math.abs(a.contribution) ? b : a; });
+    switch (id) {
+      case 'activation':
+        return { lead: 'Mostly driven by',
+          body: lead.label + ' ' + fmt.pp(lead.delta) + ' — ' + Math.round(lead.shareOfChange) + '% of the decline.' };
+      case 'customerChurn':
+        return { lead: 'Concentrated in', body: 'Accounts under six months old. Revenue churn moved less, so the accounts lost are small.' };
+      case 'revenueChurn':
+        return { lead: 'Rising more slowly than logo churn', body: 'The accounts leaving are small: 3.1% of customers, 1.85% of revenue.' };
+      case 'csat':
+        return { lead: 'Driven by', body: 'Setup and onboarding conversations, the topic growing fastest this period.' };
+      case 'mrr':
+        return { lead: 'Where it came from', body: 'New and expansion added $42.2K; churn and contraction removed $13.3K.' };
+      case 'activeCustomers':
+        return { lead: 'Net of', body: '84 accounts won, 61 lost. Growth is slowing as churn rises.' };
+      case 'nrr':
+        return { lead: 'Expansion is', body: 'still covering churn — $15.8K added against $13.3K lost this period.' };
+      case 'retention30':
+        return { lead: 'Tracking', body: 'The activation decline — the July cohort is the first to retain below 89%.' };
+      default: return null;
+    }
+  }
+
+  // ---------------------------------------------------------------- domains
+
+  var domains = [
+    {
+      id: 'revenue', label: 'Revenue',
+      question: 'What actually changed our MRR?',
+      headline: ['mrr', 'arr', 'nrr', 'revenueChurn']
+    },
+    {
+      id: 'product', label: 'Product',
+      question: 'Where are users getting stuck?',
+      headline: ['activation', 'retention30']
+    },
+    {
+      id: 'customers', label: 'Customers',
+      question: 'Who is at risk, and what are they struggling with?',
+      headline: ['activeCustomers', 'customerChurn', 'csat']
+    }
+  ];
+
+  global.NORTH = {
+    series: S,
+    LAST: LAST,
+    PERIOD: PERIOD,
+    fmt: fmt,
+    change: change,
+    rolling: rolling,
+    contextFor: contextFor,
+    window30: window30,
+    windowPrev30: windowPrev30,
+    metrics: metrics,
+    domains: domains,
+    events: events,
+    signals: signals,
+    signalByMetric: signalByMetric,
+    investigations: investigations,
+    breakdowns: {
+      activation: {
+        'Company size': activationByCompanySize,
+        'Plan': activationByPlan,
+        'Region': activationByRegion
+      }
+    },
+    funnel: funnel,
+    cohorts: cohorts,
+    mrrMovement: mrrMovement,
+    featureAdoption: featureAdoption,
+    customerHealth: customerHealth,
+    supportTopics: supportTopics,
+    accountsAtRisk: accountsAtRisk
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — chart primitives.
+ *
+ * Hand-rolled SVG. Every chart is built from the same small set of marks so
+ * the whole product reads as one system: 2px lines, <=24px bars with a 4px
+ * rounded data end, 8px markers with a 2px surface ring, hairline solid grid,
+ * selective direct labels, and a table view behind every figure.
+ */
+(function (global) {
+  'use strict';
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  // ------------------------------------------------------------------ util
+
+  function el(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    if (attrs) for (var k in attrs) if (attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  function h(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) for (var k in attrs) {
+      if (k === 'class') n.className = attrs[k];
+      else if (k === 'text') n.textContent = attrs[k];      // labels are data: never innerHTML
+      else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return n;
+  }
+
+  function scale(d0, d1, r0, r1) {
+    var span = d1 - d0 || 1;
+    var f = function (v) { return r0 + ((v - d0) / span) * (r1 - r0); };
+    f.invert = function (p) { return d0 + ((p - r0) / (r1 - r0 || 1)) * span; };
+    return f;
+  }
+
+  /* Round tick values to numbers a reader recognises (0 / 1,000 / 2,000). */
+  function niceTicks(min, max, count) {
+    if (min === max) { min -= 1; max += 1; }
+    var raw = (max - min) / Math.max(1, count);
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var norm = raw / mag;
+    var step = (norm >= 5 ? 10 : norm >= 2 ? 5 : norm >= 1 ? 2 : 1) * mag;
+    var out = [], t = Math.ceil(min / step) * step;
+    for (; t <= max + step * 0.001; t += step) out.push(Math.round(t / step) * step);
+    return out;
+  }
+
+  function extent(arrays) {
+    var lo = Infinity, hi = -Infinity;
+    arrays.forEach(function (a) {
+      a.forEach(function (v) { if (v === null || v === undefined || isNaN(v)) return; if (v < lo) lo = v; if (v > hi) hi = v; });
+    });
+    return [lo, hi];
+  }
+
+  function linePath(pts) {
+    return pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(2) + ' ' + p[1].toFixed(2); }).join(' ');
+  }
+
+  /* A bar whose data end is rounded 4px and whose baseline end stays square. */
+  function barPath(x, y, w, hgt, r, dir) {
+    r = Math.min(r, w / 2, Math.abs(hgt));
+    if (Math.abs(hgt) < 0.6) return 'M' + x + ' ' + y + 'h' + w + 'v' + (hgt || 0.6) + 'h' + (-w) + 'z';
+    if (dir === 'up')    return 'M' + x + ' ' + (y + hgt) + 'v' + (-(hgt - r)) + 'a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + (-r) + 'h' + (w - 2 * r) + 'a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + r + 'v' + (hgt - r) + 'z';
+    if (dir === 'down')  return 'M' + x + ' ' + y + 'v' + (hgt - r) + 'a' + r + ' ' + r + ' 0 0 0 ' + r + ' ' + r + 'h' + (w - 2 * r) + 'a' + r + ' ' + r + ' 0 0 0 ' + r + ' ' + (-r) + 'v' + (-(hgt - r)) + 'z';
+    if (dir === 'left')  return 'M' + (x + w) + ' ' + y + 'h' + (-(w - r)) + 'a' + r + ' ' + r + ' 0 0 0 ' + (-r) + ' ' + r + 'v' + (hgt - 2 * r) + 'a' + r + ' ' + r + ' 0 0 0 ' + r + ' ' + r + 'h' + (w - r) + 'z';
+    return 'M' + x + ' ' + y + 'h' + (w - r) + 'a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + r + 'v' + (hgt - 2 * r) + 'a' + r + ' ' + r + ' 0 0 1 ' + (-r) + ' ' + r + 'h' + (-(w - r)) + 'z';
+  }
+
+  // --------------------------------------------------------------- tooltip
+
+  var tip = null;
+  function tooltip() {
+    if (!tip) { tip = h('div', { class: 'viz-tip', role: 'status', 'aria-live': 'polite' }); document.body.appendChild(tip); }
+    return tip;
+  }
+  function showTip(node, rows, title) {
+    var t = tooltip();
+    t.textContent = '';
+    if (title) t.appendChild(h('div', { class: 'viz-tip-title', text: title }));
+    rows.forEach(function (r) {
+      t.appendChild(h('div', { class: 'viz-tip-row' }, [
+        r.color ? h('span', { class: 'viz-tip-key', style: 'background:' + r.color + (r.dashed ? ';opacity:.75' : '') }) : h('span', { class: 'viz-tip-key viz-tip-key-none' }),
+        h('span', { class: 'viz-tip-val', text: r.value }),
+        h('span', { class: 'viz-tip-lab', text: r.label })
+      ]));
+    });
+    if (rows.note) t.appendChild(h('div', { class: 'viz-tip-note', text: rows.note }));
+    t.classList.add('is-on');
+    var r = node.getBoundingClientRect();
+    var w = t.offsetWidth, hh = t.offsetHeight;
+    var x = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), window.innerWidth - w - 8);
+    var y = r.top - hh - 10;
+    if (y < 8) y = r.bottom + 10;
+    t.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+  }
+  function showTipAt(x, y, rows, title) {
+    var t = tooltip();
+    t.textContent = '';
+    if (title) t.appendChild(h('div', { class: 'viz-tip-title', text: title }));
+    rows.forEach(function (r) {
+      t.appendChild(h('div', { class: 'viz-tip-row' }, [
+        r.color ? h('span', { class: 'viz-tip-key', style: 'background:' + r.color + (r.dashed ? ';opacity:.75' : '') }) : h('span', { class: 'viz-tip-key viz-tip-key-none' }),
+        h('span', { class: 'viz-tip-val', text: r.value }),
+        h('span', { class: 'viz-tip-lab', text: r.label })
+      ]));
+    });
+    t.classList.add('is-on');
+    var w = t.offsetWidth, hh = t.offsetHeight;
+    var px = Math.min(Math.max(8, x - w / 2), window.innerWidth - w - 8);
+    var py = y - hh - 14;
+    if (py < 8) py = y + 18;
+    t.style.transform = 'translate(' + Math.round(px) + 'px,' + Math.round(py) + 'px)';
+  }
+  function hideTip() { if (tip) tip.classList.remove('is-on'); }
+
+  // ---------------------------------------------------------------- figure
+  // Every chart ships inside a figure that owns its title, the question it
+  // answers, and the table view that makes it readable without colour.
+
+  function figure(spec) {
+    var body = h('div', { class: 'viz-body' });
+    var tableWrap = h('div', { class: 'viz-table', hidden: 'hidden' });
+    var toggle = null;
+
+    var head = h('div', { class: 'viz-head' }, [
+      h('div', { class: 'viz-head-text' }, [
+        spec.title ? h('h4', { class: 'viz-title', text: spec.title }) : null,
+        spec.question ? h('p', { class: 'viz-question', text: spec.question }) : null
+      ])
+    ]);
+
+    if (spec.table) {
+      toggle = h('button', {
+        class: 'viz-toggle', type: 'button', 'aria-expanded': 'false',
+        text: 'Table',
+        onclick: function () {
+          var on = tableWrap.hidden;
+          tableWrap.hidden = !on;
+          body.hidden = on;
+          toggle.setAttribute('aria-expanded', String(on));
+          toggle.textContent = on ? 'Chart' : 'Table';
+        }
+      });
+      head.appendChild(toggle);
+      tableWrap.appendChild(buildTable(spec.table));
+    }
+
+    var fig = h('figure', { class: 'viz' + (spec.className ? ' ' + spec.className : '') }, [
+      (spec.title || spec.question) ? head : null,
+      spec.legend ? spec.legend : null,
+      body,
+      tableWrap,
+      spec.caption ? h('figcaption', { class: 'viz-caption', text: spec.caption }) : null
+    ]);
+
+    // Charts are drawn at real pixel sizes so text is never scaled; redraw on
+    // resize rather than stretching a viewBox.
+    var lastW = 0;
+    function draw() {
+      var w = body.clientWidth;
+      if (!w || Math.abs(w - lastW) < 1) return;
+      lastW = w;
+      body.textContent = '';
+      body.appendChild(spec.render(w));
+    }
+    if (global.ResizeObserver) new ResizeObserver(draw).observe(body);
+    requestAnimationFrame(draw);
+    fig.redraw = function () { lastW = 0; draw(); };
+    return fig;
+  }
+
+  function buildTable(t) {
+    return h('table', {}, [
+      h('thead', {}, [h('tr', {}, t.columns.map(function (c, i) {
+        return h('th', { scope: 'col', class: i ? 'num' : '', text: c });
+      }))]),
+      h('tbody', {}, t.rows.map(function (r) {
+        return h('tr', {}, r.map(function (c, i) {
+          return i === 0 ? h('th', { scope: 'row', text: String(c) }) : h('td', { class: 'num', text: String(c) });
+        }));
+      }))
+    ]);
+  }
+
+  function legend(items) {
+    return h('div', { class: 'viz-legend' }, items.map(function (i) {
+      return h('span', { class: 'viz-legend-item' }, [
+        h('span', { class: 'viz-legend-key ' + (i.shape || 'line') + (i.dashed ? ' is-dashed' : ''), style: 'color:' + i.color }),
+        h('span', { text: i.label })
+      ]);
+    }));
+  }
+
+  global.Viz = {
+    el: el, h: h, scale: scale, niceTicks: niceTicks, extent: extent,
+    linePath: linePath, barPath: barPath,
+    showTip: showTip, showTipAt: showTipAt, hideTip: hideTip,
+    figure: figure, buildTable: buildTable, legend: legend, NS: NS
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — time-series marks: sparkline and the line chart.
+ * The line chart carries the pieces the brief asks a NORTH trend to carry:
+ * a previous-period overlay that stays visually secondary, event annotations,
+ * a goal rule, and the marker where NORTH detected a change.
+ */
+(function (global) {
+  'use strict';
+  var V = global.Viz, el = V.el, h = V.h;
+
+  /* --------------------------------------------------------- sparkline
+   * Trend shape only. The context window is de-emphasised and the current
+   * period carries the accent, so the eye lands on the part being reported. */
+  function sparkline(opts) {
+    var values = opts.values, w = opts.width || 108, ht = opts.height || 28;
+    var accentFrom = opts.accentFrom === undefined ? values.length - 30 : opts.accentFrom;
+    var e = V.extent([values]), pad = (e[1] - e[0]) * 0.18 || 1;
+    var x = V.scale(0, values.length - 1, 1.5, w - 6);
+    var y = V.scale(e[0] - pad, e[1] + pad, ht - 2.5, 2.5);
+    var pts = values.map(function (v, i) { return [x(i), y(v)]; });
+
+    var svg = el('svg', { width: w, height: ht, class: 'spark', 'aria-hidden': 'true', focusable: 'false' });
+    el('path', { d: V.linePath(pts.slice(0, accentFrom + 1)), fill: 'none', stroke: 'var(--de-emphasis)', 'stroke-width': 1.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, svg);
+    el('path', { d: V.linePath(pts.slice(accentFrom)), fill: 'none', stroke: opts.color || 'var(--series-1)', 'stroke-width': 1.75, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, svg);
+    var last = pts[pts.length - 1];
+    el('circle', { cx: last[0], cy: last[1], r: 3.4, fill: 'var(--surface)', stroke: 'none' }, svg);
+    el('circle', { cx: last[0], cy: last[1], r: 2.4, fill: opts.color || 'var(--series-1)' }, svg);
+    return svg;
+  }
+
+  /* --------------------------------------------------------- line chart */
+  function lineChart(spec) {
+    var dates = spec.dates;
+    var series = spec.series;                       // [{id,label,values,color,dashed,muted}]
+    var format = spec.format || function (v) { return String(Math.round(v)); };
+    var plotH = spec.height || 200;
+
+    function render(width) {
+      var m = { top: spec.annotations && spec.annotations.length ? 38 : 14, right: spec.endLabel === false ? 16 : 54, bottom: 26, left: 46 };
+      var totalH = plotH + m.top + m.bottom;
+      var iw = Math.max(60, width - m.left - m.right);
+      var svg = el('svg', { width: width, height: totalH, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || spec.title || 'Chart' });
+      var g = el('g', { transform: 'translate(' + m.left + ',' + m.top + ')' }, svg);
+
+      var all = series.map(function (s) { return s.values; });
+      if (spec.goal) all.push([spec.goal.value]);
+      var e = V.extent(all);
+      var pad = (e[1] - e[0]) * 0.16 || Math.abs(e[1] * 0.05) || 1;
+      var lo = spec.zeroBased ? 0 : e[0] - pad, hi = e[1] + pad;
+      var ticks = V.niceTicks(lo, hi, spec.tickCount || 4);
+      if (ticks.length) { lo = Math.min(lo, ticks[0]); hi = Math.max(hi, ticks[ticks.length - 1]); }
+
+      var x = V.scale(0, dates.length - 1, 0, iw);
+      var y = V.scale(lo, hi, plotH, 0);
+
+      // grid — solid hairlines, one step off the surface, never dashed
+      ticks.forEach(function (t) {
+        el('line', { x1: 0, x2: iw, y1: y(t), y2: y(t), stroke: 'var(--grid)', 'stroke-width': 1 }, g);
+        el('text', { x: -10, y: y(t) + 4, 'text-anchor': 'end', class: 'ax' }, g).textContent = format(t, true);
+      });
+
+      // goal rule — a real target only, never an invented one
+      if (spec.goal) {
+        el('line', { x1: 0, x2: iw, y1: y(spec.goal.value), y2: y(spec.goal.value), stroke: 'var(--ink-muted)', 'stroke-width': 1, 'stroke-dasharray': '3 3' }, g);
+        el('text', { x: iw - 2, y: y(spec.goal.value) - 6, 'text-anchor': 'end', class: 'ax ax-goal' }, g).textContent = spec.goal.label;
+      }
+
+      // x labels — first, the period boundary if any, and last
+      var xl = [0, dates.length - 1];
+      if (spec.markIndex) xl.splice(1, 0, spec.markIndex);
+      xl.forEach(function (i, n) {
+        var t = el('text', { x: x(i), y: plotH + 17, class: 'ax', 'text-anchor': n === 0 ? 'start' : n === xl.length - 1 ? 'end' : 'middle' }, g);
+        t.textContent = spec.xFormat ? spec.xFormat(dates[i]) : dates[i];
+      });
+      el('line', { x1: 0, x2: iw, y1: plotH, y2: plotH, stroke: 'var(--axis)', 'stroke-width': 1 }, g);
+
+      // series — secondary ones first so the primary sits on top
+      var ordered = series.slice().sort(function (a, b) { return (a.muted ? 0 : 1) - (b.muted ? 0 : 1); });
+      var ptsById = {};
+      ordered.forEach(function (s) {
+        var pts = s.values.map(function (v, i) { return [x(i), y(v)]; });
+        ptsById[s.id] = pts;
+        if (s.fill && !s.muted) {
+          el('path', {
+            d: V.linePath(pts) + ' L' + pts[pts.length - 1][0] + ' ' + plotH + ' L' + pts[0][0] + ' ' + plotH + ' Z',
+            fill: s.color, 'fill-opacity': 0.10, stroke: 'none'
+          }, g);
+        }
+        el('path', {
+          d: V.linePath(pts), fill: 'none', stroke: s.color,
+          'stroke-width': s.muted ? 1.5 : 2,
+          'stroke-dasharray': s.dashed ? '4 4' : null,
+          'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+          opacity: s.muted ? 0.85 : 1
+        }, g);
+      });
+
+      // annotations — a hairline to the axis and a small label. Subtle by
+      // construction: no box, no leader, muted ink.
+      // Annotation rules always draw; their labels are placed on one of two
+      // rows only where they actually fit. A label with nowhere to go is
+      // dropped rather than printed over its neighbour — the rule, the dot
+      // and the tooltip still carry the event.
+      var placeable = [];
+      (spec.annotations || []).forEach(function (a) {
+        var i = dates.indexOf(a.date);
+        if (i < 0) return;
+        var px = x(i);
+        el('line', { x1: px, x2: px, y1: -6, y2: plotH, stroke: 'var(--hairline-strong)', 'stroke-width': 1 }, g);
+        var dot = el('circle', { cx: px, cy: -6, r: 2.5, fill: 'var(--ink-muted)' }, g);
+        var hitDot = el('circle', { cx: px, cy: -6, r: 11, fill: 'transparent', tabindex: '0', role: 'img' }, g);
+        hitDot.setAttribute('aria-label', a.label + '. ' + (a.detail || '') + ' ' + (spec.xFormat ? spec.xFormat(a.date, true) : a.date));
+        function onDot() { V.showTip(hitDot, [{ value: spec.xFormat ? spec.xFormat(a.date, true) : a.date, label: a.detail || '' }], a.label); }
+        hitDot.addEventListener('pointerenter', onDot); hitDot.addEventListener('focus', onDot);
+        hitDot.addEventListener('pointerleave', V.hideTip); hitDot.addEventListener('blur', V.hideTip);
+
+        placeable.push({ a: a, px: px });
+      });
+
+      // Labels are placed newest-first, so when space runs out it is the
+      // oldest event that loses its label rather than the one nearest the
+      // change being reported.
+      var rowStart = [Infinity, Infinity];
+      placeable.slice().reverse().forEach(function (it) {
+        var a = it.a, px = it.px;
+        var w = a.label.length * 6.3 + 18;
+        var anchor = px + w > iw ? 'end' : 'start';
+        var left = anchor === 'end' ? px - w : px;
+        if (left < 0) return;
+        var slot = -1;
+        for (var r = 0; r < 2; r++) if (left + w < rowStart[r]) { slot = r; break; }
+        if (slot < 0) return;
+        rowStart[slot] = left;
+        var t = el('text', { x: px + (anchor === 'end' ? -6 : 6), y: -3 - slot * 12, class: 'ax ax-note', 'text-anchor': anchor }, g);
+        t.textContent = a.label;
+      });
+
+      // the NORTH mark — where a change was detected. Clicking opens the
+      // investigation behind it, so the chart and the panel are one product.
+      var anomalyMark = null;
+      if (spec.anomaly) {
+        var ai = dates.indexOf(spec.anomaly.date);
+        if (ai >= 0) {
+          var s0 = series.find(function (s) { return !s.muted; }) || series[0];
+          var ax = x(ai), ay = y(s0.values[ai]);
+          var mark = anomalyMark = el('g', { class: 'anomaly' + (spec.anomaly.onOpen ? ' is-clickable' : ''), tabindex: spec.anomaly.onOpen ? '0' : null, role: spec.anomaly.onOpen ? 'button' : null }, g);
+          if (spec.anomaly.onOpen) {
+            mark.setAttribute('aria-label', spec.anomaly.label + '. Open investigation.');
+            mark.addEventListener('click', spec.anomaly.onOpen);
+            mark.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); spec.anomaly.onOpen(); } });
+          }
+          var hitZone = el('rect', { fill: 'transparent' }, mark);
+          el('circle', { cx: ax, cy: ay, r: 7, fill: 'none', stroke: 'var(--north)', 'stroke-width': 1.25, opacity: 0.5 }, mark);
+          el('circle', { cx: ax, cy: ay, r: 4.6, fill: 'var(--surface)' }, mark);
+          el('circle', { cx: ax, cy: ay, r: 3.2, fill: 'var(--north)' }, mark);
+          // Put the label on the side with room, and below the point when the
+          // point sits high, so it never lands on the line or the goal rule.
+          var goalY = spec.goal ? y(spec.goal.value) : null;
+          var below = ay < plotH * 0.55;
+          var ly = below ? ay + 20 : ay - 14;
+          if (goalY !== null && Math.abs(ly - goalY) < 14) ly = below ? goalY + 18 : goalY - 18;
+          var right = ax < iw - 130;
+          var lab = el('text', { x: ax + (right ? 12 : -12), y: ly, class: 'ax ax-north', 'text-anchor': right ? 'start' : 'end' }, mark);
+          lab.textContent = spec.anomaly.label;
+          // The label is part of the control, so the hit area spans the mark
+          // and its text — not just the eight pixels of the dot.
+          // One region covering the mark and its label: both are the control,
+          // and a target you have to hit dead-centre is not one. Inside it the
+          // reader gets the detection rather than the crosshair, which is the
+          // right answer for the one point on the chart NORTH is pointing at.
+          var labW = spec.anomaly.label.length * 6.3 + 20;
+          var top = Math.min(ay, ly - 12) - 8;
+          var bot = Math.max(ay, ly) + 10;
+          hitZone.setAttribute('x', (right ? ax - 14 : ax - labW - 2));
+          hitZone.setAttribute('y', top);
+          hitZone.setAttribute('width', labW + 16);
+          hitZone.setAttribute('height', bot - top);
+          if (spec.anomaly.detail) {
+            var onMark = function () {
+              V.showTip(mark, [{ color: 'var(--north)', value: spec.xFormat ? spec.xFormat(spec.anomaly.date, true) : spec.anomaly.date, label: spec.anomaly.detail }], spec.anomaly.label);
+            };
+            mark.addEventListener('pointerenter', onMark);
+            mark.addEventListener('focus', onMark);
+            mark.addEventListener('pointerleave', V.hideTip);
+            mark.addEventListener('blur', V.hideTip);
+          }
+        }
+      }
+
+      // end dot + direct label on the primary series
+      var primary = series.find(function (s) { return !s.muted; }) || series[0];
+      if (spec.endLabel !== false && primary) {
+        var p = ptsById[primary.id][ptsById[primary.id].length - 1];
+        el('circle', { cx: p[0], cy: p[1], r: 5.5, fill: 'var(--surface)' }, g);
+        el('circle', { cx: p[0], cy: p[1], r: 4, fill: primary.color }, g);
+        var t2 = el('text', { x: p[0] + 9, y: p[1] + 4, class: 'ax ax-end' }, g);
+        t2.textContent = format(primary.values[primary.values.length - 1]);
+      }
+
+      // hover layer — the crosshair finds the X, one readout lists every series
+      var cross = el('line', { y1: 0, y2: plotH, stroke: 'var(--hairline-strong)', 'stroke-width': 1, opacity: 0 }, g);
+      var dots = series.map(function (s) {
+        var d = el('circle', { r: 4, fill: s.color, stroke: 'var(--surface)', 'stroke-width': 2, opacity: 0 }, g);
+        return d;
+      });
+      var hit = el('rect', { x: 0, y: 0, width: iw, height: plotH, fill: 'transparent', tabindex: '0', role: 'application', 'aria-label': (spec.title || 'Series') + '. Use arrow keys to read values.' }, g);
+      var focusIdx = dates.length - 1;
+
+      function place(i) {
+        i = Math.max(0, Math.min(dates.length - 1, i));
+        focusIdx = i;
+        cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.setAttribute('opacity', 1);
+        series.forEach(function (s, n) {
+          dots[n].setAttribute('cx', x(i)); dots[n].setAttribute('cy', y(s.values[i])); dots[n].setAttribute('opacity', 1);
+        });
+        var box = svg.getBoundingClientRect();
+        V.showTipAt(box.left + m.left + x(i), box.top + m.top + y(series[0].values[i]),
+          series.map(function (s) {
+            return { color: s.color, dashed: s.dashed, value: format(s.values[i]), label: s.label };
+          }),
+          spec.xFormat ? spec.xFormat(dates[i], true) : dates[i]);
+      }
+      function clear() { cross.setAttribute('opacity', 0); dots.forEach(function (d) { d.setAttribute('opacity', 0); }); V.hideTip(); }
+
+      hit.addEventListener('pointermove', function (ev) {
+        var box = svg.getBoundingClientRect();
+        place(Math.round(x.invert(ev.clientX - box.left - m.left)));
+      });
+      hit.addEventListener('pointerleave', clear);
+      hit.addEventListener('focus', function () { place(focusIdx); });
+      hit.addEventListener('blur', clear);
+      hit.addEventListener('keydown', function (ev) {
+        if (ev.key === 'ArrowRight') { place(focusIdx + 1); ev.preventDefault(); }
+        else if (ev.key === 'ArrowLeft') { place(focusIdx - 1); ev.preventDefault(); }
+        else if (ev.key === 'Home') { place(0); ev.preventDefault(); }
+        else if (ev.key === 'End') { place(dates.length - 1); ev.preventDefault(); }
+      });
+      if (spec.onPointClick) hit.addEventListener('click', function () { spec.onPointClick(focusIdx); });
+
+      // The NORTH mark is a control, so it has to sit above the crosshair's
+      // hit layer — otherwise the layer swallows the click that opens the
+      // investigation.
+      if (anomalyMark) g.appendChild(anomalyMark);
+      return svg;
+    }
+
+    var lg = series.length > 1
+      ? V.legend(series.map(function (s) { return { color: s.color, label: s.label, dashed: s.dashed }; }))
+      : null;
+
+    // Table view: sampled so the twin stays readable, never a 180-row dump.
+    var stride = Math.max(1, Math.ceil(dates.length / 24));
+    var rows = [];
+    for (var i = 0; i < dates.length; i += stride) {
+      rows.push([spec.xFormat ? spec.xFormat(dates[i], true) : dates[i]].concat(series.map(function (s) { return format(s.values[i]); })));
+    }
+    var lastI = dates.length - 1;
+    if ((lastI) % stride !== 0) rows.push([spec.xFormat ? spec.xFormat(dates[lastI], true) : dates[lastI]].concat(series.map(function (s) { return format(s.values[lastI]); })));
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption,
+      className: spec.className, legend: lg, render: render,
+      table: { columns: ['Date'].concat(series.map(function (s) { return s.label; })), rows: rows }
+    });
+  }
+
+  global.Viz.sparkline = sparkline;
+  global.Viz.lineChart = lineChart;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — comparison marks: bridge, funnel, segments, ranked bars,
+ * distribution, topic deltas, cohorts and the goal meter.
+ */
+(function (global) {
+  'use strict';
+  var V = global.Viz, el = V.el, h = V.h;
+
+  var BAR = 22;          // <= 24px: the band's leftover is air, not ink
+  var GAP = 2;           // the surface gap that separates touching marks
+  var R = 4;             // rounded data end
+
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+  /* Pick ink or white for a label set inside a coloured fill. */
+  function inkOn(hex) {
+    var c = hex.replace('#', '');
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.slice(0, 2), 16)) + 0.7152 * f(parseInt(c.slice(2, 4), 16)) + 0.0722 * f(parseInt(c.slice(4, 6), 16));
+    return L > 0.42 ? '#0b0b0b' : '#ffffff';
+  }
+  /* Measure before placing: a label that will not fit is never clipped. */
+  function fits(text, px, fontPx) { return text.length * fontPx * 0.56 + 16 < px; }
+
+  /* ------------------------------------------------------------ bridge
+   * What actually changed our MRR. Only the four movements are drawn as
+   * bars, and they encode differences, so the window can sit off zero
+   * without misstating anything. The two totals are reference rules with
+   * their values written out — never truncated bars. */
+  function bridge(spec) {
+    var items = spec.items, start = spec.start, end = spec.end;
+    var fmt = spec.format;
+
+    function render(width) {
+      var m = { top: 26, right: 14, bottom: 40, left: 14 };
+      var plotH = spec.height || 190;
+      var svg = el('svg', { width: width, height: plotH + m.top + m.bottom, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'MRR movement' });
+      var g = el('g', { transform: 'translate(' + m.left + ',' + m.top + ')' }, svg);
+      var iw = Math.max(60, width - m.left - m.right);
+
+      var run = [start], v = start;
+      items.forEach(function (it) { v += it.value; run.push(v); });
+      var lo = Math.min.apply(null, run), hi = Math.max.apply(null, run);
+      var pad = (hi - lo) * 0.35 || 1;
+      var y = V.scale(lo - pad, hi + pad, plotH, 0);
+
+      var cols = items.length + 2;
+      var band = iw / cols;
+      var cx = function (i) { return band * i + band / 2; };
+
+      // starting and ending totals — rules, with the value written out
+      [[0, start, spec.startLabel], [cols - 1, end, spec.endLabel]].forEach(function (t) {
+        var yy = y(t[1]);
+        el('line', { x1: cx(t[0]) - band * 0.42, x2: cx(t[0]) + band * 0.42, y1: yy, y2: yy, stroke: 'var(--ink)', 'stroke-width': 2, 'stroke-linecap': 'round' }, g);
+        var lb = el('text', { x: cx(t[0]), y: yy - 10, class: 'ax ax-end', 'text-anchor': 'middle' }, g);
+        lb.textContent = fmt(t[1]);
+        var sub = el('text', { x: cx(t[0]), y: plotH + 17, class: 'ax', 'text-anchor': 'middle' }, g);
+        sub.textContent = t[2];
+      });
+
+      items.forEach(function (it, i) {
+        var col = i + 1;
+        var y0 = y(run[i]), y1 = y(run[i + 1]);
+        var up = it.value > 0;
+        var top = Math.min(y0, y1), hgt = Math.abs(y1 - y0);
+        var col0 = up ? 'var(--good)' : 'var(--critical)';
+        var bw = Math.min(BAR, band - 18);
+        var gx = cx(col) - bw / 2;
+
+        // connector from the previous running total
+        el('line', { x1: cx(col - 1) + (i === 0 ? band * 0.42 : bw / 2), x2: gx, y1: y0, y2: y0, stroke: 'var(--hairline-strong)', 'stroke-width': 1 }, g);
+
+        var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+        grp.setAttribute('aria-label', it.label + ' ' + fmt(it.value) + '. ' + it.detail);
+        el('rect', { x: gx - 8, y: top - 12, width: bw + 16, height: hgt + 24, fill: 'transparent' }, grp);
+        el('path', { d: V.barPath(gx, top, bw, hgt, R, up ? 'up' : 'down'), fill: col0 }, grp);
+
+        var lab = el('text', { x: cx(col), y: up ? top - 8 : top + hgt + 15, class: 'ax ax-end', 'text-anchor': 'middle' }, grp);
+        lab.textContent = (up ? '+' : '−') + fmt(Math.abs(it.value));
+        var nm = el('text', { x: cx(col), y: plotH + 17, class: 'ax', 'text-anchor': 'middle' }, g);
+        nm.textContent = it.label;
+
+        function on() { V.showTip(grp, [{ color: col0, value: (up ? '+' : '−') + fmt(Math.abs(it.value)), label: it.detail }], it.label); }
+        grp.addEventListener('pointerenter', on);
+        grp.addEventListener('focus', on);
+        grp.addEventListener('pointerleave', V.hideTip);
+        grp.addEventListener('blur', V.hideTip);
+      });
+
+      // last connector into the ending rule
+      el('line', { x1: cx(cols - 2) + Math.min(BAR, band - 18) / 2, x2: cx(cols - 1) - band * 0.42, y1: y(run[run.length - 1]), y2: y(end), stroke: 'var(--hairline-strong)', 'stroke-width': 1 }, g);
+      return svg;
+    }
+
+    var rows = [[spec.startLabel, fmt(start)]].concat(
+      items.map(function (i) { return [i.label, (i.value > 0 ? '+' : '−') + fmt(Math.abs(i.value))]; })
+    ).concat([[spec.endLabel, fmt(end)]]);
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption, className: spec.className,
+      legend: V.legend([{ color: 'var(--good)', label: 'Adds to MRR', shape: 'rect' }, { color: 'var(--critical)', label: 'Removes from MRR', shape: 'rect' }]),
+      render: render, table: { columns: ['Movement', 'Amount'], rows: rows }
+    });
+  }
+
+  /* ------------------------------------------------------------- funnel
+   * One hue for every step — length already carries the order. The story
+   * is a single broken transition, so that is what gets the emphasis. */
+  function funnel(spec) {
+    var rows = spec.rows;
+
+    function render(width) {
+      var rowH = 62, m = { left: 0, right: 0, top: 4 };
+      var labelW = 176, tailW = 120;
+      var barMax = Math.max(80, width - labelW - tailW);
+      var svg = el('svg', { width: width, height: rows.length * rowH + 8, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'Activation funnel' });
+      var g = el('g', { transform: 'translate(0,' + m.top + ')' }, svg);
+
+      rows.forEach(function (r, i) {
+        var yTop = i * rowH;
+        var w = (r.curCumulative / 100) * barMax;
+        var wPrev = (r.prevCumulative / 100) * barMax;
+        var worst = spec.worstId === r.id;
+
+        var name = el('text', { x: 0, y: yTop + 17, class: 'fn-name' }, g);
+        name.textContent = r.label;
+        var cnt = el('text', { x: 0, y: yTop + 35, class: 'fn-count' }, g);
+        cnt.textContent = r.cur.toLocaleString('en-US') + ' users';
+
+        var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+        grp.setAttribute('aria-label', r.label + ': ' + r.cur.toLocaleString('en-US') + ' users, ' +
+          r.curCumulative.toFixed(1) + '% of signups; previous period ' + r.prevCumulative.toFixed(1) + '%');
+        el('rect', { x: labelW - 8, y: yTop, width: barMax + 16, height: 42, fill: 'transparent' }, grp);
+        el('path', { d: V.barPath(labelW, yTop + 8, w, 26, R, 'right'), fill: 'var(--series-1)' }, grp);
+
+        // previous period as a tick on the same scale — secondary by design
+        el('line', { x1: labelW + wPrev, x2: labelW + wPrev, y1: yTop + 3, y2: yTop + 39, stroke: 'var(--de-emphasis)', 'stroke-width': 2, 'stroke-linecap': 'round' }, grp);
+
+        var pct = el('text', { x: labelW + Math.max(w, wPrev) + 12, y: yTop + 26, class: 'fn-pct' }, g);
+        pct.textContent = r.curCumulative.toFixed(0) + '%';
+
+        function on() {
+          V.showTip(grp, [
+            { color: cssVar('--series-1'), value: r.cur.toLocaleString('en-US') + ' · ' + r.curCumulative.toFixed(1) + '%', label: 'This period' },
+            { color: cssVar('--de-emphasis'), value: r.prev.toLocaleString('en-US') + ' · ' + r.prevCumulative.toFixed(1) + '%', label: 'Previous 30 days' }
+          ], r.label);
+        }
+        grp.addEventListener('pointerenter', on); grp.addEventListener('focus', on);
+        grp.addEventListener('pointerleave', V.hideTip); grp.addEventListener('blur', V.hideTip);
+
+        // the transition between this step and the next
+        if (i < rows.length - 1) {
+          var nxt = rows[i + 1];
+          var badWorst = spec.worstId === nxt.id;
+          var ty = yTop + 47;
+          el('path', { d: 'M' + (labelW + 9) + ' ' + (ty - 4) + 'v9', stroke: badWorst ? 'var(--critical)' : 'var(--axis)', 'stroke-width': 1.5, 'stroke-linecap': 'round' }, g);
+          var tt = el('text', { x: labelW + 20, y: ty + 8 }, g);
+          var a1 = el('tspan', { class: badWorst ? 'fn-step is-worst' : 'fn-step' }, tt);
+          a1.textContent = nxt.curStepRate.toFixed(1) + '% continue';
+          var a2 = el('tspan', { class: badWorst ? 'fn-delta is-worst' : 'fn-delta', dx: 10 }, tt);
+          a2.textContent = (nxt.stepDelta > 0 ? '+' : '−') + Math.abs(nxt.stepDelta).toFixed(1) + 'pp vs previous 30 days';
+        }
+      });
+      return svg;
+    }
+
+    var worst = rows.find(function (r) { return r.id === spec.worstId; });
+    return V.figure({
+      title: spec.title, question: spec.question,
+      caption: spec.caption || (worst && worst.fromLabel
+        ? 'The largest abnormal drop is ' + worst.fromLabel.toLowerCase() + ' → ' + worst.label.toLowerCase() +
+          ': ' + worst.prevStepRate.toFixed(1) + '% → ' + worst.curStepRate.toFixed(1) + '%. Every other step is within half a point of the previous period.'
+        : null),
+      className: spec.className,
+      legend: V.legend([
+        { color: 'var(--series-1)', label: 'This period', shape: 'rect' },
+        { color: 'var(--de-emphasis)', label: 'Previous 30 days', shape: 'tick' }
+      ]),
+      render: render,
+      table: {
+        columns: ['Step', 'Users', '% of signups', 'Prev %', 'Step conversion', 'vs prev'],
+        rows: rows.map(function (r) {
+          return [r.label, r.cur.toLocaleString('en-US'), r.curCumulative.toFixed(1) + '%', r.prevCumulative.toFixed(1) + '%',
+            r.curStepRate.toFixed(1) + '%', (r.stepDelta > 0 ? '+' : '−') + Math.abs(r.stepDelta).toFixed(1) + 'pp'];
+        })
+      }
+    });
+  }
+
+  /* ---------------------------------------------------- segment compare
+   * Horizontal bars, one hue, previous period as a tick. The second column
+   * is contribution to the blended change — weight x the segment's own move
+   * — because a segment can move a long way and still barely matter. */
+  function segments(spec) {
+    var segs = spec.segments;
+    var showContribution = spec.showContribution !== false;
+
+    function render(width) {
+      var rowH = 46;
+      var labelW = Math.min(158, Math.max(112, width * 0.32));
+      var contribW = showContribution ? 108 : 0;
+      var valueW = 62;
+      var barMax = Math.max(60, width - labelW - valueW - contribW - 20);
+      var maxV = Math.max.apply(null, segs.map(function (s) { return Math.max(s.cur, s.prev); }));
+      var svg = el('svg', { width: width, height: segs.length * rowH + 24, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'Segment comparison' });
+      var g = el('g', { transform: 'translate(0,20)' }, svg);
+      var lead = segs.reduce(function (a, b) { return Math.abs(b.contribution) > Math.abs(a.contribution) ? b : a; }, segs[0]);
+
+      segs.forEach(function (s, i) {
+        var y = i * rowH;
+        var isLead = showContribution && s.id === lead.id;
+        var nm = el('text', { x: 0, y: y + 17, class: 'sg-name' + (isLead ? ' is-lead' : '') }, g);
+        nm.textContent = s.label;
+        if (s.sub) { var sb = el('text', { x: 0, y: y + 32, class: 'sg-sub' }, g); sb.textContent = s.sub; }
+
+        var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+        grp.setAttribute('aria-label', s.label + ': ' + s.cur.toFixed(1) + '%, previous ' + s.prev.toFixed(1) +
+          '%, change ' + (s.delta > 0 ? 'up ' : 'down ') + Math.abs(s.delta).toFixed(1) + ' points');
+        el('rect', { x: labelW - 6, y: y, width: barMax + valueW + 12, height: 38, fill: 'transparent' }, grp);
+        var w = (s.cur / maxV) * barMax, wp = (s.prev / maxV) * barMax;
+        el('path', { d: V.barPath(labelW, y + 8, w, BAR, R, 'right'), fill: 'var(--series-1)' }, grp);
+        el('line', { x1: labelW + wp, x2: labelW + wp, y1: y + 4, y2: y + 34, stroke: 'var(--de-emphasis)', 'stroke-width': 2, 'stroke-linecap': 'round' }, grp);
+        var vt = el('text', { x: labelW + Math.max(w, wp) + 10, y: y + 24, class: 'sg-val' }, g);
+        vt.textContent = s.cur.toFixed(0) + '%';
+
+        function on() {
+          V.showTip(grp, [
+            { color: cssVar('--series-1'), value: s.cur.toFixed(1) + '%', label: 'This period' },
+            { color: cssVar('--de-emphasis'), value: s.prev.toFixed(1) + '%', label: 'Previous 30 days' },
+            { value: (s.delta > 0 ? '+' : '−') + Math.abs(s.delta).toFixed(1) + 'pp', label: (s.rel > 0 ? '+' : '−') + Math.abs(s.rel).toFixed(1) + '% relative' }
+          ], s.label);
+        }
+        grp.addEventListener('pointerenter', on); grp.addEventListener('focus', on);
+        grp.addEventListener('pointerleave', V.hideTip); grp.addEventListener('blur', V.hideTip);
+
+        if (showContribution) {
+          var cx0 = width - contribW + 44;
+          var maxC = Math.max.apply(null, segs.map(function (x) { return Math.abs(x.contribution); })) || 1;
+          var cw = (Math.abs(s.contribution) / maxC) * 40;
+          el('line', { x1: cx0, x2: cx0, y1: y + 4, y2: y + 34, stroke: 'var(--grid)', 'stroke-width': 1 }, g);
+          el('path', {
+            d: s.contribution < 0 ? V.barPath(cx0 - cw, y + 12, cw, 14, 3, 'left') : V.barPath(cx0, y + 12, cw, 14, 3, 'right'),
+            fill: isLead ? 'var(--critical)' : 'var(--de-emphasis)'
+          }, g);
+          var ct = el('text', { x: cx0 + (s.contribution < 0 ? 8 : cw + 8), y: y + 24, class: 'sg-contrib' + (isLead ? ' is-lead' : '') }, g);
+          ct.textContent = (s.contribution > 0 ? '+' : '−') + Math.abs(s.contribution).toFixed(1) + 'pp';
+        }
+      });
+
+      if (showContribution) {
+        // A column header, right-aligned to the plot edge — a caption slung
+        // under the column would run past it.
+        var hd = el('text', { x: width, y: -8, class: 'sg-axis', 'text-anchor': 'end' }, g);
+        hd.textContent = 'contribution to ' + spec.totalLabel;
+      }
+      return svg;
+    }
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption, className: spec.className,
+      legend: V.legend([
+        { color: 'var(--series-1)', label: 'This period', shape: 'rect' },
+        { color: 'var(--de-emphasis)', label: 'Previous 30 days', shape: 'tick' }
+      ]),
+      render: render,
+      table: {
+        columns: [spec.dimension || 'Segment', 'This period', 'Previous', 'Change', 'Relative', 'Share of signups', 'Contribution'],
+        rows: segs.map(function (s) {
+          return [s.label, s.cur.toFixed(1) + '%', s.prev.toFixed(1) + '%',
+            (s.delta > 0 ? '+' : '−') + Math.abs(s.delta).toFixed(1) + 'pp',
+            (s.rel > 0 ? '+' : '−') + Math.abs(s.rel).toFixed(1) + '%',
+            Math.round(s.weight * 100) + '%',
+            (s.contribution > 0 ? '+' : '−') + Math.abs(s.contribution).toFixed(2) + 'pp'];
+        })
+      }
+    });
+  }
+
+  /* -------------------------------------------------------- ranked bars
+   * Feature adoption. Ranked, one hue, previous period as a tick, and the
+   * change spelled out — never a pie of things that are not one whole. */
+  function rankedBars(spec) {
+    var items = spec.items;
+
+    function render(width) {
+      var rowH = 38;
+      var labelW = Math.min(150, Math.max(104, width * 0.3));
+      var deltaW = 76;
+      var barMax = Math.max(60, width - labelW - deltaW - 56);
+      var maxV = Math.max.apply(null, items.map(function (i) { return Math.max(i.cur, i.prev); }));
+      var svg = el('svg', { width: width, height: items.length * rowH + 10, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'Ranked comparison' });
+      var g = el('g', { transform: 'translate(0,6)' }, svg);
+
+      items.forEach(function (it, i) {
+        var y = i * rowH;
+        var nm = el('text', { x: 0, y: y + 18, class: 'sg-name' }, g);
+        nm.textContent = it.label;
+        var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+        grp.setAttribute('aria-label', it.label + ': ' + it.cur + '%, previous ' + it.prev + '%, ' +
+          (it.delta >= 0 ? 'up ' : 'down ') + Math.abs(it.delta) + ' points');
+        el('rect', { x: labelW - 6, y: y, width: barMax + 60, height: rowH - GAP, fill: 'transparent' }, grp);
+        var w = (it.cur / maxV) * barMax, wp = (it.prev / maxV) * barMax;
+        el('path', { d: V.barPath(labelW, y + 6, w, 16, 3, 'right'), fill: 'var(--series-1)' }, grp);
+        el('line', { x1: labelW + wp, x2: labelW + wp, y1: y + 2, y2: y + 26, stroke: 'var(--de-emphasis)', 'stroke-width': 2, 'stroke-linecap': 'round' }, grp);
+        var vt = el('text', { x: labelW + Math.max(w, wp) + 10, y: y + 19, class: 'sg-val is-sm' }, g);
+        vt.textContent = it.cur + '%';
+        var tone = it.delta === 0 ? 'is-flat' : (it.delta > 0) === (spec.higherIsBetter !== false) ? 'is-good' : 'is-bad';
+        var dt = el('text', { x: width, y: y + 19, class: 'sg-delta ' + tone, 'text-anchor': 'end' }, g);
+        dt.textContent = (it.delta > 0 ? '+' : it.delta < 0 ? '−' : '') + Math.abs(it.delta) + 'pp';
+
+        function on() {
+          V.showTip(grp, [
+            { color: cssVar('--series-1'), value: it.cur + '%', label: 'This period' },
+            { color: cssVar('--de-emphasis'), value: it.prev + '%', label: 'Previous 30 days' }
+          ], it.label);
+        }
+        grp.addEventListener('pointerenter', on); grp.addEventListener('focus', on);
+        grp.addEventListener('pointerleave', V.hideTip); grp.addEventListener('blur', V.hideTip);
+      });
+      return svg;
+    }
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption, className: spec.className,
+      legend: V.legend([
+        { color: 'var(--series-1)', label: 'This period', shape: 'rect' },
+        { color: 'var(--de-emphasis)', label: 'Previous 30 days', shape: 'tick' }
+      ]),
+      render: render,
+      table: {
+        columns: [spec.dimension || 'Item', 'This period', 'Previous', 'Change'],
+        rows: items.map(function (i) { return [i.label, i.cur + '%', i.prev + '%', (i.delta > 0 ? '+' : i.delta < 0 ? '−' : '') + Math.abs(i.delta) + 'pp']; })
+      }
+    });
+  }
+
+  /* ------------------------------------------------------- distribution
+   * One segmented bar — three parts of one whole, which is the only case
+   * where part-to-whole is honest. Not a donut. */
+  function distribution(spec) {
+    var bands = spec.bands;
+    var toneVar = { good: '--good', warning: '--warning', critical: '--critical' };
+
+    function render(width) {
+      var barH = 34, svgH = barH + 66;
+      var svg = el('svg', { width: width, height: svgH, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'Distribution' });
+      var g = el('g', { transform: 'translate(0,4)' }, svg);
+      var total = bands.reduce(function (s, b) { return s + b.cur; }, 0);
+      var x = 0;
+      bands.forEach(function (b, i) {
+        var w = (b.cur / total) * width - (i < bands.length - 1 ? GAP : 0);
+        var first = i === 0, last = i === bands.length - 1;
+        var col = 'var(' + toneVar[b.tone] + ')';
+        var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+        grp.setAttribute('aria-label', b.label + ': ' + b.cur.toLocaleString('en-US') + ' customers, ' +
+          b.curShare.toFixed(0) + '%, ' + (b.shareDelta >= 0 ? 'up ' : 'down ') + Math.abs(b.shareDelta).toFixed(1) + ' points');
+        var d = first ? V.barPath(x, 0, w, barH, R, 'left').replace(/^M[^h]*h/, 'M' + x + ' ' + 0 + 'h')
+          : last ? V.barPath(x, 0, w, barH, R, 'right') : 'M' + x + ' 0h' + w + 'v' + barH + 'h' + (-w) + 'z';
+        if (first) d = 'M' + (x + R) + ' 0h' + (w - R) + 'v' + barH + 'h' + (-(w - R)) + 'a' + R + ' ' + R + ' 0 0 1 ' + (-R) + ' ' + (-R) + 'v' + (-(barH - 2 * R)) + 'a' + R + ' ' + R + ' 0 0 1 ' + R + ' ' + (-R) + 'z';
+        el('path', { d: d, fill: col }, grp);
+        // in-fill label only when it measures as fitting, with ink chosen by luminance
+        var pctText = b.curShare.toFixed(0) + '%';
+        if (fits(pctText, w, 12)) {
+          var t = el('text', { x: x + 10, y: barH / 2 + 4, class: 'dist-in', fill: inkOn(cssVar(toneVar[b.tone]) || '#888') }, grp);
+          t.textContent = pctText;
+        }
+        function on() {
+          V.showTip(grp, [
+            { color: cssVar(toneVar[b.tone]), value: b.cur.toLocaleString('en-US') + ' · ' + b.curShare.toFixed(1) + '%', label: 'This period' },
+            { color: cssVar('--de-emphasis'), value: b.prev.toLocaleString('en-US') + ' · ' + b.prevShare.toFixed(1) + '%', label: 'Previous 30 days' }
+          ], b.label);
+        }
+        grp.addEventListener('pointerenter', on); grp.addEventListener('focus', on);
+        grp.addEventListener('pointerleave', V.hideTip); grp.addEventListener('blur', V.hideTip);
+        x += (b.cur / total) * width;
+      });
+
+      // key beneath the bar: swatch, label, count and the share move
+      var colW = width / bands.length;
+      bands.forEach(function (b, i) {
+        var bx = i * colW;
+        el('rect', { x: bx, y: barH + 20, width: 8, height: 8, rx: 2, fill: 'var(' + toneVar[b.tone] + ')' }, g);
+        var l = el('text', { x: bx + 14, y: barH + 28, class: 'dist-key' }, g); l.textContent = b.label;
+        var dtone = b.tone === 'good' ? (b.shareDelta >= 0 ? 'is-good' : 'is-bad') : (b.shareDelta > 0 ? 'is-bad' : 'is-good');
+        var c = el('text', { x: bx, y: barH + 46 }, g);
+        var c1 = el('tspan', { class: 'dist-num' }, c); c1.textContent = b.cur.toLocaleString('en-US');
+        var c2 = el('tspan', { class: 'dist-delta ' + (b.shareDelta === 0 ? 'is-flat' : dtone), dx: 6 }, c);
+        c2.textContent = (b.shareDelta > 0 ? '+' : b.shareDelta < 0 ? '−' : '') + Math.abs(b.shareDelta).toFixed(1) + 'pp';
+      });
+      return svg;
+    }
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption, className: spec.className,
+      render: render,
+      table: {
+        columns: ['Band', 'Customers', 'Share', 'Previous share', 'Change', 'Definition'],
+        rows: bands.map(function (b) {
+          return [b.label, b.cur.toLocaleString('en-US'), b.curShare.toFixed(1) + '%', b.prevShare.toFixed(1) + '%',
+            (b.shareDelta > 0 ? '+' : '−') + Math.abs(b.shareDelta).toFixed(1) + 'pp', b.definition];
+        })
+      }
+    });
+  }
+
+  /* --------------------------------------------------------- topic delta
+   * The interesting thing about support volume is which problem is growing,
+   * so the chart plots the change and keeps the total as context. */
+  function topicDeltas(spec) {
+    // A residual bucket is not a topic: it stays in the table, out of the plot,
+    // and is named in the caption. Otherwise "Other" wins the chart on a
+    // number nobody can act on.
+    var residual = spec.residualId ? spec.items.filter(function (i) { return i.id === spec.residualId; })[0] : null;
+    var items = spec.items
+      .filter(function (i) { return !residual || i.id !== residual.id; })
+      .sort(function (a, b) { return b.rel - a.rel; });
+
+    function render(width) {
+      var rowH = 40;
+      var countW = 54;                       // volume lives on the right rail
+      var labelW = Math.min(190, Math.max(120, width * 0.30));
+      var plotR = width - countW;
+      // The zero axis sits where the two arms actually need it, and the scale
+      // is whatever makes the longest bar plus its label fit the plot.
+      var up = items.reduce(function (m, i) { return Math.max(m, i.rel); }, 0.001);
+      var down = items.reduce(function (m, i) { return Math.max(m, -i.rel); }, 0.001);
+      var plotW = Math.max(60, plotR - labelW - 52);
+      var unit = plotW / (up + down);
+      var axisX = labelW + 26 + down * unit;
+      var svg = el('svg', { width: width, height: items.length * rowH + 40, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'Change by topic' });
+      var g = el('g', { transform: 'translate(0,20)' }, svg);
+      el('line', { x1: axisX, x2: axisX, y1: -6, y2: items.length * rowH - 6, stroke: 'var(--axis)', 'stroke-width': 1 }, g);
+      var ch = el('text', { x: width, y: -8, class: 'sg-axis', 'text-anchor': 'end' }, g);
+      ch.textContent = 'conversations';
+
+      items.forEach(function (it, i) {
+        var y = i * rowH;
+        var nm = el('text', { x: 0, y: y + 18, class: 'sg-name' }, g); nm.textContent = it.label;
+        var ct = el('text', { x: width, y: y + 18, class: 'tp-count', 'text-anchor': 'end' }, g);
+        ct.textContent = it.cur.toLocaleString('en-US');
+        var up = it.rel > 0;
+        var good = up === (spec.higherIsBetter === true);
+        var col = it.rel === 0 ? 'var(--de-emphasis)' : good ? 'var(--good)' : 'var(--critical)';
+        var w = Math.abs(it.rel) * unit;
+        var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+        grp.setAttribute('aria-label', it.label + ': ' + it.cur + ' conversations, ' +
+          (up ? 'up ' : 'down ') + Math.abs(it.rel).toFixed(0) + '% from ' + it.prev);
+        el('rect', { x: 0, y: y, width: width, height: rowH - GAP, fill: 'transparent' }, grp);
+        el('path', { d: up ? V.barPath(axisX, y + 7, w, 14, 3, 'right') : V.barPath(axisX - w, y + 7, w, 14, 3, 'left'), fill: col }, grp);
+        var lt = el('text', { x: up ? axisX + w + 8 : axisX - w - 8, y: y + 19, class: 'sg-delta ' + (good ? 'is-good' : 'is-bad'), 'text-anchor': up ? 'start' : 'end' }, g);
+        lt.textContent = (up ? '+' : '−') + Math.abs(it.rel).toFixed(0) + '%';
+
+        function on() {
+          V.showTip(grp, [
+            { color: col, value: it.cur.toLocaleString('en-US'), label: 'This period' },
+            { color: cssVar('--de-emphasis'), value: it.prev.toLocaleString('en-US'), label: 'Previous 30 days' },
+            { value: (it.delta > 0 ? '+' : '−') + Math.abs(it.delta), label: 'conversations' }
+          ], it.label);
+        }
+        grp.addEventListener('pointerenter', on); grp.addEventListener('focus', on);
+        grp.addEventListener('pointerleave', V.hideTip); grp.addEventListener('blur', V.hideTip);
+      });
+      var ax = el('text', { x: axisX, y: items.length * rowH + 8, class: 'sg-axis', 'text-anchor': 'middle' }, g);
+      ax.textContent = 'no change vs previous 30 days';
+      return svg;
+    }
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption, className: spec.className,
+      render: render,
+      table: {
+        columns: ['Topic', 'This period', 'Previous', 'Change', 'Relative'],
+        rows: spec.items.slice().sort(function (a, b) { return b.rel - a.rel; }).map(function (i) {
+          return [i.label, i.cur, i.prev, (i.delta > 0 ? '+' : '−') + Math.abs(i.delta),
+            (i.rel > 0 ? '+' : '−') + Math.abs(i.rel).toFixed(0) + '%'];
+        })
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------ cohorts
+   * A genuine magnitude grid, so a single-hue sequential ramp. Detail only
+   * — never on the overview. */
+  function cohortGrid(spec) {
+    var ramp = ['--ramp-0', '--ramp-1', '--ramp-2', '--ramp-3', '--ramp-4'];
+    function shade(v) {
+      // 100 is always the anchor column; the rest step by retention level
+      var t = Math.max(0, Math.min(1, (v - 60) / 40));
+      return 'var(' + ramp[Math.min(ramp.length - 1, Math.floor(t * ramp.length))] + ')';
+    }
+
+    function render(width) {
+      var labelW = 92, cellH = 34, headH = 26;
+      var n = spec.periods.length;
+      var cellW = Math.max(38, (width - labelW - 44) / n);
+      var svg = el('svg', { width: width, height: headH + spec.rows.length * cellH + 34, class: 'chart', role: 'img', 'aria-label': spec.ariaLabel || 'Retention cohorts' });
+      var g = el('g', {}, svg);
+
+      spec.periods.forEach(function (p, i) {
+        var t = el('text', { x: labelW + i * cellW + cellW / 2, y: 16, class: 'ch-head', 'text-anchor': 'middle' }, g);
+        t.textContent = p;
+      });
+
+      spec.rows.forEach(function (r, ri) {
+        var y = headH + ri * cellH;
+        var lb = el('text', { x: 0, y: y + cellH / 2 + 4, class: 'ch-row' }, g); lb.textContent = r.cohort;
+        r.values.forEach(function (v, ci) {
+          var x = labelW + ci * cellW;
+          var fill = shade(v);
+          var grp = el('g', { class: 'hit', tabindex: '0', role: 'img' }, g);
+          grp.setAttribute('aria-label', r.cohort + ' at ' + spec.periods[ci] + ': ' + v + '% retained of ' + r.size + ' accounts');
+          el('rect', { x: x + GAP / 2, y: y + GAP / 2, width: cellW - GAP, height: cellH - GAP, rx: 3, fill: fill }, grp);
+          var resolved = getComputedStyle(document.documentElement).getPropertyValue(fill.slice(4, -1)).trim();
+          var t2 = el('text', { x: x + cellW / 2, y: y + cellH / 2 + 4, class: 'ch-cell', 'text-anchor': 'middle', fill: inkOn(resolved || '#888') }, grp);
+          t2.textContent = v;
+          function on() { V.showTip(grp, [{ color: resolved, value: v + '%', label: 'retained at ' + spec.periods[ci] }, { value: r.size.toLocaleString('en-US'), label: 'accounts in cohort' }], r.cohort); }
+          grp.addEventListener('pointerenter', on); grp.addEventListener('focus', on);
+          grp.addEventListener('pointerleave', V.hideTip); grp.addEventListener('blur', V.hideTip);
+        });
+      });
+
+      // scale legend — a sequential encoding always ships one
+      var ly = headH + spec.rows.length * cellH + 16;
+      var lo = el('text', { x: labelW, y: ly + 9, class: 'sg-axis', 'text-anchor': 'end' }, g); lo.textContent = '60%';
+      ramp.forEach(function (r, i) {
+        el('rect', { x: labelW + 8 + i * 24, y: ly, width: 22, height: 9, rx: 2, fill: 'var(' + r + ')' }, g);
+      });
+      var hi = el('text', { x: labelW + 8 + ramp.length * 24 + 6, y: ly + 9, class: 'sg-axis' }, g); hi.textContent = '100% retained';
+      return svg;
+    }
+
+    return V.figure({
+      title: spec.title, question: spec.question, caption: spec.caption, className: spec.className,
+      render: render,
+      table: {
+        columns: ['Cohort', 'Accounts'].concat(spec.periods),
+        rows: spec.rows.map(function (r) {
+          return [r.cohort, r.size].concat(spec.periods.map(function (_, i) { return r.values[i] === undefined ? '—' : r.values[i] + '%'; }));
+        })
+      }
+    });
+  }
+
+  /* -------------------------------------------------------------- meter
+   * Progress toward a target that genuinely exists. The unfilled track is a
+   * lighter step of the same ramp, so state reads across the whole bar. */
+  function meter(opts) {
+    var pct = Math.max(0, Math.min(100, (opts.value / opts.goal) * 100));
+    var gap = opts.goal - opts.value;
+    var wrap = h('div', { class: 'meter' });
+    var track = h('div', { class: 'meter-track', role: 'meter', 'aria-valuenow': String(opts.value), 'aria-valuemin': '0', 'aria-valuemax': String(opts.goal), 'aria-label': opts.ariaLabel || 'Progress to goal' });
+    var fill = h('div', { class: 'meter-fill' + (pct >= 100 ? ' is-met' : '') });
+    fill.style.width = pct.toFixed(1) + '%';
+    track.appendChild(fill);
+    wrap.appendChild(track);
+    wrap.appendChild(h('div', { class: 'meter-foot' }, [
+      h('span', { class: 'meter-goal', text: 'Goal ' + opts.formatGoal(opts.goal) }),
+      h('span', { class: 'meter-gap' + (gap <= 0 ? ' is-met' : ''), text: opts.gapLabel(gap) })
+    ]));
+    return wrap;
+  }
+
+  Object.assign(global.Viz, {
+    bridge: bridge, funnel: funnel, segments: segments, rankedBars: rankedBars,
+    distribution: distribution, topicDeltas: topicDeltas, cohortGrid: cohortGrid,
+    meter: meter, inkOn: inkOn, cssVar: cssVar
+  });
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — the metric card system.
+ *
+ * One component, four patterns. The pattern is a property of the metric, not
+ * of the grid it sits in: a metric gets a sparkline when the shape of the
+ * trend is the point, context when the change needs explaining, a meter when
+ * a real target exists, and nothing extra otherwise.
+ *
+ * Default hierarchy, in this order and no other: metric · value · change ·
+ * context. Everything else appears only when it earns the room.
+ */
+(function (global) {
+  'use strict';
+  var V = global.Viz, h = V.h;
+
+  /* --------------------------------------------------------------- change
+   * A change is four facts: what, how much, which direction, against what.
+   * A card that shows only three of them is the thing this system exists to
+   * avoid. Percentage points and percentages are different quantities and
+   * are never allowed to wear the same clothes:
+   *
+   *   a rate     64.0% from 69.6%   →  −5.6pp   (−8.0% relative)
+   *   a level    $428K from $399K   →  +7.2%    (+$28.9K)
+   */
+  function changeParts(m) {
+    var c = m.change;
+    var isRate = m.unit === 'percent' || m.unit === 'percent-level';
+    var primary, secondary;
+    if (isRate) {
+      primary = (c.abs > 0 ? '+' : c.abs < 0 ? '−' : '') + Math.abs(c.abs).toFixed(1) + 'pp';
+      secondary = (c.rel > 0 ? '+' : c.rel < 0 ? '−' : '') + Math.abs(c.rel).toFixed(1) + '% relative';
+    } else {
+      primary = (c.rel > 0 ? '+' : c.rel < 0 ? '−' : '') + Math.abs(c.rel).toFixed(1) + '%';
+      var absFmt = m.formatPrecise || m.format;
+      secondary = (c.abs > 0 ? '+' : '−') + absFmt(Math.abs(c.abs)).replace('-', '');
+    }
+    var good = c.dir === 0 ? null : (c.dir > 0) === (m.higherIsBetter !== false);
+    return { primary: primary, secondary: secondary, good: good, dir: c.dir };
+  }
+
+  function changeEl(m, opts) {
+    opts = opts || {};
+    var p = changeParts(m);
+    var tone = p.good === null ? 'is-flat' : p.good ? 'is-good' : 'is-bad';
+    var arrow = p.dir > 0 ? '↑' : p.dir < 0 ? '↓' : '→';
+    var kids = [
+      h('span', { class: 'chg-arrow', 'aria-hidden': 'true', text: arrow }),
+      h('span', { class: 'chg-primary', text: p.primary })
+    ];
+    if (opts.secondary !== false) kids.push(h('span', { class: 'chg-secondary', text: p.secondary }));
+    return h('div', { class: 'chg ' + tone }, kids);
+  }
+
+  function comparisonEl(text) {
+    return h('div', { class: 'mcard-vs', text: text || 'vs previous 30 days' });
+  }
+
+  /* ---------------------------------------------------------- the patterns */
+
+  var PATTERNS = {
+    /* 1 — Simple KPI. The value and its direction are the whole story. */
+    simple: function () { return null; },
+
+    /* 2 — KPI + sparkline. Only where the shape of the line adds something
+     *     the single number cannot: steady climb, plateau, a turn. */
+    sparkline: function (m, ctx) {
+      var vals = (m.displaySeries || m.series).slice(-90);
+      return h('div', { class: 'mcard-spark' }, [
+        V.sparkline({ values: vals, width: 132, height: 30, accentFrom: vals.length - 30 }),
+        h('span', { class: 'mcard-spark-lab', text: '90-day trend' })
+      ]);
+    },
+
+    /* 3 — KPI + context. The change is explained rather than merely shown.
+     *     For NORTH this is usually worth more than another sparkline. */
+    context: function (m, ctx) {
+      if (!ctx || !ctx.context) return null;
+      return h('div', { class: 'mcard-context' }, [
+        h('span', { class: 'mcard-context-lead', text: ctx.context.lead }),
+        h('span', { class: 'mcard-context-body', text: ctx.context.body })
+      ]);
+    },
+
+    /* 4 — KPI + goal. Only against a target that actually exists. NORTH
+     *     never invents one to have something to draw. */
+    goal: function (m) {
+      if (!m.goal) return null;
+      var isRate = m.unit === 'percent' || m.unit === 'percent-level';
+      return V.meter({
+        value: m.value, goal: m.goal.value,
+        formatGoal: m.goal.format || m.format,
+        ariaLabel: m.label + ' against ' + m.goal.label,
+        gapLabel: function (gap) {
+          if (gap <= 0) return 'Target met';
+          return isRate
+            ? gap.toFixed(1) + 'pp below target'
+            : (m.goal.format || m.format)(gap) + ' below target';
+        }
+      });
+    }
+  };
+
+  /* ------------------------------------------------------------- the card */
+
+  function card(m, ctx) {
+    ctx = ctx || {};
+    var pattern = ctx.pattern || m.pattern || 'simple';
+    var signal = ctx.signal;
+
+    var head = h('div', { class: 'mcard-head' }, [
+      h('span', { class: 'mcard-label', text: m.label }),
+      signal ? h('span', { class: 'mcard-flag sev-' + signal.severity, title: signal.headline, 'aria-hidden': 'true' }) : null
+    ]);
+
+    var extra = PATTERNS[pattern] ? PATTERNS[pattern](m, ctx) : null;
+
+    var kids = [
+      head,
+      h('div', { class: 'mcard-value' + (ctx.hero ? ' is-hero' : ''), text: m.format(m.value) }),
+      changeEl(m, { secondary: ctx.secondaryChange !== false }),
+      comparisonEl(ctx.comparisonLabel),
+      extra
+    ];
+
+    if (signal && ctx.showSignal !== false) {
+      kids.push(h('div', { class: 'mcard-signal' }, [
+        h('span', { class: 'north-dot', 'aria-hidden': 'true' }),
+        h('span', { class: 'mcard-signal-text', text: signal.short }),
+        h('span', { class: 'mcard-signal-go', text: 'Open investigation →' })
+      ]));
+    }
+
+    // A card with nothing below the change hugs its content instead of
+    // stretching to match a taller neighbour and leaving a hole.
+    var plain = !extra && !(signal && ctx.showSignal !== false);
+
+    var node = h(ctx.onOpen ? 'button' : 'div', {
+      class: 'mcard' + (ctx.onOpen ? ' is-clickable' : '') + (signal ? ' has-signal' : '') +
+        (plain ? ' is-plain' : '') + (ctx.className ? ' ' + ctx.className : ''),
+      type: ctx.onOpen ? 'button' : null
+    }, kids);
+
+    if (ctx.onOpen) {
+      node.addEventListener('click', function () { ctx.onOpen(m, signal); });
+      node.setAttribute('aria-label', m.label + ' ' + m.format(m.value) + ', ' + changeParts(m).primary +
+        ' versus the previous 30 days' + (signal ? '. NORTH detected a change.' : '') + ' Open detail.');
+    }
+    return node;
+  }
+
+  global.MetricCard = { card: card, changeEl: changeEl, changeParts: changeParts, PATTERNS: PATTERNS };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — the application.
+ *
+ * Three surfaces, deliberately different in density:
+ *   Overview      large values, change, one primary graph per domain, signals.
+ *   Detail        the full apparatus — trends, funnels, cohorts, breakdowns.
+ *   Investigation the visualisation follows the question being asked.
+ *
+ * The NORTH panel is not a second product bolted to the side of a dashboard.
+ * A card that carries a signal, the mark on the chart, and the panel are three
+ * views of the same object, and any of them opens the other two.
+ */
+(function (global) {
+  'use strict';
+
+  var N = global.NORTH, V = global.Viz, MC = global.MetricCard;
+  var h = V.h, fmt = N.fmt;
+  var S = N.series;
+
+  var state = {
+    view: 'overview',      // overview | domain | metric | investigation
+    domainId: null,
+    metricId: null,
+    invId: null,
+    invStep: 'when',
+    compare: false,
+    dimension: 'Company size',
+    panelOpen: true,
+    context: null          // what the panel is currently talking about
+  };
+
+  var root, mainEl, panelEl, navEl;
+
+  // ------------------------------------------------------------- navigation
+
+  function go(next) {
+    Object.assign(state, next);
+    if (next.view) window.scrollTo({ top: 0, behavior: 'instant' });
+    render();
+  }
+  function openMetric(id) { go({ view: 'metric', metricId: id, context: null }); }
+  function openInvestigation(id, step) {
+    go({ view: 'investigation', invId: id, invStep: step || 'when', panelOpen: true, context: null });
+  }
+
+  // --------------------------------------------------------- shared pieces
+
+  var PERIOD_LABEL = 'vs previous 30 days';
+
+  function periodSentence() {
+    return fmt.dateLong(N.window30.from) + ' – ' + fmt.dateLong(N.window30.to) +
+      ', against ' + fmt.date(N.windowPrev30.from) + ' – ' + fmt.date(N.windowPrev30.to) + '.';
+  }
+
+  var contextFor = N.contextFor;
+
+  function metricCard(id, opts) {
+    opts = opts || {};
+    var m = N.metrics[id];
+    return MC.card(m, Object.assign({
+      signal: N.signalByMetric[id],
+      context: contextFor(id),
+      comparisonLabel: PERIOD_LABEL,
+      onOpen: function () {
+        var sig = N.signalByMetric[id];
+        if (sig && opts.signalOpensInvestigation) openInvestigation(sig.investigationId);
+        else openMetric(id);
+      }
+    }, opts));
+  }
+
+  function sectionHead(title, question, goLabel, onGo) {
+    return h('div', { class: 'section-head' }, [
+      h('h2', { text: title }),
+      question ? h('span', { class: 'q', text: question }) : null,
+      onGo ? h('button', { class: 'go', type: 'button', text: goLabel, onclick: onGo }) : null
+    ]);
+  }
+
+  function card(kids, cls) { return h('div', { class: 'card' + (cls ? ' ' + cls : '') }, kids); }
+
+  /* A chart card that can tell the panel what it is about, so "Ask NORTH"
+   * is contextual to the visualisation the reader is looking at. */
+  function chartCard(figureEl, ctx) {
+    var c = card([figureEl]);
+    if (ctx) {
+      c.tabIndex = 0;
+      c.addEventListener('click', function () { if (state.context !== ctx.id) { state.context = ctx; renderPanel(); } });
+      c.addEventListener('focusin', function () { state.context = ctx; renderPanel(); });
+    }
+    return c;
+  }
+
+  // ----------------------------------------------------------- trend chart
+
+  function trendChart(id, opts) {
+    opts = opts || {};
+    var m = N.metrics[id];
+    var days = opts.days || 120;
+    var src = m.displaySeries || m.series;
+    var dates = S.dates.slice(-days);
+    var vals = src.slice(-days);
+    var series = [{ id: 'cur', label: 'This period', values: vals, color: 'var(--series-1)', fill: true }];
+
+    // The previous-period overlay is deliberately secondary: thinner, dashed,
+    // in the de-emphasis hue. It is context for the current line, not a rival.
+    if (state.compare && opts.comparable !== false) {
+      var shifted = [], off = N.PERIOD;
+      for (var i = 0; i < vals.length; i++) {
+        var srcIndex = src.length - vals.length + i - off;
+        shifted.push(src[Math.max(0, srcIndex)]);
+      }
+      series.push({ id: 'prev', label: 'Shifted back 30 days', values: shifted, color: 'var(--de-emphasis)', dashed: true, muted: true });
+    }
+
+    var sig = N.signalByMetric[id];
+    return V.lineChart({
+      title: opts.title || m.longLabel,
+      question: opts.question || m.question,
+      caption: opts.caption || m.seriesNote,
+      dates: dates,
+      series: series,
+      format: function (v, isAxis) { return isAxis && m.unit === 'currency' ? fmt.currency(v) : m.format(v); },
+      xFormat: function (d) { return fmt.date(d); },
+      height: opts.height || 210,
+      goal: opts.goal && m.goal ? { value: m.goal.value, label: 'Goal ' + (m.goal.format || m.format)(m.goal.value) } : null,
+      annotations: opts.annotations === false ? [] : (m.events || []).filter(function (e) { return dates.indexOf(e.date) >= 0; }),
+      anomaly: sig && opts.anomaly !== false ? {
+        date: sig.changedOn,
+        label: 'NORTH: change detected',
+        detail: 'Change begins here. Open investigation.',
+        onOpen: function () { openInvestigation(sig.investigationId, 'when'); }
+      } : null
+    });
+  }
+
+  // ------------------------------------------------------------- OVERVIEW
+  // Large values, change, one primary graph per domain at most, and NORTH's
+  // signals. No cohorts, no funnels, no dense tables — those are detail.
+
+  function viewOverview() {
+    var out = h('div', {});
+    var topSignal = N.signals[0];
+
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionHead('What changed', 'The things NORTH thinks are worth your attention today'),
+      h('div', { class: 'grid grid-2-wide' }, [
+        signalHero(topSignal),
+        h('div', { class: 'grid', style: 'gap:12px' }, N.signals.slice(1).map(signalRow))
+      ])
+    ]));
+
+    // Revenue — the question is "are we growing?", so a trend, and the
+    // movement bridge lives one level down where there is room for it.
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionHead('Revenue', 'Are we growing?', 'Revenue detail →', function () { go({ view: 'domain', domainId: 'revenue' }); }),
+      h('div', { class: 'grid grid-4', style: 'margin-bottom:12px' }, [
+        metricCard('mrr'), metricCard('arr'), metricCard('nrr'), metricCard('revenueChurn')
+      ]),
+      chartCard(trendChart('mrr', { days: 180, height: 190, question: 'Are we growing, and did anything move the line?' }), {
+        id: 'mrr-trend', title: 'MRR, last 180 days', metricId: 'mrr',
+        questions: [
+          { label: 'What actually changed our MRR?', go: function () { go({ view: 'domain', domainId: 'revenue' }); } },
+          { label: 'Did the pricing change help?', go: function () { openMetric('mrr'); } },
+          { label: 'Is churn eating into growth?', go: function () { openMetric('revenueChurn'); } }
+        ]
+      })
+    ]));
+
+    // Product — activation is where the change is, so it leads and carries
+    // both the context line and the signal.
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionHead('Product', 'Is activation improving or deteriorating?', 'Product detail →', function () { go({ view: 'domain', domainId: 'product' }); }),
+      h('div', { class: 'grid grid-4', style: 'margin-bottom:12px' }, [
+        metricCard('activation', { className: 'is-wide', signalOpensInvestigation: false }),
+        metricCard('retention30'),
+        h('div', { class: 'card span-2' }, [miniFunnelSummary()])
+      ]),
+      chartCard(trendChart('activation', { days: 120, height: 190, goal: true }), {
+        id: 'activation-trend', title: 'Activation, last 120 days', metricId: 'activation',
+        questions: [
+          { label: 'Why did activation drop?', go: function () { openInvestigation('inv-activation', 'where'); } },
+          { label: 'Which segment caused the decline?', go: function () { openInvestigation('inv-activation', 'where'); } },
+          { label: 'When did the decline start?', go: function () { openInvestigation('inv-activation', 'when'); } },
+          { label: 'What changed at the same time?', go: function () { openInvestigation('inv-activation', 'together'); } }
+        ]
+      })
+    ]));
+
+    // Customers — health is a strip, not a graph, so the domain's one graph
+    // is the thing that actually changed: which problem is growing.
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionHead('Customers', 'Who is at risk, and what are they struggling with?', 'Customer detail →', function () { go({ view: 'domain', domainId: 'customers' }); }),
+      h('div', { class: 'grid grid-4', style: 'margin-bottom:12px' }, [
+        metricCard('activeCustomers'), metricCard('customerChurn'), metricCard('csat'),
+        card([healthStrip()])
+      ]),
+      chartCard(supportTopicFigure(), {
+        id: 'support-topics', title: 'Support topics', metricId: 'setupConversations',
+        questions: [
+          { label: 'Are setup problems related to activation?', go: function () { openInvestigation('inv-activation', 'together'); } },
+          { label: 'Which accounts are affected?', go: function () { openInvestigation('inv-activation', 'who'); } }
+        ]
+      })
+    ]));
+
+    return out;
+  }
+
+  function supportTopicFigure() {
+    return V.topicDeltas({
+      title: 'Support conversations by topic',
+      question: 'What are customers struggling with that they were not before?',
+      items: N.supportTopics.items,
+      higherIsBetter: false,
+      residualId: 'other',
+      caption: N.supportTopics.total.toLocaleString('en-US') + ' conversations this period against ' +
+        N.supportTopics.prevTotal.toLocaleString('en-US') + '. The total is not the interesting part: ' +
+        'setup is growing fastest, and it is the topic nearest the funnel step that broke. ' +
+        'The unclassified remainder (' + (N.supportTopics.items.filter(function (i) { return i.id === 'other'; })[0].cur) +
+        ' conversations) is in the table rather than the chart — it is a residue, not a problem.'
+    });
+  }
+
+  function signalHero(sig) {
+    var m = N.metrics[sig.metricId];
+    var p = MC.changeParts(m);
+    return h('button', {
+      class: 'sig', type: 'button', style: 'padding:18px 20px',
+      onclick: function () { openInvestigation(sig.investigationId); }
+    }, [
+      h('div', { class: 'sig-top' }, [
+        h('span', { class: 'north-dot' }),
+        h('span', { class: 'sig-sev sev-' + sig.severity, text: sig.severity === 'critical' ? 'Needs attention' : 'Worth a look' }),
+        h('span', { class: 'sig-when', text: 'Detected ' + fmt.date(sig.detectedOn) })
+      ]),
+      h('div', { class: 'sig-head', style: 'font-size:16px', text: sig.headline }),
+      h('div', { class: 'stat-row', style: 'margin-top:14px' }, [
+        h('div', { class: 'stat' }, [
+          h('div', { class: 'stat-lab', text: m.label }),
+          h('div', { class: 'stat-val', text: m.format(m.value) })
+        ]),
+        h('div', { class: 'stat' }, [
+          h('div', { class: 'stat-lab', text: 'Change' }),
+          h('div', { class: 'stat-val', text: p.primary + '  ' }),
+        ]),
+        h('div', { class: 'stat' }, [
+          h('div', { class: 'stat-lab', text: 'Began' }),
+          h('div', { class: 'stat-val', text: fmt.date(sig.changedOn) })
+        ])
+      ]),
+      h('div', { class: 'sig-foot', text: 'Open investigation →' })
+    ]);
+  }
+
+  function signalRow(sig) {
+    var m = N.metrics[sig.metricId];
+    return h('button', { class: 'sig', type: 'button', onclick: function () { openInvestigation(sig.investigationId); } }, [
+      h('div', { class: 'sig-top' }, [
+        h('span', { class: 'north-dot' }),
+        h('span', { class: 'sig-sev sev-' + sig.severity, text: m.label }),
+        h('span', { class: 'sig-when', text: fmt.date(sig.detectedOn) })
+      ]),
+      h('div', { class: 'sig-head', style: 'font-size:12.5px', text: sig.headline })
+    ]);
+  }
+
+  /* A compact funnel summary, not a funnel. The overview says which step
+   * broke; the shape of the whole funnel is a detail-page job. */
+  function miniFunnelSummary() {
+    var w = N.funnel.worstStep;
+    return h('div', {}, [
+      h('div', { class: 'mcard-head' }, [h('span', { class: 'mcard-label', text: 'Where activation is lost' })]),
+      h('div', { style: 'font-size:15px;line-height:1.45;margin-top:2px' }, [
+        document.createTextNode(w.fromLabel + ' → '),
+        h('strong', { text: w.label.toLowerCase() })
+      ]),
+      h('div', { class: 'chg is-bad', style: 'margin-top:8px' }, [
+        h('span', { class: 'chg-arrow', text: '↓' }),
+        h('span', { class: 'chg-primary', text: fmt.pp(w.stepDelta) }),
+        h('span', { class: 'chg-secondary', text: w.prevStepRate.toFixed(1) + '% → ' + w.curStepRate.toFixed(1) + '%' })
+      ]),
+      h('div', { class: 'mcard-vs', text: 'Every other step is within 0.5pp of the previous 30 days' }),
+      h('button', {
+        class: 'ctl', style: 'margin-top:12px', type: 'button', text: 'See the funnel →',
+        onclick: function () { openInvestigation('inv-activation', 'step'); }
+      })
+    ]);
+  }
+
+  function healthStrip() {
+    var ch = N.customerHealth;
+    var risk = ch.bands[2];
+    return h('div', {}, [
+      h('div', { class: 'mcard-head' }, [h('span', { class: 'mcard-label', text: 'Customer health' })]),
+      h('div', { style: 'display:flex;height:8px;gap:2px;margin:10px 0 10px' }, ch.bands.map(function (b) {
+        var d = h('div', { title: b.label + ' ' + b.curShare.toFixed(0) + '%' });
+        d.style.cssText = 'flex:' + b.cur + ';border-radius:3px;background:var(--' + b.tone + ')';
+        return d;
+      })),
+      h('div', { style: 'display:flex;flex-direction:column;gap:3px' }, ch.bands.map(function (b) {
+        return h('div', { style: 'display:flex;align-items:center;gap:7px;font-size:12px' }, [
+          h('span', { style: 'width:7px;height:7px;border-radius:50%;flex:none;background:var(--' + b.tone + ')' }),
+          h('span', { text: b.label }),
+          h('span', { style: 'margin-left:auto;font-variant-numeric:tabular-nums', text: b.curShare.toFixed(0) + '%' }),
+          h('span', {
+            class: 'sg-delta ' + ((b.tone === 'good') === (b.shareDelta >= 0) ? 'is-good' : 'is-bad'),
+            style: 'font-size:11.5px;min-width:44px;text-align:right;color:' +
+              ((b.tone === 'good') === (b.shareDelta >= 0) ? 'var(--good-text)' : 'var(--critical-text)'),
+            text: (b.shareDelta > 0 ? '+' : '−') + Math.abs(b.shareDelta).toFixed(1) + 'pp'
+          })
+        ]);
+      })),
+      h('div', { class: 'mcard-vs', style: 'margin-top:8px', text: risk.cur.toLocaleString('en-US') + ' accounts at risk, up ' + (risk.cur - risk.prev) })
+    ]);
+  }
+
+  global.NorthApp = { state: state, go: go, openMetric: openMetric, openInvestigation: openInvestigation,
+    metricCard: metricCard, sectionHead: sectionHead, card: card, chartCard: chartCard,
+    trendChart: trendChart, contextFor: contextFor, viewOverview: viewOverview, supportTopicFigure: supportTopicFigure,
+    periodSentence: periodSentence, PERIOD_LABEL: PERIOD_LABEL,
+    _setRefs: function (r) { root = r.root; mainEl = r.main; panelEl = r.panel; navEl = r.nav; },
+    _render: function (fn) { render = fn; }, healthStrip: healthStrip };
+
+  var render = function () {};
+  var renderPanel = function () {};
+  global.NorthApp._bind = function (r, p) { render = r; renderPanel = p; };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — detail surfaces, the investigation, and the panel. */
+(function (global) {
+  'use strict';
+
+  var N = global.NORTH, V = global.Viz, MC = global.MetricCard, A = global.NorthApp;
+  var h = V.h, fmt = N.fmt, S = N.series, state = A.state;
+  var metricCard = A.metricCard, sectionHead = A.sectionHead, card = A.card,
+      chartCard = A.chartCard, trendChart = A.trendChart;
+
+  // ------------------------------------------------------------ DOMAIN: revenue
+
+  function viewRevenue() {
+    return h('div', {}, [
+      h('div', { class: 'section' }, [
+        h('div', { class: 'grid grid-4' }, [
+          metricCard('mrr'), metricCard('arr'), metricCard('nrr'), metricCard('revenueChurn')
+        ])
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Trend', 'Are we growing?'),
+        chartCard(trendChart('mrr', { days: 180, height: 230 }), {
+          id: 'mrr-trend', title: 'MRR trend', metricId: 'mrr',
+          questions: [
+            { label: 'What actually changed our MRR?', go: function () { document.getElementById('mrr-bridge').scrollIntoView({ behavior: 'smooth', block: 'center' }); } },
+            { label: 'Did the pricing change move the line?', go: function () { A.go({ compare: true }); } }
+          ]
+        })
+      ]),
+      h('div', { class: 'section', id: 'mrr-bridge' }, [
+        sectionHead('Movement', 'What actually changed our MRR?'),
+        h('div', { class: 'grid grid-2-wide' }, [
+          chartCard(V.bridge({
+            title: 'MRR movement, last 30 days',
+            question: 'A second revenue line answers nothing this does not. This one names the parts.',
+            start: N.mrrMovement.start, end: N.mrrMovement.end,
+            startLabel: N.mrrMovement.startLabel, endLabel: N.mrrMovement.endLabel,
+            items: N.mrrMovement.items,
+            format: fmt.currencyPrecise,
+            height: 200,
+            caption: 'Net ' + fmt.currencyPrecise(N.mrrMovement.net) + ' (' + fmt.rel((N.mrrMovement.net / N.mrrMovement.start) * 100) +
+              '). New and expansion together add ' + fmt.currencyPrecise(N.mrrMovement.items[0].value + N.mrrMovement.items[1].value) +
+              '; churn and contraction remove ' + fmt.currencyPrecise(Math.abs(N.mrrMovement.items[2].value + N.mrrMovement.items[3].value)) +
+              '. Only the movements are drawn as bars — they measure differences, so the window sits where the differences are legible. ' +
+              'The two totals are written out rather than drawn as truncated bars.'
+          }), {
+            id: 'mrr-bridge', title: 'MRR movement', metricId: 'mrr',
+            questions: [
+              { label: 'Which accounts churned?', go: function () { A.go({ view: 'domain', domainId: 'customers' }); } },
+              { label: 'Is churn concentrated in a segment?', go: function () { A.openInvestigation('inv-activation', 'where'); } }
+            ]
+          }),
+          card([
+            h('h4', { class: 'viz-title', text: 'Read this way' }),
+            h('p', { class: 'note', style: 'margin-top:10px' , text:
+              'Gross revenue churn is ' + N.metrics.revenueChurn.format(N.metrics.revenueChurn.value) +
+              ' against customer churn of ' + N.metrics.customerChurn.format(N.metrics.customerChurn.value) + '. ' +
+              'More customers are leaving than before, but they are small ones — the revenue effect is a third of the logo effect.' }),
+            h('p', { class: 'note', style: 'margin-top:10px', text:
+              'Net revenue retention is ' + N.metrics.nrr.format(N.metrics.nrr.value) + ', ' +
+              MC.changeParts(N.metrics.nrr).primary + ' ' + A.PERIOD_LABEL + '. Expansion is still covering churn, ' +
+              'which is why MRR grew ' + MC.changeParts(N.metrics.mrr).primary + ' in a period where churn rose.' }),
+            h('div', { style: 'margin-top:14px' }, [
+              h('button', { class: 'ctl', type: 'button', text: 'Open MRR detail →', onclick: function () { A.openMetric('mrr'); } })
+            ])
+          ])
+        ])
+      ])
+    ]);
+  }
+
+  // ------------------------------------------------------------ DOMAIN: product
+
+  function viewProduct() {
+    return h('div', {}, [
+      h('div', { class: 'section' }, [
+        h('div', { class: 'grid grid-4' }, [
+          metricCard('activation'), metricCard('retention30'),
+          h('div', { class: 'card span-2' }, [featureAdoptionMini()])
+        ])
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Trend', 'Is activation improving or deteriorating?'),
+        chartCard(trendChart('activation', { days: 150, height: 230, goal: true }), {
+          id: 'activation-trend', title: 'Activation trend', metricId: 'activation',
+          questions: activationQuestions()
+        })
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Where it is lost', 'At which step do signups stop?'),
+        chartCard(funnelFigure(), {
+          id: 'funnel', title: 'Activation funnel', metricId: 'activation',
+          questions: [
+            { label: 'Which segment stalls at this step?', go: function () { A.openInvestigation('inv-activation', 'where'); } },
+            { label: 'What changed at the same time?', go: function () { A.openInvestigation('inv-activation', 'together'); } }
+          ]
+        })
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Retention', 'Are cohorts retaining better or worse?'),
+        h('div', { class: 'grid grid-2-wide' }, [
+          chartCard(cohortFigure(), {
+            id: 'cohorts', title: 'Retention cohorts', metricId: 'retention30',
+            questions: [{ label: 'Is the July cohort an outlier?', go: function () { A.openInvestigation('inv-activation', 'retention'); } }]
+          }),
+          chartCard(V.rankedBars({
+            title: 'Feature adoption',
+            question: 'Which features are being adopted, and which are slipping?',
+            items: N.featureAdoption.items,
+            dimension: 'Feature',
+            caption: 'Integrations is the only feature down this period — ' +
+              fmt.pp(N.featureAdoption.items[2].delta) + ' — and it sits on the step where activation is now failing. ' +
+              'Ranked bars rather than a pie: these are five independent rates, not five parts of one whole.'
+          }), {
+            id: 'adoption', title: 'Feature adoption', metricId: 'activation',
+            questions: [{ label: 'Did integrations adoption fall with activation?', go: function () { A.openInvestigation('inv-activation', 'together'); } }]
+          })
+        ])
+      ])
+    ]);
+  }
+
+  function featureAdoptionMini() {
+    var down = N.featureAdoption.items.filter(function (i) { return i.delta < 0; });
+    var up = N.featureAdoption.items.slice().sort(function (a, b) { return b.delta - a.delta; })[0];
+    return h('div', {}, [
+      h('div', { class: 'mcard-head' }, [h('span', { class: 'mcard-label', text: 'Feature adoption' })]),
+      h('div', { style: 'display:flex;flex-direction:column;gap:5px;margin-top:6px' },
+        N.featureAdoption.items.map(function (i) {
+          return h('div', { style: 'display:flex;align-items:center;gap:8px;font-size:12.5px' }, [
+            h('span', { style: 'min-width:88px', text: i.label }),
+            h('span', { style: 'flex:1;height:6px;border-radius:3px;background:var(--de-emphasis-soft);overflow:hidden' }, [
+              (function () { var b = h('span'); b.style.cssText = 'display:block;height:100%;border-radius:3px;background:var(--series-1);width:' + i.cur + '%'; return b; })()
+            ]),
+            h('span', { style: 'font-variant-numeric:tabular-nums;min-width:30px;text-align:right', text: i.cur + '%' }),
+            h('span', {
+              style: 'font-variant-numeric:tabular-nums;min-width:38px;text-align:right;font-size:11.5px;color:' +
+                (i.delta >= 0 ? 'var(--good-text)' : 'var(--critical-text)'),
+              text: (i.delta > 0 ? '+' : i.delta < 0 ? '−' : '') + Math.abs(i.delta) + 'pp'
+            })
+          ]);
+        })),
+      h('div', { class: 'mcard-vs', style: 'margin-top:10px', text:
+        down.length ? down[0].label + ' is the only one down; ' + up.label + ' is up ' + up.delta + 'pp' : 'All features up this period' })
+    ]);
+  }
+
+  function funnelFigure() {
+    return V.funnel({
+      title: 'Signup to activation, last 30 days',
+      question: 'At which step do signups stop?',
+      rows: N.funnel.rows,
+      worstId: N.funnel.worstStep.id
+    });
+  }
+
+  function cohortFigure() {
+    return V.cohortGrid({
+      title: N.cohorts.label,
+      question: 'Are cohorts retaining better or worse?',
+      periods: N.cohorts.periods, rows: N.cohorts.rows,
+      caption: 'July retained 86% at month one against 89–91% for every cohort before it. ' +
+        'One month of data on one cohort is thin — NORTH reports it as early, not established.'
+    });
+  }
+
+  // ---------------------------------------------------------- DOMAIN: customers
+
+  function viewCustomers() {
+    return h('div', {}, [
+      h('div', { class: 'section' }, [
+        h('div', { class: 'grid grid-3' }, [
+          metricCard('activeCustomers'), metricCard('customerChurn'), metricCard('csat')
+        ])
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Health', 'How is the base distributed, and which way is it moving?'),
+        chartCard(V.distribution({
+          title: 'Customer health',
+          question: 'How is the base distributed, and which way is it moving?',
+          bands: N.customerHealth.bands,
+          caption: 'A segmented bar rather than a donut: three bands of one base, read left to right, ' +
+            'with the change in share stated rather than left to be inferred from two rings. ' +
+            N.customerHealth.bands[2].cur + ' accounts are at risk, ' +
+            (N.customerHealth.bands[2].cur - N.customerHealth.bands[2].prev) + ' more than the previous period.'
+        }), {
+          id: 'health', title: 'Customer health', metricId: 'customerChurn',
+          questions: [{ label: 'Which accounts moved to at risk?', go: function () { A.openInvestigation('inv-activation', 'who'); } }]
+        })
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Problems', 'What is changing in what customers ask us?'),
+        h('div', { class: 'grid grid-2' }, [
+          chartCard(A.supportTopicFigure(), {
+            id: 'support-topics', title: 'Support topics', metricId: 'setupConversations',
+            questions: [{ label: 'Are setup problems related to activation?', go: function () { A.openInvestigation('inv-activation', 'together'); } }]
+          }),
+          chartCard(trendChart('customerChurn', { days: 150, height: 200, annotations: false }), {
+            id: 'churn-trend', title: 'Customer churn', metricId: 'customerChurn',
+            questions: [{ label: 'When did churn start rising?', go: function () { A.openInvestigation('inv-activation', 'when'); } }]
+          })
+        ])
+      ]),
+      h('div', { class: 'section' }, [
+        sectionHead('Accounts', 'Which customers moved to watch or at risk?'),
+        card([accountsTable()])
+      ])
+    ]);
+  }
+
+  function accountsTable() {
+    return h('table', { class: 'tbl' }, [
+      h('thead', {}, [h('tr', {}, ['Account', 'Segment', 'Seats', 'MRR', 'What NORTH sees', 'Status'].map(function (c, i) {
+        return h('th', { scope: 'col', class: (i === 2 || i === 3) ? 'num' : '', text: c });
+      }))]),
+      h('tbody', {}, N.accountsAtRisk.map(function (a) {
+        return h('tr', {}, [
+          h('th', { scope: 'row', text: a.name }),
+          h('td', { text: a.segment }),
+          h('td', { class: 'num', text: String(a.seats) }),
+          h('td', { class: 'num', text: fmt.currencyPrecise(a.mrr) }),
+          h('td', { text: a.signal }),
+          h('td', {}, [h('span', { class: 'pill tone-' + (a.health === 'risk' ? 'critical' : 'warning'), text: a.health === 'risk' ? 'At risk' : 'Watch' })])
+        ]);
+      }))
+    ]);
+  }
+
+  // ------------------------------------------------------------ METRIC DETAIL
+  // The sequence the brief asks for: value and change, then the trend, then
+  // what NORTH found, then the breakdown, the funnel, related signals,
+  // evidence, and what to look at next.
+
+  function viewMetric(id) {
+    var m = N.metrics[id];
+    var sig = N.signalByMetric[id];
+    var inv = sig ? N.investigations[sig.investigationId] : null;
+    var p = MC.changeParts(m);
+    var out = h('div', {});
+
+    out.appendChild(h('div', { class: 'section' }, [
+      h('div', { class: 'grid grid-2-wide' }, [
+        card([
+          h('div', { class: 'mcard-head' }, [h('span', { class: 'mcard-label', text: m.longLabel })]),
+          h('div', { class: 'mcard-value is-hero', text: m.format(m.value) }),
+          MC.changeEl(m),
+          h('div', { class: 'mcard-vs', text: A.PERIOD_LABEL + ' (' + m.format(m.prev) + ')' }),
+          h('p', { class: 'note', style: 'margin-top:14px', text: m.note }),
+          m.goal ? h('div', { style: 'margin-top:4px' }, [MC.PATTERNS.goal(m)]) : null,
+          m.goal ? h('div', { class: 'mcard-vs', style: 'margin-top:6px', text: m.goal.label }) : null
+        ]),
+        card([
+          h('h4', { class: 'viz-title', text: 'How this number is built' }),
+          h('p', { class: 'note', style: 'margin-top:8px', text: A.periodSentence() }),
+          h('p', { class: 'note', style: 'margin-top:8px', text:
+            (m.unit === 'percent' || m.unit === 'percent-level')
+              ? 'This metric is a rate, so its change is stated in percentage points (' + p.primary +
+                '). The relative move — ' + p.secondary + ' — is the same change expressed as a share of where it started. ' +
+                'Both are true and they are not interchangeable.'
+              : 'This metric is a level, so its change is stated relatively (' + p.primary + ') with the absolute move alongside (' + p.secondary + ').' }),
+          sig ? h('div', { style: 'margin-top:12px' }, [
+            h('button', { class: 'ctl is-on', type: 'button', text: 'NORTH detected a change here — open investigation →',
+              onclick: function () { A.openInvestigation(sig.investigationId); } })
+          ]) : null
+        ])
+      ])
+    ]));
+
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionHead('Trend', m.question),
+      chartCard(trendChart(id, { days: 150, height: 240, goal: !!m.goal }), {
+        id: id + '-trend', title: m.longLabel, metricId: id,
+        questions: id === 'activation' ? activationQuestions() : [
+          { label: 'When did this start changing?', go: function () { A.go({ compare: true }); } }
+        ]
+      })
+    ]));
+
+    if (inv) {
+      out.appendChild(h('div', { class: 'section' }, [
+        sectionHead('NORTH finding'),
+        h('div', { class: 'finding' }, [
+          h('div', { class: 'finding-top' }, [
+            h('span', { class: 'north-dot' }),
+            h('span', { class: 'finding-label', text: 'What NORTH sees' })
+          ]),
+          h('p', { class: 'finding-text', text: inv.summary }),
+          h('div', { class: 'finding-foot' }, [
+            h('button', { class: 'ctl', type: 'button', text: 'Open the full investigation →', onclick: function () { A.openInvestigation(inv.id); } })
+          ])
+        ])
+      ]));
+    }
+
+    var breakdowns = N.breakdowns[id];
+    if (breakdowns) {
+      out.appendChild(h('div', { class: 'section' }, [
+        sectionHead('Breakdown', 'Where is the change concentrated?'),
+        h('div', { class: 'chips', style: 'margin-bottom:12px' }, Object.keys(breakdowns).map(function (k) {
+          return h('button', {
+            class: 'chip' + (state.dimension === k ? ' is-on' : ''), type: 'button', text: k,
+            onclick: function () { A.go({ dimension: k }); }
+          });
+        })),
+        chartCard(segmentFigure(id), {
+          id: 'segments', title: 'Breakdown by ' + state.dimension.toLowerCase(), metricId: id,
+          questions: [
+            { label: 'Which segment caused the decline?', go: function () { A.openInvestigation('inv-activation', 'where'); } },
+            { label: 'At which step do they stop?', go: function () { A.openInvestigation('inv-activation', 'step'); } }
+          ]
+        })
+      ]));
+    }
+
+    if (id === 'activation') {
+      out.appendChild(h('div', { class: 'section' }, [
+        sectionHead('Funnel', 'At which step do signups stop?'),
+        chartCard(funnelFigure(), { id: 'funnel', title: 'Activation funnel', metricId: id, questions: activationQuestions() })
+      ]));
+    }
+
+    if (inv) {
+      out.appendChild(h('div', { class: 'section' }, [
+        sectionHead('Related signals', 'What else moved in the same window?'),
+        h('div', { class: 'grid grid-3' }, inv.relatedSignals.map(function (r) {
+          var rm = N.metrics[r.metricId];
+          return metricCard(r.metricId, { pattern: 'sparkline', showSignal: false, className: 'is-related' });
+        }))
+      ]));
+
+      out.appendChild(h('div', { class: 'section' }, [
+        sectionHead('Evidence', 'Where these numbers come from'),
+        card([h('div', { class: 'ev' }, inv.evidence.map(function (e) {
+          return h('div', { class: 'ev-item' }, [
+            h('span', { class: 'ev-src', text: e.source }),
+            h('span', { class: 'ev-detail', text: e.detail }),
+            h('span', { class: 'ev-when', text: e.updated })
+          ]);
+        }))])
+      ]));
+
+      out.appendChild(h('div', { class: 'section' }, [
+        sectionHead('Recommended discovery', 'What to look at next'),
+        h('div', { class: 'grid grid-3' }, inv.recommended.map(function (r) {
+          return h('button', { class: 'rec', type: 'button', onclick: function () { A.openInvestigation(inv.id, 'step'); } }, [
+            h('div', { class: 'rec-label', text: r.label + ' →' }),
+            h('div', { class: 'rec-detail', text: r.detail })
+          ]);
+        }))
+      ]));
+    }
+    return out;
+  }
+
+  function segmentFigure(metricId) {
+    var bd = N.breakdowns[metricId][state.dimension];
+    var m = N.metrics[metricId];
+    return V.segments({
+      title: m.label + ' by ' + bd.dimension.toLowerCase(),
+      question: 'Where is the change concentrated — and does it matter?',
+      dimension: bd.dimension,
+      segments: bd.segments,
+      totalLabel: fmt.pp(bd.totalChange) + ' blended',
+      caption: 'The bars are each segment’s own rate. The column on the right is what each contributed to the ' +
+        'blended ' + fmt.pp(bd.totalChange) + ' — its share of signups multiplied by its own move. ' +
+        'The signup mix is held constant across both periods, so this compares rates, not a shift in who signed up.'
+    });
+  }
+
+  function activationQuestions() {
+    return [
+      { label: 'Why did activation drop?', go: function () { A.openInvestigation('inv-activation', 'where'); } },
+      { label: 'Which segment caused the decline?', go: function () { A.openInvestigation('inv-activation', 'where'); } },
+      { label: 'When did the decline start?', go: function () { A.openInvestigation('inv-activation', 'when'); } },
+      { label: 'At which step?', go: function () { A.openInvestigation('inv-activation', 'step'); } },
+      { label: 'What changed at the same time?', go: function () { A.openInvestigation('inv-activation', 'together'); } }
+    ];
+  }
+
+  global.NorthViews = {
+    viewRevenue: viewRevenue, viewProduct: viewProduct, viewCustomers: viewCustomers,
+    viewMetric: viewMetric, segmentFigure: segmentFigure, funnelFigure: funnelFigure,
+    cohortFigure: cohortFigure, accountsTable: accountsTable, activationQuestions: activationQuestions
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — the investigation.
+ *
+ * One rule: the question chooses the visualisation. "When did it begin"
+ * is a time series; "which segment" is a comparison; "at which step" is a
+ * funnel; "is retention affected" is a cohort grid; "which customers" is a
+ * table. The grammar stays the same while the form changes.
+ */
+(function (global) {
+  'use strict';
+
+  var N = global.NORTH, V = global.Viz, A = global.NorthApp, W = global.NorthViews;
+  var h = V.h, fmt = N.fmt, S = N.series, state = A.state;
+
+  var VIZ = {
+    timeseries: function (inv) {
+      var m = N.metrics[inv.metricId];
+      var days = 120;
+      var dates = S.dates.slice(-days), vals = (m.displaySeries || m.series).slice(-days);
+      return V.lineChart({
+        title: m.longLabel + ', last ' + days + ' days',
+        question: 'Is this a step or a drift?',
+        dates: dates,
+        series: [{ id: 'cur', label: m.label, values: vals, color: 'var(--series-1)', fill: true }],
+        format: m.format, xFormat: function (d) { return fmt.date(d); },
+        height: 240,
+        goal: m.goal ? { value: m.goal.value, label: 'Goal ' + (m.goal.format || m.format)(m.goal.value) } : null,
+        annotations: (m.events || []).filter(function (e) { return dates.indexOf(e.date) >= 0; }),
+        anomaly: { date: S.dates[S.declineStartIndex], label: 'NORTH: change detected' },
+        caption: m.seriesNote + ' The line holds a flat band for four months and then steps down over about three weeks. ' +
+          'A drift would have started earlier and moved more slowly; this shape points at a date.'
+      });
+    },
+
+    segments: function () {
+      return h('div', {}, [
+        h('div', { class: 'chips', style: 'margin-bottom:14px' }, Object.keys(N.breakdowns.activation).map(function (k) {
+          return h('button', {
+            class: 'chip' + (state.dimension === k ? ' is-on' : ''), type: 'button', text: k,
+            onclick: function () { A.go({ dimension: k }); }
+          });
+        })),
+        W.segmentFigure('activation')
+      ]);
+    },
+
+    funnel: function () { return W.funnelFigure(); },
+    cohorts: function () { return W.cohortFigure(); },
+
+    accounts: function () {
+      return h('div', {}, [
+        h('h4', { class: 'viz-title', text: 'Accounts that moved to watch or at risk in this window' }),
+        h('p', { class: 'viz-question', style: 'margin-bottom:12px', text: 'A table, because the answer is a list of names.' }),
+        W.accountsTable()
+      ]);
+    },
+
+    /* Co-movement, as small multiples. Never two y-scales on one plot: four
+     * metrics of four different units get four facets sharing one x range,
+     * each with the same rule drawn on the date the change began. */
+    correlates: function (inv) {
+      var days = 90;
+      var dates = S.dates.slice(-days);
+      var changeDate = S.dates[S.declineStartIndex];
+      var facets = [
+        { id: 'activation', label: 'Activation' },
+        { id: 'setupConversations', label: 'Setup conversations' },
+        { id: 'customerChurn', label: 'Customer churn' },
+        { id: 'retention30', label: '30-day retention' }
+      ];
+      return h('div', {}, [
+        h('h4', { class: 'viz-title', text: 'What moved in the same window' }),
+        h('p', { class: 'viz-question', style: 'margin-bottom:14px', text:
+          'Four metrics on four different scales, so four panels — never two axes on one plot.' }),
+        h('div', { class: 'grid grid-2' }, facets.map(function (f) {
+          var m = N.metrics[f.id];
+          return h('div', { class: 'card' }, [V.lineChart({
+            title: f.label,
+            dates: dates,
+            series: [{ id: f.id, label: f.label, values: (m.displaySeries || m.series).slice(-days), color: 'var(--series-1)', fill: true }],
+            format: f.id === 'setupConversations' ? function (v) { return (v).toFixed(1) + '/day'; } : m.format,
+            xFormat: function (d) { return fmt.date(d); },
+            height: 96, tickCount: 2, endLabel: false,
+            annotations: [{ date: changeDate, label: fmt.date(changeDate) }]
+          })]);
+        })),
+        h('div', { class: 'grid grid-2', style: 'margin-top:14px' }, [
+        h('div', { class: 'card' }, [
+          h('h4', { class: 'viz-title', text: 'Sequence' }),
+          h('p', { class: 'viz-question', text: 'Nine days, five moves.' }),
+          h('div', { class: 'timeline', style: 'margin-top:10px' }, inv.correlates.map(function (c) {
+            return h('div', { class: 'tl-item is-' + c.kind }, [
+              h('div', { class: 'tl-rail' }, [h('span', { class: 'tl-dot' })]),
+              h('div', { class: 'tl-body' }, [
+                h('div', { class: 'tl-label', text: c.label }),
+                h('div', { class: 'tl-detail', text: c.detail }),
+                h('div', { class: 'tl-when', text: fmt.dateLong(c.on) })
+              ])
+            ]);
+          })),
+        ]),
+        h('div', { class: 'card' }, [
+          h('h4', { class: 'viz-title', text: 'What NORTH will not say' }),
+          h('div', { class: 'caution', style: 'margin-top:12px' }, [
+            h('b', { text: 'Correlation, not cause. ' }),
+            document.createTextNode(inv.caution)
+          ]),
+          h('p', { class: 'note', style: 'margin-top:14px', text:
+            'NORTH ranks candidates by how well they fit the shape of the change — a step on a date, ' +
+            'in one segment, at one step of the funnel. It does not promote the best-fitting candidate to a cause. ' +
+            'Closing that gap needs the checks below, not more of this data.' })
+        ])
+        ])
+      ]);
+    }
+  };
+
+  function viewInvestigation(id) {
+    var inv = N.investigations[id];
+    var out = h('div', {});
+
+    out.appendChild(h('div', { class: 'section' }, [
+      h('div', { class: 'finding' }, [
+        h('div', { class: 'finding-top' }, [
+          h('span', { class: 'north-dot' }),
+          h('span', { class: 'finding-label', text: 'NORTH investigation' }),
+          h('span', { class: 'sig-when', style: 'margin-left:auto', text: 'Evidence from ' + inv.evidence.length + ' sources' })
+        ]),
+        h('p', { class: 'finding-text', text: inv.summary })
+      ])
+    ]));
+
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionLabel('Questions', 'Each one changes the visualisation, because each one is a different question.'),
+      h('div', { class: 'chips' }, inv.steps.map(function (s) {
+        return h('button', {
+          class: 'chip' + (state.invStep === s.id ? ' is-on' : ''), type: 'button', text: s.question,
+          onclick: function () { A.go({ invStep: s.id }); }
+        });
+      }))
+    ]));
+
+    var step = inv.steps.find(function (s) { return s.id === state.invStep; }) || inv.steps[0];
+    out.appendChild(h('div', { class: 'section' }, [
+      h('h3', { style: 'font-size:18px;margin-bottom:8px', text: step.question }),
+      h('p', { style: 'font-size:14px;line-height:1.6;color:var(--ink-secondary);max-width:76ch;margin-bottom:16px', text: step.answer }),
+      step.viz === 'correlates' || step.viz === 'segments'
+        ? VIZ[step.viz](inv)
+        : h('div', { class: 'card' }, [VIZ[step.viz](inv)])
+    ]));
+
+    var i = inv.steps.indexOf(step);
+    out.appendChild(h('div', { class: 'section', style: 'display:flex;gap:8px' }, [
+      i > 0 ? h('button', { class: 'ctl', type: 'button', text: '← ' + inv.steps[i - 1].question, onclick: function () { A.go({ invStep: inv.steps[i - 1].id }); } }) : null,
+      i < inv.steps.length - 1 ? h('button', { class: 'ctl is-on', type: 'button', text: inv.steps[i + 1].question + ' →', onclick: function () { A.go({ invStep: inv.steps[i + 1].id }); } }) : null
+    ]));
+
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionLabel('Evidence', 'Every number above traces to one of these.'),
+      A.card([h('div', { class: 'ev' }, inv.evidence.map(function (e) {
+        return h('div', { class: 'ev-item' }, [
+          h('span', { class: 'ev-src', text: e.source }),
+          h('span', { class: 'ev-detail', text: e.detail }),
+          h('span', { class: 'ev-when', text: e.updated })
+        ]);
+      }))])
+    ]));
+
+    out.appendChild(h('div', { class: 'section' }, [
+      sectionLabel('Recommended discovery', 'NORTH cannot close this from the data it has. These would.'),
+      h('div', { class: 'grid grid-3' }, inv.recommended.map(function (r) {
+        return h('div', { class: 'rec' }, [
+          h('div', { class: 'rec-label', text: r.label }),
+          h('div', { class: 'rec-detail', text: r.detail })
+        ]);
+      }))
+    ]));
+
+    return out;
+  }
+
+  function sectionLabel(title, note) {
+    return h('div', { class: 'section-head' }, [
+      h('h2', { text: title }),
+      note ? h('span', { class: 'q', text: note }) : null
+    ]);
+  }
+
+  global.NorthInvestigation = { viewInvestigation: viewInvestigation, VIZ: VIZ };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* NORTH — shell: navigation, the filter row, the panel, and mounting. */
+(function (global) {
+  'use strict';
+
+  var N = global.NORTH, V = global.Viz, MC = global.MetricCard;
+  var A = global.NorthApp, W = global.NorthViews, I = global.NorthInvestigation;
+  var h = V.h, fmt = N.fmt, state = A.state;
+
+  var app, mainEl, panelEl, panelInner, navEl;
+
+  // ------------------------------------------------------------------ chrome
+
+  function sidebar() {
+    navEl = h('div', { class: 'nav' });
+    var items = [{ id: 'overview', label: 'Overview' }].concat(
+      N.domains.map(function (d) { return { id: d.id, label: d.label }; }));
+
+    items.forEach(function (it) {
+      var hasSignal = it.id === 'overview'
+        ? N.signals.length > 0
+        : N.signals.some(function (s) { return N.metrics[s.metricId].domain === it.id; });
+      navEl.appendChild(h('button', {
+        class: 'nav-item', type: 'button', 'data-nav': it.id,
+        onclick: function () {
+          if (it.id === 'overview') A.go({ view: 'overview', context: null });
+          else A.go({ view: 'domain', domainId: it.id, context: null });
+        }
+      }, [h('span', { text: it.label }), hasSignal ? h('span', { class: 'nav-flag' }) : null]));
+    });
+
+    return h('aside', { class: 'side' }, [
+      h('div', { class: 'brand' }, [h('span', { class: 'brand-mark' }), h('span', { class: 'brand-name', text: 'NORTH' })]),
+      h('div', {}, [h('div', { class: 'nav-label', text: 'Business' }), navEl]),
+      h('div', { class: 'side-foot' }, [
+        h('button', {
+          class: 'ctl', type: 'button', text: 'Theme',
+          onclick: function () {
+            var cur = document.documentElement.getAttribute('data-theme');
+            var next = cur === 'dark' ? 'light' : cur === 'light' ? 'dark' : (matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', next);
+            render();
+          }
+        }),
+        h('p', { class: 'side-note', text: 'Prototype. Sample data with a deliberate change in it, so there is something real to detect.' })
+      ])
+    ]);
+  }
+
+  function topbar() {
+    var title, crumb, question;
+    if (state.view === 'overview') { crumb = 'Business'; title = 'Overview'; question = 'What changed, and does it matter?'; }
+    else if (state.view === 'domain') {
+      var d = N.domains.find(function (x) { return x.id === state.domainId; });
+      crumb = 'Business'; title = d.label; question = d.question;
+    } else if (state.view === 'metric') {
+      var m = N.metrics[state.metricId];
+      crumb = N.domains.find(function (x) { return x.id === m.domain; }).label; title = m.longLabel; question = m.question;
+    } else {
+      var inv = N.investigations[state.invId];
+      crumb = 'Investigation'; title = inv.title; question = inv.asked;
+    }
+
+    var back = null;
+    if (state.view === 'metric' || state.view === 'investigation') {
+      back = h('button', {
+        class: 'back', type: 'button', text: '← Back',
+        onclick: function () { history.length > 1 ? A.go({ view: 'overview', context: null }) : A.go({ view: 'overview' }); }
+      });
+    }
+
+    return h('div', { class: 'topbar' }, [
+      h('div', { class: 'topbar-text' }, [
+        back,
+        h('div', { class: 'crumb', text: crumb }),
+        h('h1', { text: title }),
+        h('p', { class: 'topbar-q', text: question })
+      ]),
+      // The filter row: one row, above everything it scopes.
+      h('div', { class: 'topbar-tools' }, [
+        h('span', { class: 'ctl', text: 'Last 30 days' }),
+        h('button', {
+          class: 'ctl' + (state.compare ? ' is-on' : ''), type: 'button',
+          text: (state.compare ? '✓ ' : '') + 'Compare to previous period',
+          onclick: function () { A.go({ compare: !state.compare }); }
+        }),
+        h('button', {
+          class: 'ctl', type: 'button', text: state.panelOpen ? 'Hide NORTH' : 'Show NORTH',
+          onclick: function () { A.go({ panelOpen: !state.panelOpen }); }
+        })
+      ])
+    ]);
+  }
+
+  // ------------------------------------------------------------------- panel
+
+  function renderPanel() {
+    panelInner.textContent = '';
+    panelInner.appendChild(h('div', { class: 'panel-head' }, [
+      h('span', { class: 'north-dot' }),
+      h('span', { class: 'panel-title', text: 'NORTH' }),
+      h('button', { class: 'panel-close', type: 'button', text: '×', 'aria-label': 'Hide the NORTH panel', onclick: function () { A.go({ panelOpen: false }); } })
+    ]));
+
+    var body = h('div', { class: 'panel-body' });
+    panelInner.appendChild(body);
+
+    if (state.view === 'investigation') {
+      var inv = N.investigations[state.invId];
+      var step = inv.steps.find(function (s) { return s.id === state.invStep; }) || inv.steps[0];
+      body.appendChild(h('div', { class: 'panel-block' }, [
+        h('div', { class: 'panel-label', text: 'Investigation' }),
+        h('p', { class: 'panel-text', text: inv.summary })
+      ]));
+      body.appendChild(h('div', { class: 'panel-block' }, [
+        h('div', { class: 'panel-label', text: step.question }),
+        h('p', { class: 'panel-text', text: step.answer })
+      ]));
+      body.appendChild(h('div', { class: 'panel-block' }, [
+        h('div', { class: 'panel-label', text: 'Follow the question' }),
+        h('div', { class: 'qlist' }, inv.steps.map(function (s) {
+          return h('button', {
+            class: 'qbtn' + (s.id === state.invStep ? ' is-active' : ''), type: 'button', text: s.question,
+            onclick: function () { A.go({ invStep: s.id }); }
+          });
+        }))
+      ]));
+      body.appendChild(h('div', { class: 'panel-block' }, [
+        h('div', { class: 'panel-label', text: 'On causation' }),
+        h('div', { class: 'caution' }, [h('b', { text: 'Correlation, not cause. ' }), document.createTextNode(inv.caution)])
+      ]));
+      body.appendChild(h('div', { class: 'panel-block' }, [
+        h('div', { class: 'panel-label', text: 'Evidence' }),
+        h('div', { class: 'ev' }, inv.evidence.map(function (e) {
+          return h('div', { class: 'ev-item' }, [
+            h('span', { class: 'ev-src', text: e.source }),
+            h('span', { class: 'ev-detail', text: e.detail })
+          ]);
+        }))
+      ]));
+      return;
+    }
+
+    // Signals, most severe first — the same objects the cards carry.
+    body.appendChild(h('div', { class: 'panel-block' }, [
+      h('div', { class: 'panel-label', text: 'Signals · last 30 days' }),
+      h('div', { style: 'display:flex;flex-direction:column;gap:8px' }, N.signals.map(function (sig) {
+        var m = N.metrics[sig.metricId];
+        return h('button', { class: 'sig', type: 'button', onclick: function () { A.openInvestigation(sig.investigationId); } }, [
+          h('div', { class: 'sig-top' }, [
+            h('span', { class: 'north-dot' }),
+            h('span', { class: 'sig-sev sev-' + sig.severity, text: m.label }),
+            h('span', { class: 'sig-when', text: fmt.date(sig.detectedOn) })
+          ]),
+          h('div', { class: 'sig-head', style: 'font-size:12.5px', text: sig.headline }),
+          h('div', { class: 'sig-foot', text: 'Open investigation →' })
+        ]);
+      }))
+    ]));
+
+    // Ask NORTH — contextual to whatever visualisation the reader last touched.
+    var ctx = state.context;
+    body.appendChild(h('div', { class: 'panel-block' }, [
+      h('div', { class: 'panel-label', text: ctx ? 'Ask NORTH about ' + ctx.title : 'Ask NORTH' }),
+      ctx ? null : h('p', { class: 'panel-text', style: 'font-size:12.5px', text: 'Select a chart and these become questions about it.' }),
+      h('div', { class: 'qlist' }, (ctx ? ctx.questions : defaultQuestions()).map(function (q) {
+        return h('button', { class: 'qbtn', type: 'button', text: q.label, onclick: q.go });
+      }))
+    ]));
+
+    body.appendChild(h('div', { class: 'panel-block' }, [
+      h('div', { class: 'panel-label', text: 'Period' }),
+      h('p', { class: 'panel-text', style: 'font-size:12.5px', text: A.periodSentence() })
+    ]));
+  }
+
+  function defaultQuestions() {
+    return [
+      { label: 'What changed most this period?', go: function () { A.openInvestigation('inv-activation', 'when'); } },
+      { label: 'Why did activation drop?', go: function () { A.openInvestigation('inv-activation', 'where'); } },
+      { label: 'What actually changed our MRR?', go: function () { A.go({ view: 'domain', domainId: 'revenue' }); } },
+      { label: 'Which customers are at risk?', go: function () { A.openInvestigation('inv-activation', 'who'); } }
+    ];
+  }
+
+  // ------------------------------------------------------------------ render
+
+  function render() {
+    app.className = 'app' + (state.panelOpen ? ' is-panel-open' : ' is-panel-collapsed');
+    mainEl.textContent = '';
+    mainEl.appendChild(topbar());
+
+    var body;
+    if (state.view === 'overview') body = A.viewOverview();
+    else if (state.view === 'domain') {
+      body = state.domainId === 'revenue' ? W.viewRevenue()
+        : state.domainId === 'product' ? W.viewProduct() : W.viewCustomers();
+    } else if (state.view === 'metric') body = W.viewMetric(state.metricId);
+    else body = I.viewInvestigation(state.invId);
+    mainEl.appendChild(body);
+
+    var active = state.view === 'domain' ? state.domainId
+      : state.view === 'overview' ? 'overview'
+      : state.view === 'metric' ? N.metrics[state.metricId].domain : null;
+    Array.prototype.forEach.call(navEl.children, function (b) {
+      b.classList.toggle('is-active', b.getAttribute('data-nav') === active);
+    });
+
+    renderPanel();
+  }
+
+  function mount(el) {
+    app = el;
+    var side = sidebar();
+    mainEl = h('main', { class: 'main' });
+    panelEl = h('aside', { class: 'panel', 'aria-label': 'NORTH' });
+    panelInner = h('div', { class: 'panel-scroll' });
+    panelEl.appendChild(panelInner);
+    app.appendChild(side); app.appendChild(mainEl); app.appendChild(panelEl);
+    A._bind(render, renderPanel);
+    render();
+  }
+
+  global.NorthShell = { mount: mount, render: render, renderPanel: renderPanel };
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>NorthShell.mount(document.getElementById('app'));</script>
