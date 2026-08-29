@@ -176,7 +176,14 @@ than its own KPI is a bug a reader will find.
 - **Colour was computed, not eyeballed.** The categorical, ordinal and status values
   were run through a contrast and colour-vision validator against these exact
   surfaces, in both light and dark. Dark mode is a selected set of steps for the dark
-  surface, not an inverted light palette.
+  surface, not an inverted light palette. The neutrals around them are biased a few
+  degrees cool, toward the blue the data wears, so the greys read as chosen; the two
+  chart surfaces stay exactly as validated.
+- **Two typographic voices, both native.** A UI grotesque for anything read as prose,
+  and the system mono for the uppercase micro-labels — the things that name a number
+  rather than say something. Native stacks rather than a web font on purpose: the
+  charts place labels from measured character widths, so a face that arrives late or
+  falls back silently would move them.
 - **No dual axes anywhere.** Four metrics that moved together are four panels sharing
   one x range, never two y-scales on one plot.
 - **Text wears text tokens.** Identity comes from a coloured mark beside the label,

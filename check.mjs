@@ -13,7 +13,14 @@ const PROTO = 'file://' + process.cwd() + '/dist/north-prototype.html';
 const STUDY = 'file://' + process.cwd() + '/dist/north-metric-system.html';
 
 mkdirSync('shots', { recursive: true });
-const browser = await chromium.launch({ executablePath: CHROME });
+// Chromium does not read HTTPS_PROXY, so hand it the sandbox proxy — the
+// pages pull their typefaces from Google Fonts and would otherwise stall.
+const PROXY = process.env.HTTPS_PROXY || process.env.https_proxy;
+const browser = await chromium.launch({
+  executablePath: CHROME,
+  ignoreHTTPSErrors: true,
+  ...(PROXY ? { proxy: { server: PROXY } } : {})
+});
 let failures = 0;
 
 function report(name, errors, overflow, extra = '') {
@@ -24,7 +31,7 @@ function report(name, errors, overflow, extra = '') {
 }
 
 async function open(url, opts = {}) {
-  const page = await browser.newPage({ deviceScaleFactor: 2, ...opts });
+  const page = await browser.newPage({ deviceScaleFactor: 2, ignoreHTTPSErrors: true, ...opts });
   const errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
