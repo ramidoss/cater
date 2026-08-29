@@ -1,0 +1,191 @@
+/* ---------------------------------------------------------------------------
+   NORTH — tokens.
+   Colour roles first, everything else written against the roles. Light is the
+   base palette on bare :root; dark is a selected set of steps for the dark
+   surface, declared under both the OS media query and the theme stamp so a
+   viewer's explicit choice wins in either direction.
+   The categorical, ordinal and status values below were validated with the
+   dataviz palette validator against these exact surfaces.
+--------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces & ink */
+  --plane:            #f3f4f7;
+  --surface:          #ffffff;
+  --surface-sunken:   #eceef2;
+  --surface-hover:    #f7f8fa;
+  --ink:              #0b0c0e;
+  --ink-secondary:    #4c4f57;
+  --ink-muted:        #6b6e77;   /* 5.2:1 on the card surface — microcopy lives here */
+  --hairline:         rgba(11, 12, 14, 0.10);
+  --hairline-strong:  rgba(11, 12, 14, 0.17);
+  --grid:             #e5e7ec;
+  --axis:             #cbced6;
+
+  /* categorical — fixed slot order, never cycled */
+  --series-1:         #2a78d6;
+  --series-2:         #eb6834;
+  --series-3:         #1baf7a;
+
+  /* the de-emphasis channel: previous period, context, "everything else" */
+  --de-emphasis:      #aeb2bb;
+  --de-emphasis-soft: #e1e4ea;
+
+  /* ordinal ramp (funnel steps, cohort heat) — one hue, light to dark */
+  --ramp-1:           #86b6ef;
+  --ramp-2:           #5598e7;
+  --ramp-3:           #2a78d6;
+  --ramp-4:           #1c5cab;
+  --ramp-0:           #cde2fb;
+
+  /* status — reserved, never reused as a series colour */
+  --good:             #0ca30c;
+  --warning:          #fab219;
+  --serious:          #ec835a;
+  --critical:         #d03b3b;
+  --good-text:        #006300;
+  --critical-text:    #b02c2c;
+  --good-wash:        rgba(12, 163, 12, 0.10);
+  --warning-wash:     rgba(250, 178, 25, 0.16);
+  --critical-wash:    rgba(208, 59, 59, 0.10);
+
+  /* NORTH's own accent — the signal mark, distinct from every series slot */
+  --north:            #4a3aa7;
+  --north-wash:       rgba(74, 58, 167, 0.07);
+  --north-hairline:   rgba(74, 58, 167, 0.22);
+
+  --radius:           10px;
+  --radius-sm:        6px;
+  --shadow-card:      0 1px 2px rgba(11, 11, 11, 0.04);
+  --shadow-pop:       0 6px 24px rgba(11, 11, 11, 0.12), 0 1px 3px rgba(11, 11, 11, 0.08);
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --plane:            #0b0c0e;
+    --surface:          #191919;
+    --surface-sunken:   #141517;
+    --surface-hover:    #212327;
+    --ink:              #ffffff;
+    --ink-secondary:    #bdc0c8;
+    --ink-muted:        #9a9da6;   /* 6.5:1 on the dark card surface */
+    --hairline:         rgba(255, 255, 255, 0.11);
+    --hairline-strong:  rgba(255, 255, 255, 0.19);
+    --grid:             #26282c;
+    --axis:             #3a3d43;
+
+    --series-1:         #3987e5;
+    --series-2:         #d95926;
+    --series-3:         #199e70;
+
+    --de-emphasis:      #74777f;
+    --de-emphasis-soft: #303338;
+
+    --ramp-1:           #1c5cab;
+    --ramp-2:           #2a78d6;
+    --ramp-3:           #5598e7;
+    --ramp-4:           #86b6ef;
+    --ramp-0:           #143f74;
+
+    --good-text:        #0ca30c;
+    --critical-text:    #e26b6b;
+    --good-wash:        rgba(12, 163, 12, 0.16);
+    --warning-wash:     rgba(250, 178, 25, 0.18);
+    --critical-wash:    rgba(208, 59, 59, 0.18);
+
+    --north:            #9085e9;
+    --north-wash:       rgba(144, 133, 233, 0.10);
+    --north-hairline:   rgba(144, 133, 233, 0.28);
+
+    --shadow-card:      0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-pop:       0 8px 28px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --plane:            #0b0c0e;
+  --surface:          #191919;
+  --surface-sunken:   #141517;
+  --surface-hover:    #212327;
+  --ink:              #ffffff;
+  --ink-secondary:    #bdc0c8;
+  --ink-muted:        #9a9da6;   /* 6.5:1 on the dark card surface */
+  --hairline:         rgba(255, 255, 255, 0.11);
+  --hairline-strong:  rgba(255, 255, 255, 0.19);
+  --grid:             #26282c;
+  --axis:             #3a3d43;
+
+  --series-1:         #3987e5;
+  --series-2:         #d95926;
+  --series-3:         #199e70;
+
+  --de-emphasis:      #74777f;
+  --de-emphasis-soft: #303338;
+
+  --ramp-1:           #1c5cab;
+  --ramp-2:           #2a78d6;
+  --ramp-3:           #5598e7;
+  --ramp-4:           #86b6ef;
+  --ramp-0:           #143f74;
+
+  --good-text:        #0ca30c;
+  --critical-text:    #e26b6b;
+  --good-wash:        rgba(12, 163, 12, 0.16);
+  --warning-wash:     rgba(250, 178, 25, 0.18);
+  --critical-wash:    rgba(208, 59, 59, 0.18);
+
+  --north:            #9085e9;
+  --north-wash:       rgba(144, 133, 233, 0.10);
+  --north-hairline:   rgba(144, 133, 233, 0.28);
+
+  --shadow-card:      0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-pop:       0 8px 28px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.011em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--north-wash); }
+
+:focus-visible {
+  outline: 2px solid var(--north);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+
+/* The second voice. Every uppercase micro-label — the things that name a
+   number rather than say something — is set in the mono face, so the page
+   reads as instrument lettering laid over prose. Axis ticks deliberately stay
+   in the sans: the charts place labels from measured character widths, and a
+   wider face would push them into each other. */
+.mcard-label, .panel-label, .nav-label, .section-head h2, .crumb,
+.stat-lab, .finding-label, .sig-sev,
+.viz-table thead th, .tbl thead th, .score thead th,
+.sec-num, .doc-eyebrow, .spec-tag, .opt-letter, .opt-pick, .demo-tag,
+.cat-form, .spec-when dt, .opt-verdict dt {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+}
+.ch-head, .sg-axis { font-family: var(--font-mono); }
