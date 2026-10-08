@@ -13,9 +13,17 @@ Static site for https://spind.io/. `index.html` is the final design (Spind Landi
 
 ## Indexing rules
 
-- Only `spind.io` and `www.spind.io` are indexable. On any other host (previews, staging, localhost) a script in `<head>` adds `noindex, nofollow`. If the host supports response headers, also send `X-Robots-Tag: noindex` on non-production deployments.
+- Only `spind.io` is indexable. `vercel.json` sends `X-Robots-Tag: noindex, nofollow` on every other host (preview deployments and `*.vercel.app` URLs), and a script in `<head>` adds the same rule as a fallback.
+- `www.spind.io` redirects permanently to `https://spind.io`.
 - Only public, indexable pages go in `sitemap.xml`. Update `<lastmod>` when page content changes.
 - When `/privacy` and `/terms` are published, give each its own `<title>`, meta description, canonical (`https://spind.io/privacy`, `https://spind.io/terms`) and OG tags, and add them to `sitemap.xml`.
+
+## Deploying on Vercel
+
+- Framework preset: **Other**. No build command; the output directory is the repo root.
+- Add both `spind.io` and `www.spind.io` under Project → Domains; `vercel.json` handles the www redirect.
+- `.vercelignore` keeps `README.md` and the Apps Script out of the deployment.
+- Clean URLs are on, so a future `privacy.html` is served at `/privacy`.
 
 ## Waitlist
 
